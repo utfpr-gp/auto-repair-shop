@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -30,7 +31,7 @@ public class Client {
 	@Column(name = "id_adress")
 	private Long idAdress;
 	
-	@Column(name = "id_credentials")
+	@JoinColumn(name = "id_credentials")
 	@OneToOne
 	private Credentials idCredentials;
 	
