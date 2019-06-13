@@ -33,13 +33,14 @@ public class Employees {
 	@Column(name = "id_workshop")
 	private Long idWorkshop;
 
-	@Column(name = "id_adress")
-	private Long idAdress;
+	@JoinColumn(name = "id_adress")
+	@OneToOne
+	private Adress idAdress;
 
 	private String name;
 	private String telephone;
 
-	public Employees(Long idEmployee, Credentials idCredentials, Long idWorkshop, Long idAdress, String name,
+	public Employees(Long idEmployee, Credentials idCredentials, Long idWorkshop, Adress idAdress, String name,
 			String telephone) {
 		this.idEmployee = idEmployee;
 		this.idCredentials = idCredentials;

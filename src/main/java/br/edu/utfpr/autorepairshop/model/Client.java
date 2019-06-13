@@ -28,8 +28,9 @@ public class Client {
 	@Column(name = "id_client")
 	private Long idClient;
 	
-	@Column(name = "id_adress")
-	private Long idAdress;
+	@JoinColumn(name = "id_adress")
+	@OneToOne
+	private Adress idAdress;
 	
 	@JoinColumn(name = "id_credentials")
 	@OneToOne
@@ -41,7 +42,7 @@ public class Client {
 	private String name;
 	private String telephone;
 
-	public Client(Long idClient, Long idAdress, Credentials idCredentials, Date dataBirth, String name, String telephone) {
+	public Client(Long idClient, Adress idAdress, Credentials idCredentials, Date dataBirth, String name, String telephone) {
 		this.idClient = idClient;
 		this.idAdress = idAdress;
 		this.idCredentials = idCredentials;
