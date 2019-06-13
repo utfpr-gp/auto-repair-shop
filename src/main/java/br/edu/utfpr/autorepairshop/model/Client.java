@@ -7,44 +7,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name="clients")
+@Table(name = "clients")
 @Data
 @NoArgsConstructor
 public class Client {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_client")
-	private Long idClient;
-	
-	@JoinColumn(name = "id_adress")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@OneToOne
-	private Adress idAdress;
-	
-	@JoinColumn(name = "id_credentials")
+	private Address address;
 	@OneToOne
-	private Credentials idCredentials;
-	
-	@Column(name = "data_birth")
-	private Date dataBirth;
-	
+	private Credential credential;
+	@Column(name = "date_birth")
+	private Date dateBirth;
 	private String name;
 	private String telephone;
 
-	public Client(Long idClient, Adress idAdress, Credentials idCredentials, Date dataBirth, String name, String telephone) {
-		this.idClient = idClient;
-		this.idAdress = idAdress;
-		this.idCredentials = idCredentials;
-		this.dataBirth = dataBirth;
+	public Client(Address address, Credential credential, Date dateBirth, String name, String telephone) {
+		this.address = address;
+		this.credential = credential;
+		this.dateBirth = dateBirth;
 		this.name = name;
 		this.telephone = telephone;
 	}

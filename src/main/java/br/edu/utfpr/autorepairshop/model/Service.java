@@ -1,6 +1,7 @@
 package br.edu.utfpr.autorepairshop.model;
 
 import java.sql.Time;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,60 +14,46 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name = "service")
+@Table(name = "services")
 @Data
 @NoArgsConstructor
 public class Service {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_service")
-	private Long idService;
-
-	@JoinColumn(name = "id_client")
+	private Long id;
 	@ManyToOne
-	private Client idClient;
-
-	@JoinColumn(name = "id_func_mechanical")
+	private Client client;
 	@ManyToOne
-	private Employees idFuncMechanical;
-
-	@JoinColumn(name = "id_workshop")
+	private Employee employee;
+	@JoinColumn(name = "auto_repair_shop")
 	@ManyToOne
-	private MechanicalWorkshops idWorkshop;
-
-	@JoinColumn(name = "vehicle")
+	private AutoRepairShop AutoRepairShop;
 	@ManyToOne
-	private Vehicle idVehicle;
-
+	private Vehicle vehicle;
 	@Column(name = "total_price")
 	private Double totalPrice;
-
 	@Column(name = "price_hand_work")
 	private Double priceHandWork;
+	private Date date;
+	private Time hour;
+	private String description;
 
 	// Inicialmente a oficina apenas irá ter uma descrição das peças e custos, porém
 	// no banco será
 	// implementado a modelagem das peças para uma futura atualização.
 	@Column(name = "price_parts")
 	private String priceParts;
-
-	private Date date;
-	private Time hour;
-	private String description;
 	
-	public Service(Long idService, Client idClient, Employees idFuncMechanical, MechanicalWorkshops idWorkshop,
-			Vehicle idVehicle, Double totalPrice, Double priceHandWork, String priceParts, Date date, Time hour,
+	public Service(Client client, Employee employee, AutoRepairShop AutoRepairShop,
+			Vehicle vehicle, Double totalPrice, Double priceHandWork, String priceParts, Date date, Time hour,
 			String description) {
-		this.idService = idService;
-		this.idClient = idClient;
-		this.idFuncMechanical = idFuncMechanical;
-		this.idWorkshop = idWorkshop;
-		this.idVehicle = idVehicle;
+		this.client = client;
+		this.employee = employee;
+		this.AutoRepairShop = AutoRepairShop;
+		this.vehicle = vehicle;
 		this.totalPrice = totalPrice;
 		this.priceHandWork = priceHandWork;
 		this.priceParts = priceParts;
