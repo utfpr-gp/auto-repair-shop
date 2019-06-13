@@ -17,8 +17,6 @@ import lombok.Setter;
 @Entity
 @Table(name="adresses")
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 public class Adress {
 	@Id

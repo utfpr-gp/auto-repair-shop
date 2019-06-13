@@ -17,8 +17,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "vehicle")
-@Setter
-@Getter
 @NoArgsConstructor
 @Data
 public class Vehicle {

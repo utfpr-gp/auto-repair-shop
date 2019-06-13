@@ -14,8 +14,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "credentials")
-@Getter
-@Setter
 @NoArgsConstructor
 @Data
 public class Credentials {

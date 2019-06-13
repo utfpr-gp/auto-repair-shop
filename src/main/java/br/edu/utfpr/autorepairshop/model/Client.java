@@ -19,8 +19,6 @@ import lombok.Setter;
 @Entity
 @Table(name="clients")
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 public class Client {
 	@Id
