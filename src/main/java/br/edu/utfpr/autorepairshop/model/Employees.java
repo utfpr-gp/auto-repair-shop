@@ -22,9 +22,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Employees {
 	@Id
-	@Column(name = "id_employees")
+	@Column(name = "id_employee")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idEmployees;
+	private Long idEmployee;
 
 	@JoinColumn(name = "id_credentials")
 	@OneToOne
@@ -39,9 +39,9 @@ public class Employees {
 	private String name;
 	private String telephone;
 
-	public Employees(Long idEmployees, Credentials idCredentials, Long idWorkshop, Long idAdress, String name,
+	public Employees(Long idEmployee, Credentials idCredentials, Long idWorkshop, Long idAdress, String name,
 			String telephone) {
-		this.idEmployees = idEmployees;
+		this.idEmployee = idEmployee;
 		this.idCredentials = idCredentials;
 		this.idWorkshop = idWorkshop;
 		this.idAdress = idAdress;
