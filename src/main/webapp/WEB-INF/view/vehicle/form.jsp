@@ -24,12 +24,11 @@
             <h1>Cadastro de veículos</h1>
             <div class="row">
                 <div class="col s12">
-                    <!-- -->
-                    <form action="veiculos" method="post">
+                    <form action="veiculos" method="post" enctype="multipart/form-data">
                         <input name="registration" type="hidden" value="${dto.registration}"/>
 
                         <div class="col s12">
-                            <div class="input-field col s12">
+                            <div class="input-field">
                                 <select name="client" id="client">
                                     <option value="" disabled selected>Selecione o cliente</option>
                                     <c:forEach var="client" items="${clientsDto}">
@@ -60,20 +59,22 @@
                             <input name="model" id="model" type="text" value="${dto.model}"/>
                         </div>
 
-                        <label>Tipo</label>
-                        <label>
-                            <input name="type" type="radio" value="car"/>
-                            <span>Carro</span>
-                        </label>
+                        <div class="col s12">
+                            <label>Tipo</label>
+                            <label>
+                                <input name="type" type="radio" value="car"/>
+                                <span>Carro</span>
+                            </label>
 
-                        <label>
-                            <input name="type" type="radio" value="moto"/>
-                            <span>Moto</span>
-                        </label>
-                        <label>
-                            <input name="type" type="radio" value="truck"/>
-                            <span>Caminhão</span>
-                        </label>
+                            <label>
+                                <input name="type" type="radio" value="moto"/>
+                                <span>Moto</span>
+                            </label>
+                            <label>
+                                <input name="type" type="radio" value="truck"/>
+                                <span>Caminhão</span>
+                            </label>
+                        </div>
 
                         <div class="row">
                             <button class="btn waves-effect waves-light right" type="submit">Salvar

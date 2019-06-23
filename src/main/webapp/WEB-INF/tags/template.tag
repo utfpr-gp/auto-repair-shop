@@ -36,32 +36,25 @@
 <body>
 <header>
     <div class="navbar-fixed" style="z-index: 999">
-        <nav>
-            <div class="nav-wrapper blue">
-                <div class="container">
-                    <a class="brand-logo" href="index.jsp"> <img class="utf-logo"
-                                                                 src="assets/res/img/logo.png"></img>
-                    </a> <a href="#" data-activates="mobile-demo" class="button-collapse"><i
-                        class="material-icons">menu</i></a>
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="index.jsp">Início</a></li>
-                    </ul>
-                    <ul class="side-nav white" id="mobile-demo">
-                        <div class="row">
-                            <div class="col s8 offset-s2">
-                                <div class="center">
-                                    <img class="responsive-img utf-logo-nav"
-                                         src="assets/res/img/logo.png"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <li><a href="index.jsp">Início</a></li>
-
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper blue">
+                    <a href="" class="brand-logo">
+                        <img class="utf-logo" src="assets/res/img/logo.png"/>
+                    </a>
+                    <a href="#" data-activates="mobile-demo" class="right button-collapse sidenav-trigger"><i
+                            class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="">Início</a></li>
+                        <li><a href="veiculos">Veículos</a></li>
                     </ul>
                 </div>
-            </div>
-        </nav>
+            </nav>
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="">Início</a></li>
+                <li><a href="veiculos">Veículos</a></li>
+            </ul>
+        </div>
     </div>
 </header>
 <main id="content" class="container">
