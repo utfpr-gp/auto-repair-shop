@@ -49,12 +49,9 @@
                 <label for="password">Senha</label>
                 <input name="password" type="password">
 
-                <button class="btn waves-effect" type="submit">Proximo
+                <button class="btn waves-effect right" type="submit">Proximo
                     <i class="material-icons right">save</i>
                 </button>
-                <a class="btn waves-effect" href="/">
-                    <i class="material-icons">cancel</i>
-                </a>
             </form>
         </div>
 
