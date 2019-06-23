@@ -18,12 +18,26 @@
     <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="assets/res/css/index.css">
     <link rel="stylesheet" href="assets/res/css/material-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+
 </head>
 <body>
 <header>
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="service-register-form.jsp">Cadastro de Atendimento</a></li>
+        <li><a href="client-register-form.jsp">Cadastro de Cliente</a></li>
+        <li><a href="employee-register-form.jsp">Cadastro de Funcionário</a></li>
+        <li><a href="vehicle-register-form.jsp">Cadastro de Veiculo</a></li>
+    </ul>
     <nav>
         <div class="nav-wrapper light-blue darken-4">
             <a href="#!" class="brand-logo"><i class="material-icons">directions_car</i>Logo</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Cadastros<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="service-history.jsp">Histórico de Atendimento</a></li>
+                <li><a href="#!">Relatório de Atendimento</a></li>
+                <li><a href="login-form.jsp" class="tooltipped" data-position="left" data-tooltip="Sair"><i class="material-icons right">exit_to_app</i></a></li>
+            </ul>
         </div>
     </nav>
 </header>
@@ -57,5 +71,7 @@
 <script src="assets/lib/jquery/jquery-3.3.1.min.js"></script>
 <script src="assets/lib/materialize/js/materialize.js"></script>
 <script src="assets/res/js/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 </body>
 </html>
