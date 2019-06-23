@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;@Temporal(TemporalType.DATE)
+	private Long id;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Address address;
 	@OneToOne(cascade = CascadeType.PERSIST)

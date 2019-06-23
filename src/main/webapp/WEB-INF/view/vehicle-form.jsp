@@ -26,8 +26,8 @@
                 <label for="type">Tipo</label>
                 <input name="type" type="text">
 
-                <label for="image">Foto</label>
-                <input name="image" type="file">
+                <label for="photo">Foto</label>
+                <input name="photo" type="file">
                 <br>
                 <br>
 

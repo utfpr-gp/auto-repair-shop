@@ -33,30 +33,18 @@ public class VehicleController {
 
 
     @PostMapping
-    public ModelAndView save(HttpServletRequest request, @RequestParam("image")MultipartFile file, @RequestParam("client_id")Long id){
+    public ModelAndView save(HttpServletRequest request, @RequestParam("photo")MultipartFile file, @RequestParam("client_id")Long id, Vehicle vehicle){
 
         ModelAndView mv = new ModelAndView("redirect:veiculos");
 
-
-
-        byte[] foto = vehicleService.convertPhoto(file);
         Optional<Client> client = clientService.findById(id);
-        System.out.println(client);
-        System.out.println(request.getParameter("image"));
 
-        Vehicle vehicle = new Vehicle();
-        vehicle.setBrand(request.getParameter("brand"));
-        vehicle.setColor(request.getParameter("color"));
-        vehicle.setType(request.getParameter("type"));
-        vehicle.setModel(request.getParameter("model"));
-        vehicle.setPlaca(request.getParameter("placa"));
-        vehicle.setImage(foto);
         vehicle.setClient(client.get());
 
+        byte[] photo = vehicleService.convertPhoto(file);
+        vehicle.setImage(photo);
+
         vehicleService.save(vehicle);
-
-        System.out.println(vehicle);
-
         return mv;
     }
 }
