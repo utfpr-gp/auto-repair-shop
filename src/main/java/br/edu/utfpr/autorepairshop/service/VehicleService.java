@@ -1,6 +1,7 @@
 package br.edu.utfpr.autorepairshop.service;
 
 import br.edu.utfpr.autorepairshop.model.Vehicle;
+import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
 import br.edu.utfpr.autorepairshop.model.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,17 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
-    public Vehicle save(Vehicle vehicle){
+    public Vehicle save(VehicleDTO vehicleDTO){
+
+        Vehicle vehicle = new Vehicle(
+                vehicleDTO.getClient(),
+                vehicleDTO.getBrand(),
+                vehicleDTO.getModel(),
+                vehicleDTO.getColor(),
+                vehicleDTO.getPlaca(),
+                vehicleDTO.getType(),
+                vehicleDTO.getImage()
+        );
 
         return vehicleRepository.save(vehicle);
     }
