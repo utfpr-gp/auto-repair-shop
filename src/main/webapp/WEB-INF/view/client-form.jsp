@@ -26,8 +26,8 @@
                 <label for="number">Numero</label>
                 <input name="number" type="text">
 
-                <label for="birth-date">Data Nascimento</label>
-                <input name="birth-date" type="date">
+                <label for="birthDate">Data Nascimento</label>
+                <input id="birthDate" name="birthDate" type="date">
 
                 <label for="telefone">Telefone</label>
                 <input name="telefone" type="text">

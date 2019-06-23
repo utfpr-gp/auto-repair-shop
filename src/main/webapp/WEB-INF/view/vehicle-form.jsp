@@ -7,12 +7,31 @@
         <h1>Cadastro Veiculo Cliente</h1>
 
         <div class="row col s12">
-            <form action="" method="post">
+            <form action="veiculos" method="post" enctype="multipart/form-data">
 
-                <label for="name">Nome Completo</label>
-                <input name="name" type="text">
+                <input type="hidden" name="client_id" value="${client.id}">
 
-                <button class="btn waves-effect" type="submit">Proximo
+                <label for="brand">Marca</label>
+                <input name="brand" type="text">
+
+                <label for="model">Modelo</label>
+                <input name="model" type="text">
+                
+                <label for="color">Cor</label>
+                <input name="color" type="text">
+
+                <label for="placa">Placa</label>
+                <input name="placa" type="text">
+
+                <label for="type">Tipo</label>
+                <input name="type" type="text">
+
+                <label for="image">Foto</label>
+                <input name="image" type="file">
+                <br>
+                <br>
+
+                <button class="btn waves-effect right" type="submit">Salvar
                     <i class="material-icons right">save</i>
                 </button>
             </form>

@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.Response;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/clientes")
@@ -66,6 +69,14 @@ public class ClientController {
                 request.getParameter("password"),
                 "client"
         ));
+
+        String data = request.getParameter("birthDate");
+        System.out.println("Kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk "+data);
+        try {
+            client.setDateBirth(new SimpleDateFormat("yyyy-MM-dd").parse(data));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return client;
     }
 }
