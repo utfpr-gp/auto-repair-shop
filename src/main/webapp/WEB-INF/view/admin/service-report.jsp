@@ -96,6 +96,9 @@
                 </div>
             </div>
         </div>
+
+        <%--Grafico do Relatorio--%>
+
         <script>
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
