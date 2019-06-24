@@ -5,6 +5,19 @@
 <t:admin title="Cadastro de oficinas">
     <jsp:body>
         <div class="container">
+            <%--<c:if test="${not empty message}">
+                <div class="card-panel green lighten-1">
+                    <span class="white-text">${message}</span>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty errors}">
+                <div class="card-panel red">
+                    <c:forEach var="e" items="${errors}">
+                        <span class="white-text">${e.getDefaultMessage()}</span><br>
+                    </c:forEach>
+                </div>
+            </c:if>--%>
             <div class="row">
                 <div class="col s12">
                     <div class="row">
