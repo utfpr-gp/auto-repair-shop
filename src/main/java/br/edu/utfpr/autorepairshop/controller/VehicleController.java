@@ -1,8 +1,6 @@
 package br.edu.utfpr.autorepairshop.controller;
 
-import br.edu.utfpr.autorepairshop.model.Address;
 import br.edu.utfpr.autorepairshop.model.Client;
-import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
@@ -52,13 +50,8 @@ public class VehicleController {
         return mv;
     }
 
-    @GetMapping("/criar")
+    @GetMapping("/novo")
     public ModelAndView showForm() {
-        //Apenas durante teste
-        Client c = new Client();
-        c.setName("Teste");
-        this.clientService.save(c);
-
         List<Client> clients = clientService.findAll();
         List<ClientToFormDTO> clientsDto = clients.stream()
                 .map(client -> {
@@ -95,8 +88,8 @@ public class VehicleController {
                 })
                 .collect(Collectors.toList());
 
-        VehicleDTO studentDTO = vehicleMapper.toResponseDto(optionalVehicle.get());
-        mv.addObject("dto", studentDTO);
+        VehicleDTO vehicleDTO = vehicleMapper.toResponseDto(optionalVehicle.get());
+        mv.addObject("dto", vehicleDTO);
         mv.addObject("clientsDto", clientsDto);
         return mv;
     }
