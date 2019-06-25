@@ -1,13 +1,7 @@
-<%-- 
-    Document   : template
-    Created on : Apr 5, 2017, 3:02:46 PM
-    Author     : Roni
---%>
-
 <%@tag description="Template principal" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- The list of normal or fragment attributes can be specified here: --%>
+
 <%@attribute name="title" %>
 
 
@@ -20,18 +14,10 @@
     <link rel="icon" type="image/png" href="favicon.png"/>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/lib/materialize/css/materialize.css"></link>
-    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.css"></link>
-    <link rel="stylesheet" href="assets/res/css/index.css"></link>
-    <link rel="stylesheet" href="assets/res/css/template.css"></link>
-
-
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"></link>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:200,700'
-          rel='stylesheet' type='text/css'></link>
-
+    <link rel="stylesheet" href="assets/lib/materialize/css/materialize.css">
+    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/res/css/index.css">
+    <link rel="stylesheet" href="assets/res/css/material-icons.css">
 </head>
 <body>
 <header>
@@ -79,9 +65,9 @@
         </div>
     </div>
 </footer>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+<script src="assets/lib/jquery/jquery-3.3.1.min.js"></script>
+<script src="assets/lib/materialize/js/materialize.js"></script>
 <script src="assets/res/js/index.js"></script>
 </body>
 </html>
