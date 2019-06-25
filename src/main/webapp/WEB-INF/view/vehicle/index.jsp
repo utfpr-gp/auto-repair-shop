@@ -7,7 +7,7 @@
     <jsp:body>
         <div class="container">
             <h1>Veículos</h1>
-            <a href="veiculos/criar" class="btn-floating btn-small waves-effect waves-light blue"><i
+            <a href="veiculos/novo" class="btn-floating btn-small waves-effect waves-light blue"><i
                     class="material-icons" title="Cadastrar veículo">add</i></a>
             <c:if test="${not empty vehicles}">
                 <table>
