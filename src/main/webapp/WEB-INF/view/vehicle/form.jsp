@@ -54,21 +54,23 @@
                                             <label for="model">Modelo</label>
                                         </div>
 
-                                        <div class="input-field col s6">
-                                            <label>Tipo</label>
-                                            <label>
-                                                <input name="type" type="radio" value="car"/>
-                                                <span>Carro</span>
-                                            </label>
+                                        <div class="input-field col s6" style="padding-top: 15px;">
+                                            <div>
+                                                <label>Tipo</label>
+                                                <label>
+                                                    <input name="type" type="radio" value="car"/>
+                                                    <span>Carro</span>
+                                                </label>
 
-                                            <label>
-                                                <input name="type" type="radio" value="moto"/>
-                                                <span>Moto</span>
-                                            </label>
-                                            <label>
-                                                <input name="type" type="radio" value="truck"/>
-                                                <span>Caminhão</span>
-                                            </label>
+                                                <label>
+                                                    <input name="type" type="radio" value="moto"/>
+                                                    <span>Moto</span>
+                                                </label>
+                                                <label>
+                                                    <input name="type" type="radio" value="truck"/>
+                                                    <span>Caminhão</span>
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">color_lens</i>
