@@ -54,7 +54,7 @@
                                             <label for="model">Modelo</label>
                                         </div>
 
-                                        <div class="input-field col s6 type-vehicle">
+                                        <div class="input-field col s6" id="type-vehicle">
                                             <div>
                                                 <label>Tipo</label>
                                                 <label>

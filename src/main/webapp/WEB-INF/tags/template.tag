@@ -85,10 +85,10 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="vehicle-register">
-                                <a href="veiculos">Cadastro de veiculo<i id="vehicle-register-icon" class="material-icons left">playlist_add</i></a>
+                                <a href="veiculos/novo">Cadastro de veiculo<i id="vehicle-register-icon" class="material-icons left">playlist_add</i></a>
                             </li>
                             <li class="vehicle-list">
-                                <a href="#">Todos os veiculos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
+                                <a href="veiculos">Todos os veiculos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
                             </li>
                             <li class="vehicle-client-list">
                                 <a href="#">Meus veiculos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
