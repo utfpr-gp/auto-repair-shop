@@ -1,5 +1,7 @@
 package br.edu.utfpr.autorepairshop.model.dto;
 
+import br.edu.utfpr.autorepairshop.model.Address;
+import br.edu.utfpr.autorepairshop.model.Credential;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,20 +25,22 @@ public class ClientDTO {
     @NotEmpty(message = "Nome deve ser preenchido!")
     private String name;
 
-    @NotEmpty(message = "Por favor informe o cep.")
-    private String cep;
+//    @NotEmpty(message = "Por favor informe o cep.")
+//    private String cep;
+//
+//    @NotEmpty(message = "Por favor informe o estado.")
+//    private String state;
+//
+//    @NotEmpty(message = "Por favor informe a cidade.")
+//    private String city;
+//
+//    @NotEmpty(message = "Por favor informa a rua.")
+//    private String street;
+//
+//    @NotEmpty(message = "Por favor informe o numero da residencia.")
+//    private String number;
 
-    @NotEmpty(message = "Por favor informe o estado.")
-    private String state;
-
-    @NotEmpty(message = "Por favor informe a cidade.")
-    private String city;
-
-    @NotEmpty(message = "Por favor informa a rua.")
-    private String street;
-
-    @NotEmpty(message = "Por favor informe o numero da residencia.")
-    private String number;
+   // private Address address;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
@@ -44,10 +48,12 @@ public class ClientDTO {
     @NotEmpty(message = "Por favor informe o telefone.")
     private String telephone;
 
-    @Email(message = "Insira um email válido.")
-    @NotEmpty(message = "Por favor informe o email.")
-    private String email;
+   // private Credential credential;
 
-    @NotEmpty(message = "Password não pode estar vazio.")
-    private String password;
+//    @Email(message = "Insira um email válido.")
+//    @NotEmpty(message = "Por favor informe o email.")
+//    private String email;
+//
+//    @NotEmpty(message = "Password não pode estar vazio.")
+//    private String password;
 }

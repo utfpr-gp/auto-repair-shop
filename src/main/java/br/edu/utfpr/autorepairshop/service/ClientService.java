@@ -19,24 +19,24 @@ public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
-    public Client save(ClientDTO clientDTO){
-        Client client = new Client();
-        client.setName(clientDTO.getName());
-        client.setTelephone(clientDTO.getTelephone());
-        client.setAddress(new Address(
-            clientDTO.getStreet(),
-                clientDTO.getCity(),
-                clientDTO.getState(),
-                clientDTO.getCep(),
-                clientDTO.getNumber()
-
-        ));
-        client.setCredential(new Credential(
-            clientDTO.getEmail(),
-                clientDTO.getPassword(),
-                "client"
-        ));
-        client.setDateBirth(clientDTO.getBirthDate());
+    public Client save(Client client){
+//        Client client = new Client();
+//        client.setName(clientDTO.getName());
+//        client.setTelephone(clientDTO.getTelephone());
+//        client.setAddress(new Address(
+//            clientDTO.getStreet(),
+//                clientDTO.getCity(),
+//                clientDTO.getState(),
+//                clientDTO.getCep(),
+//                clientDTO.getNumber()
+//
+//        ));
+//        client.setCredential(new Credential(
+//            clientDTO.getEmail(),
+//                clientDTO.getPassword(),
+//                "client"
+//        ));
+//        client.setDateBirth(clientDTO.getBirthDate());
 
         return clientRepository.save(client);
     }

@@ -1,5 +1,6 @@
 package br.edu.utfpr.autorepairshop.controller;
 
+import br.edu.utfpr.autorepairshop.mapper.ClientMapper;
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.dto.ClientDTO;
 import br.edu.utfpr.autorepairshop.service.ClientService;
@@ -22,6 +23,9 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
+    @Autowired
+    ClientMapper clientMapper;
+
     @GetMapping
     private ResponseEntity<Iterable<Client>> get(){
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
@@ -38,6 +42,8 @@ public class ClientController {
     @PostMapping("/cadastro")
     public ModelAndView save(@Validated ClientDTO clientDTO, Errors errors){
 
+        System.out.println("ODINWAIODNAWIONDOAWNIDIO"+ clientDTO);
+
         if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("client-form");
             mv.addObject("dto", clientDTO);
@@ -47,7 +53,9 @@ public class ClientController {
 
         ModelAndView mv = new ModelAndView("vehicle-form");
 
-        Client client = clientService.save(clientDTO);
+        Client client = clientMapper.toEntity(clientDTO);
+
+        clientService.save(client);
 
         mv.addObject("client",client);
         return mv;
