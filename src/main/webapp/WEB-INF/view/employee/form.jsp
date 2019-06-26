@@ -31,14 +31,28 @@
                                             <label for="name">Nome completo</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">map</i>
-                                            <select id="addrress" name="addrress">
-                                                <option value="" disabled selected>Selecione</option>
-                                                <c:forEach var="a" items="${addresses}">
-                                                    <option value="${a.id}">${a.street}, ${a.number}, ${a.city}</option>
-                                                </c:forEach>
-                                            </select>
-                                            <label>Endereço</label>
+                                            <label for="cep">Cep</label>
+                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <label for="state">Estado</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="city" name="city" type="text" value="${dto.city}">
+                                            <label for="city">Cidade</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="street" name="street" type="text" value="${dto.street}">
+                                            <label for="street">Rua</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="number" name="number" type="text" value="${dto.number}">
+                                            <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
