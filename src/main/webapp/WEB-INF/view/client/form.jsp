@@ -3,20 +3,31 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<t:admin title="Cadastro de clientes">
+<t:template title="Cadastro de clientes">
     <jsp:body>
         <div class="container">
+            <c:if test="${not empty message}">
+                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
+            </c:if>
+
+            <c:if test="${not empty errors}">
+                <div class="card-panel red">
+                    <c:forEach var="e" items="${errors}">
+                        <span class="white-text">${e.getDefaultMessage()}</span><br>
+                    </c:forEach>
+                </div>
+            </c:if>
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        <div class="col s12 form" height="655px">
+                        <div class="col s12 form" height="850px">
                             <div class="content-form">
                                 <div class="title-form">Cadastro de cliente</div>
-                                <form method="post">
+                                <form action="clientes/cadastro" method="post">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">person</i>
-                                            <input id="name" name="name" type="text">
+                                            <input id="name" name="name" type="text" value="${dto.name}">
                                             <label for="name">Nome completo</label>
 
                                         </div>
@@ -31,27 +42,41 @@
                                             <label for="rg">RG</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">map</i>
-                                            <select id="addrress" name="addrress">
-                                                <option value="" disabled selected>Selecione</option>
-                                                <c:forEach var="a" items="${addresses}">
-                                                    <option value="${a.id}">${a.street}, ${a.number}, ${a.city}</option>
-                                                </c:forEach>
-                                            </select>
-                                            <label>Endereço</label>
+                                            <label for="cep">Cep</label>
+                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <label for="state">Estado</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="city" name="city" type="text" value="${dto.city}">
+                                            <label for="city">Cidade</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="street" name="street" type="text" value="${dto.street}">
+                                            <label for="street">Rua</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="number" name="number" type="text" value="${dto.number}">
+                                            <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">date_range</i>
-                                            <input id="birth-date" name="birth-date" class="datepicker">
-                                            <label for="birth-date">Data de nascimento</label>
+                                            <input id="birthDate" name="birthDate" class="datepicker" value="${dto.birthDate}">
+                                            <label for="birthDate">Data de nascimento</label>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
-                                            <input id="phone" name="phone" type="text">
-                                            <label for="phone">Telefone</label>
+                                            <input id="telephone" name="telephone" type="text" value="${dto.telephone}>
+                                            <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone_android</i>
@@ -85,4 +110,4 @@
             </div>
         </div>
     </jsp:body>
-</t:admin>
+</t:template>

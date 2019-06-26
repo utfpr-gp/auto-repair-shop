@@ -1,10 +1,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<t:admin title="Cadastro de atendimento">
+<t:template title="Cadastro de atendimento">
     <jsp:body>
         <div class="container">
+            <c:if test="${not empty message}">
+                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
+            </c:if>
+
+            <c:if test="${not empty errors}">
+                <div class="card-panel red">
+                    <c:forEach var="e" items="${errors}">
+                        <span class="white-text">${e.getDefaultMessage()}</span><br>
+                    </c:forEach>
+                </div>
+            </c:if>
             <div class="row">
                 <div class="col s12">
                     <div class="row">
@@ -30,7 +42,7 @@
                                             <select>
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="v" items="${vehicles}">
-                                                    <option value="${v.id}">${v.model} - ${v.placa} - ${v.client}</option>
+                                                    <option value="${v.id}">${v.model} - ${v.placa} - ${v.client.name}</option>
                                                 </c:forEach>
                                             </select>
                                             <label>Veiculo</label>
@@ -100,4 +112,4 @@
             </div>
         </div>
     </jsp:body>
-</t:admin>
+</t:template>

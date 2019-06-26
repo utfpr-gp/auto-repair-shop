@@ -2,13 +2,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:admin title="Cadastro de oficinas">
+<t:template title="Cadastro de oficinas">
     <jsp:body>
         <div class="container">
-            <%--<c:if test="${not empty message}">
-                <div class="card-panel green lighten-1">
-                    <span class="white-text">${message}</span>
-                </div>
+            <c:if test="${not empty message}">
+                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
             </c:if>
 
             <c:if test="${not empty errors}">
@@ -17,11 +15,11 @@
                         <span class="white-text">${e.getDefaultMessage()}</span><br>
                     </c:forEach>
                 </div>
-            </c:if>--%>
+            </c:if>
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        <div class="form" height="700px">
+                        <div class="form" height="900px">
                             <div class="content-form">
                                 <div class="title-form">Cadastro de oficina</div>
                                 <form method="post">
@@ -37,13 +35,28 @@
                                             <label for="cnpj">CNPJ</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">map</i>
-                                            <select id="addrress" name="addrress">
-                                                <option value="" disabled selected>Selecione</option>
-                                                <option value="1">CIDADE DOS LAGOS</option>
-                                                <option value="2">PRIPYAT</option>
-                                            </select>
-                                            <label>Endereço</label>
+                                            <label for="cep">Cep</label>
+                                            <input id="cep" name="cep" type="text">
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="state" name="state" type="text">
+                                            <label for="state">Estado</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="city" name="city" type="text">
+                                            <label for="city">Cidade</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="street" name="street" type="text">
+                                            <label for="street">Rua</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="number" name="number" type="text">
+                                            <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">person</i>
@@ -97,4 +110,4 @@
             </div>
         </div>
     </jsp:body>
-</t:admin>
+</t:template>

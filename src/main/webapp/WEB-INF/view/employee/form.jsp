@@ -1,17 +1,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<t:admin title="Cadastro de funcionário">
+<t:template title="Cadastro de funcionário">
     <jsp:body>
         <div class="container">
+            <c:if test="${not empty message}">
+                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
+            </c:if>
+
+            <c:if test="${not empty errors}">
+                <div class="card-panel red">
+                    <c:forEach var="e" items="${errors}">
+                        <span class="white-text">${e.getDefaultMessage()}</span><br>
+                    </c:forEach>
+                </div>
+            </c:if>
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        <div class="col s12 form" height="550px">
+                        <div class="col s12 form" height="750px">
                             <div class="content-form">
                                 <div class="title-form">Cadastro de funcionário</div>
-                                <form method="post">
+                                <form action="funcionarios" method="post">
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">person</i>
@@ -19,14 +31,28 @@
                                             <label for="name">Nome completo</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">map</i>
-                                            <select id="addrress" name="addrress">
-                                                <option value="" disabled selected>Selecione</option>
-                                                <c:forEach var="a" items="${addresses}">
-                                                    <option value="${a.id}">${a.street}, ${a.number}, ${a.city}</option>
-                                                </c:forEach>
-                                            </select>
-                                            <label>Endereço</label>
+                                            <label for="cep">Cep</label>
+                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <label for="state">Estado</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="city" name="city" type="text" value="${dto.city}">
+                                            <label for="city">Cidade</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="street" name="street" type="text" value="${dto.street}">
+                                            <label for="street">Rua</label>
+                                        </div>
+                                        <div class="input-field col s6">
+
+                                            <input id="number" name="number" type="text" value="${dto.number}">
+                                            <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
@@ -74,4 +100,4 @@
             </div>
         </div>
     </jsp:body>
-</t:admin>
+</t:template>

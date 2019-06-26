@@ -3,7 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<t:admin title="Histórico de atendimento">
+<t:template title="Histórico de atendimento">
     <jsp:body>
         <div class="container">
             <div class="row">
@@ -18,28 +18,28 @@
                                 </div>
                                 <table class="highlight centered">
                                     <thead>
-                                        <tr>
-                                            <th>Mecânico</th>
-                                            <th>Cliente</th>
-                                            <th>Veiculo</th>
-                                            <th>Descrição</th>
-                                            <th>Preço total</th>
-                                            <th>Data</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Mecânico</th>
+                                        <th>Cliente</th>
+                                        <th>Veiculo</th>
+                                        <th>Descrição</th>
+                                        <th>Preço total</th>
+                                        <th>Data</th>
+                                    </tr>
                                     </thead>
 
                                     <tbody>
-                                        <c:forEach var="s" items="${services}">
-                                            <tr>
-                                                <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver informações sobre o mecânico" href="#modal-mechanic-${s.id}">${s.employee.name}</a></td>
-                                                <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver informações sobre o cliente" href="#modal-client-${s.id}">${s.client.name}</a></td>
-                                                <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver mais informações sobre este veiculo" href="#modal-vehicle-${s.id}">${s.vehicle.model}</a>
-                                                </td>
-                                                <td>${s.description}</td>
-                                                <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver detalhes sobre o custo" href="#modal-price-${s.id}">R$ ${s.totalPrice}</a></td>
-                                                <td>${s.date}</td>
-                                            </tr>
-                                        </c:forEach>
+                                    <c:forEach var="s" items="${services}">
+                                        <tr>
+                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver informações sobre o mecânico" href="#modal-mechanic-${s.id}">${s.employee.name}</a></td>
+                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver informações sobre o cliente" href="#modal-client-${s.id}">${s.client.name}</a></td>
+                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver mais informações sobre este veiculo" href="#modal-vehicle-${s.id}">${s.vehicle.model}</a>
+                                            </td>
+                                            <td>${s.description}</td>
+                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver detalhes sobre o custo" href="#modal-price-${s.id}">R$ ${s.totalPrice}</a></td>
+                                            <td>${s.date}</td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
 
                                 </table>
@@ -92,4 +92,4 @@
             </div>
         </div>
     </jsp:body>
-</t:admin>
+</t:template>

@@ -3,7 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<t:admin title="Relatório de atendimento">
+<t:template title="Relatório de atendimento">
     <jsp:body>
         <div class="container">
             <div class="row">
@@ -56,12 +56,12 @@
                                     </thead>
 
                                     <tbody>
-                                        <c:forEach var="s" items="${services}">
-                                            <tr>
-                                                <td>${s.description}</td>
-                                                <td>${s.quantity}</td>
-                                            </tr>
-                                        </c:forEach>
+                                    <c:forEach var="s" items="${services}">
+                                        <tr>
+                                            <td>${s.description}</td>
+                                            <td>${s.quantity}</td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
 
                                 </table>
@@ -120,4 +120,4 @@
             });
         </script>
     </jsp:body>
-</t:admin>
+</t:template>

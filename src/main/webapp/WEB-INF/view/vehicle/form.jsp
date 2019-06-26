@@ -8,9 +8,7 @@
     <jsp:body>
         <div class="container">
             <c:if test="${not empty message}">
-                <div class="card-panel green lighten-1">
-                    <span class="white-text">${message}</span>
-                </div>
+                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
             </c:if>
 
             <c:if test="${not empty errors}">
@@ -21,67 +19,81 @@
                 </div>
             </c:if>
 
-            <h1>Cadastro de veículos</h1>
             <div class="row">
                 <div class="col s12">
-                    <form action="veiculos" method="post" enctype="multipart/form-data">
-                        <input name="registration" type="hidden" value="${dto.registration}"/>
+                    <div class="row">
+                        <div class="col s12 form" height="600px">
+                            <div class="content-form">
+                                <div class="title-form">Cadastro de veiculo</div>
+                                <form action="veiculos" method="post" enctype="multipart/form-data">
+                                    <input name="registration" type="hidden" value="${dto.registration}"/>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">person</i>
+                                            <select id="client" name="client">
+                                                <option value="" disabled selected>Selecione</option>
+                                                <c:forEach var="c" items="${clientsDto}">
+                                                    <option value="${c.id}">${c.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                            <label>Dono</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">crop_7_5</i>
+                                            <input id="placa" name="placa" type="text" value="${dto.placa}">
+                                            <label for="placa">Placa</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">local_offer</i>
+                                            <input id="brand" name="brand" type="text" value="${dto.brand}">
+                                            <label for="brand">Marca</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">directions_car</i>
+                                            <input id="model" name="model" type="text" value="${dto.model}">
+                                            <label for="model">Modelo</label>
+                                        </div>
 
-                        <div class="col s12">
-                            <div class="input-field">
-                                <select name="client" id="client">
-                                    <option value="" disabled selected>Selecione o cliente</option>
-                                    <c:forEach var="client" items="${clientsDto}">
-                                        <option value="${client.id}">${client.getName()}</option>
-                                    </c:forEach>
-                                </select>
-                                <label for="client">Cliente</label>
+                                        <div class="input-field col s6">
+                                            <label>Tipo</label>
+                                            <label>
+                                                <input name="type" type="radio" value="car"/>
+                                                <span>Carro</span>
+                                            </label>
+
+                                            <label>
+                                                <input name="type" type="radio" value="moto"/>
+                                                <span>Moto</span>
+                                            </label>
+                                            <label>
+                                                <input name="type" type="radio" value="truck"/>
+                                                <span>Caminhão</span>
+                                            </label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">color_lens</i>
+                                            <label>Cor</label>
+                                            <input id="color" name="color" type="text" value="${dto.color}">
+                                        </div>
+                                        <h6 class="header" style="margin-left: 15px;">Imagem</h6>
+                                        <div class="file-field input-field col s4">
+
+                                            <div>
+                                                <input type="file">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <i class="material-icons prefix">image</i>
+                                                <input placeholder="Imagem.png" class="file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="action-form">
+                                            <button type="submit" class="btn-flat">Cadastrar veiculo</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
-                        <div class="col s6">
-                            <label for="placa">Placa</label>
-                            <input name="placa" id="placa" type="text" value="${dto.placa}"/>
-                        </div>
-
-                        <div class="col s6">
-                            <label for="color">Cor</label>
-                            <input name="color" id="color" type="text" value="${dto.color}"/>
-                        </div>
-
-                        <div class="col s6">
-                            <label for="brand">Marca</label>
-                            <input name="brand" id="brand" type="text" value="${dto.brand}"/>
-                        </div>
-
-                        <div class="col s6">
-                            <label for="model">Modelo</label>
-                            <input name="model" id="model" type="text" value="${dto.model}"/>
-                        </div>
-
-                        <div class="col s12">
-                            <label>Tipo</label>
-                            <label>
-                                <input name="type" type="radio" value="car"/>
-                                <span>Carro</span>
-                            </label>
-
-                            <label>
-                                <input name="type" type="radio" value="moto"/>
-                                <span>Moto</span>
-                            </label>
-                            <label>
-                                <input name="type" type="radio" value="truck"/>
-                                <span>Caminhão</span>
-                            </label>
-                        </div>
-
-                        <div class="row">
-                            <button class="btn waves-effect waves-light right" type="submit">Salvar
-                                <i class="material-icons right">save</i>
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
