@@ -1,15 +1,57 @@
+html,
 body {
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
-	background: url('../img/background.jpeg') center center no-repeat fixed;
-	background-size: cover;
-	position: relative;
+	height: 100%;
+	margin: 0;
+	font-size: 16px;
 }
 
 main {
-	flex: 1 0 auto;
+	padding-left: 200px;
 }
+
+/*
+body {
+    background: url('../img/background3.jpeg') center center no-repeat fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+*/
+
+@media only screen and (max-width: 600px) {
+	a.sidenav-trigger.top-nav {
+		left: 0;
+	}
+
+}
+
+@media only screen and (max-width: 992px) {
+	h1 {
+		font-size: 2rem;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+	}
+
+	h5 {
+		font-size: 1rem;
+	}
+
+	header,
+	main,
+	footer {
+		padding-left: 0;
+	}
+
+	.header {
+		padding-top: 40px !important;
+	}
+
+	div.nav-wrapper {
+		text-align: center;
+	}
+}
+
 
 .header {
 	font-weight: 300;
@@ -27,14 +69,13 @@ main {
 	border-radius: 2px;
 	-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-	opacity: 0.98;
 }
 
 .title-form {
 	display: block;
 	line-height: 32px;
 	margin-bottom: 8px;
-	font-size: 30px;
+	font-size: 35px;
 	font-weight: 300;
 }
 
@@ -57,7 +98,7 @@ a {
 
 /*
     Cor dos radio buttons, paginacão, calendadrio, e selecionador de horario
-    |     |     |     |     |
+    |||||||||||||||||||||||||
     v     v     v     v     v
 */
 
@@ -78,7 +119,7 @@ a {
 
 /*
     Cor dos options dos selects
-    |     |     |     |     |
+    |||||||||||||||||||||||||
     v     v     v     v     v
 */
 .dropdown-content li > a,
@@ -88,7 +129,7 @@ a {
 
 /*
     Cor dos checkboxes
-    |     |     |     |     |
+    |||||||||||||||||||||||||
     v     v     v     v     v
 */
 
@@ -97,24 +138,12 @@ a {
 	border-bottom: 2px solid #01579b;
 }
 
-/*
-    Cor dos inputs
-    |     |     |     |     |
-    v     v     v     v     v
-*/
-
 .input-field input[type=text]:focus,
 .input-field input[type=email]:focus,
 .input-field input[type=password]:focus,
 .input-field input[type=number]:focus {
 	border-bottom: 1px solid #01579b !important;
 }
-
-/*
-    Cor dos icones dos inputs
-    |     |     |     |     |
-    v     v     v     v     v
-*/
 
 .input-field .prefix.active {
 	color: #01579b;
