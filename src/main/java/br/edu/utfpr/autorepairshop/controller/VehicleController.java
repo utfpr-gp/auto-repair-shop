@@ -2,62 +2,112 @@ package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
+import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
-import br.edu.utfpr.autorepairshop.service.ClientService;
-import br.edu.utfpr.autorepairshop.service.VehicleService;
+import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
+import br.edu.utfpr.autorepairshop.model.service.ClientService;
+import br.edu.utfpr.autorepairshop.model.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import sun.misc.Cleaner;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@RestController
 @RequestMapping("/veiculos")
+@Controller
 public class VehicleController {
 
     @Autowired
-    VehicleService vehicleService;
+    private VehicleService vehicleService;
 
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
+
+    @Autowired
+    private VehicleMapper vehicleMapper;
 
     @GetMapping
-    private ResponseEntity<Iterable<Vehicle>> get(){
-        return ResponseEntity.status(HttpStatus.OK).body(vehicleService.findAll());
+    public ModelAndView index() {
+        List<Vehicle> vehicles = vehicleService.findAll();
+
+        List<VehicleDTO> vehicleDTOs = vehicles.stream()
+                .map(s -> vehicleMapper.toResponseDto(s))
+                .collect(Collectors.toList());
+
+        ModelAndView mv = new ModelAndView("vehicle/index");
+        mv.addObject("vehicles", vehicleDTOs);
+
+        return mv;
     }
 
+    @GetMapping("/novo")
+    public ModelAndView showForm() {
+        List<Client> clients = clientService.findAll();
+        List<ClientToFormDTO> clientsDto = clients.stream()
+                .map(client -> {
+                    ClientToFormDTO clientDto = new ClientToFormDTO();
+                    clientDto.setId(client.getId());
+                    clientDto.setName(client.getName());
+                    return clientDto;
+                })
+                .collect(Collectors.toList());
+        ModelAndView mv = new ModelAndView("vehicle/form");
+        mv.addObject("clientsDto", clientsDto);
 
+        return mv;
+    }
+
+    @GetMapping("/{id}")
+    public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
+
+        ModelAndView mv = new ModelAndView("vehicle/form");
+
+        Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
+
+        if(!optionalVehicle.isPresent()){
+            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
+        }
+
+        List<Client> clients = clientService.findAll();
+        List<ClientToFormDTO> clientsDto = clients.stream()
+                .map(client -> {
+                    ClientToFormDTO clientDto = new ClientToFormDTO();
+                    clientDto.setId(client.getId());
+                    clientDto.setName(client.getName());
+                    return clientDto;
+                })
+                .collect(Collectors.toList());
+
+        VehicleDTO vehicleDTO = vehicleMapper.toResponseDto(optionalVehicle.get());
+        mv.addObject("dto", vehicleDTO);
+        mv.addObject("clientsDto", clientsDto);
+        return mv;
+    }
 
     @PostMapping
-    public ModelAndView save(@RequestParam("photo")MultipartFile file, @RequestParam("client_id")Long id, @Validated VehicleDTO vehicleDTO, Errors errors){
-
-        Optional<Client> client = clientService.findById(id);
-
+    public ModelAndView save(@Validated VehicleDTO  dto, Errors errors, RedirectAttributes redirectAttributes) {
         if(errors.hasErrors()){
-            ModelAndView mv = new ModelAndView("vehicle-form");
-            mv.addObject("dto", vehicleDTO);
-            mv.addObject("client", client.get());
+            ModelAndView mv = new ModelAndView("vehicle/form");
+            mv.addObject("dto", dto);
             mv.addObject("errors", errors.getAllErrors());
             return mv;
         }
 
-        ModelAndView mv = new ModelAndView("redirect:veiculos");
+        redirectAttributes.addFlashAttribute("message", "Veículo salvo com sucesso!");
+        Vehicle vehicle = vehicleMapper.toEntity(dto);
+        vehicle.setId(dto.getRegistration());
+        vehicleService.save(vehicle);
 
-
-
-        vehicleDTO.setClient(client.get());
-
-        byte[] photo = vehicleService.convertPhoto(file);
-        vehicleDTO.setImage(photo);
-
-        vehicleService.save(vehicleDTO);
-        return mv;
+        return new ModelAndView("redirect:veiculos");
     }
 }
