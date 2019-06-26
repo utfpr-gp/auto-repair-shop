@@ -75,7 +75,7 @@ public class VehicleController {
         Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
 
         if(!optionalVehicle.isPresent()){
-            throw new EntityNotFoundException("O veiculo não foi encontrado pelo id informado.");
+            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
         }
 
         List<Client> clients = clientService.findAll();

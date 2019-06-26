@@ -80,18 +80,18 @@
                     </div>
                 </li>
                 <li class="vehicle bold">
-                    <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Veiculos<i class="material-icons left" style="color: aliceblue">directions_car</i></a>
+                    <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Veículos<i class="material-icons left" style="color: aliceblue">directions_car</i></a>
 
                     <div class="collapsible-body">
                         <ul>
                             <li class="vehicle-register">
-                                <a href="veiculos/novo">Cadastro de veiculo<i id="vehicle-register-icon" class="material-icons left">playlist_add</i></a>
+                                <a href="veiculos/novo">Cadastro de veículo<i id="vehicle-register-icon" class="material-icons left">playlist_add</i></a>
                             </li>
                             <li class="vehicle-list">
-                                <a href="veiculos">Todos os veiculos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
+                                <a href="veiculos">Todos os veículos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
                             </li>
                             <li class="vehicle-client-list">
-                                <a href="#">Meus veiculos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
+                                <a href="#">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
                             </li>
                         </ul>
                     </div>

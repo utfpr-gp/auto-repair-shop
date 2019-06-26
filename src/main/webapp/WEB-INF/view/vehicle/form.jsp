@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col s12 form" height="600px">
                             <div class="content-form">
-                                <div class="title-form">Cadastro de veiculo</div>
+                                <div class="title-form">Cadastro de veículo</div>
                                 <form action="veiculos" method="post" enctype="multipart/form-data">
                                     <input name="registration" type="hidden" value="${dto.registration}"/>
                                     <div class="row">
@@ -36,7 +36,7 @@
                                                     <option value="${c.id}">${c.name}</option>
                                                 </c:forEach>
                                             </select>
-                                            <label>Dono</label>
+                                            <label>Proprietário</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">crop_7_5</i>
@@ -89,7 +89,7 @@
                                             </div>
                                         </div>
                                         <div class="action-form">
-                                            <button type="submit" class="btn-flat">Cadastrar veiculo</button>
+                                            <button type="submit" class="btn-flat">Cadastrar veículo</button>
                                         </div>
                                     </div>
                                 </form>
