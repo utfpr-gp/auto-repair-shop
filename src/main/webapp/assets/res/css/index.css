@@ -152,3 +152,7 @@ a {
 .input-field .prefix {
 	color: grey;
 }
+
+.vehicle-type {
+	padding-top: 15px;
+}
