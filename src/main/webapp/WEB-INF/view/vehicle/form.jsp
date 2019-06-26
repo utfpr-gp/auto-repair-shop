@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col s12 form" height="600px">
                             <div class="content-form">
-                                <div class="title-form">Cadastro de veiculo</div>
+                                <div class="title-form">Cadastro de veículo</div>
                                 <form action="veiculos" method="post" enctype="multipart/form-data">
                                     <input name="registration" type="hidden" value="${dto.registration}"/>
                                     <div class="row">
@@ -36,7 +36,7 @@
                                                     <option value="${c.id}">${c.name}</option>
                                                 </c:forEach>
                                             </select>
-                                            <label>Dono</label>
+                                            <label>Proprietário</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">crop_7_5</i>
@@ -54,21 +54,23 @@
                                             <label for="model">Modelo</label>
                                         </div>
 
-                                        <div class="input-field col s6">
-                                            <label>Tipo</label>
-                                            <label>
-                                                <input name="type" type="radio" value="car"/>
-                                                <span>Carro</span>
-                                            </label>
+                                        <div class="input-field col s6" id="type-vehicle">
+                                            <div>
+                                                <label>Tipo</label>
+                                                <label>
+                                                    <input name="type" type="radio" value="car"/>
+                                                    <span>Carro</span>
+                                                </label>
 
-                                            <label>
-                                                <input name="type" type="radio" value="moto"/>
-                                                <span>Moto</span>
-                                            </label>
-                                            <label>
-                                                <input name="type" type="radio" value="truck"/>
-                                                <span>Caminhão</span>
-                                            </label>
+                                                <label>
+                                                    <input name="type" type="radio" value="moto"/>
+                                                    <span>Moto</span>
+                                                </label>
+                                                <label>
+                                                    <input name="type" type="radio" value="truck"/>
+                                                    <span>Caminhão</span>
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">color_lens</i>
@@ -87,7 +89,7 @@
                                             </div>
                                         </div>
                                         <div class="action-form">
-                                            <button type="submit" class="btn-flat">Cadastrar veiculo</button>
+                                            <button type="submit" class="btn-flat">Cadastrar veículo</button>
                                         </div>
                                     </div>
                                 </form>
