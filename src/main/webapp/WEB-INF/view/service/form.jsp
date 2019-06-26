@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:template title="Cadastro de atendimento">
     <jsp:body>
@@ -41,7 +42,7 @@
                                             <select>
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="v" items="${vehicles}">
-                                                    <option value="${v.id}">${v.model} - ${v.placa} - ${v.client}</option>
+                                                    <option value="${v.id}">${v.model} - ${v.placa} - ${v.client.name}</option>
                                                 </c:forEach>
                                             </select>
                                             <label>Veiculo</label>
