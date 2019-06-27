@@ -56,7 +56,7 @@
 
                                         <div class="input-field col s6" id="type-vehicle">
                                             <div>
-                                                <label>Tipo</label>
+                                                <label>TIPO</label>
                                                 <label>
                                                     <input name="type" type="radio" value="car"/>
                                                     <span>Carro</span>
