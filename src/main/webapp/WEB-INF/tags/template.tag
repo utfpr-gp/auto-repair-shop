@@ -30,11 +30,11 @@
           rel='stylesheet' type='text/css'></link>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="assets/res/js/index.js"></script>
-
 </head>
 <body>
 <header>
@@ -102,7 +102,7 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="client-register">
-                                <a href="#">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
+                                <a href="clientes/novo">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
                             </li>
                             <li class="client-list">
                                 <a href="#">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>

@@ -1,19 +1,21 @@
 package br.edu.utfpr.autorepairshop.controller;
 
-import br.edu.utfpr.autorepairshop.mapper.ClientMapper;
+import br.edu.utfpr.autorepairshop.model.Address;
+import br.edu.utfpr.autorepairshop.model.Credential;
+import br.edu.utfpr.autorepairshop.model.mapper.AddressMapper;
+import br.edu.utfpr.autorepairshop.model.mapper.ClientMapper;
 import br.edu.utfpr.autorepairshop.model.Client;
-import br.edu.utfpr.autorepairshop.model.dto.ClientDTO;
-import br.edu.utfpr.autorepairshop.service.ClientService;
+import br.edu.utfpr.autorepairshop.model.dto.ClientDataDTO;
+import br.edu.utfpr.autorepairshop.model.mapper.CredentialMapper;
+import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @RestController
@@ -26,39 +28,51 @@ public class ClientController {
     @Autowired
     ClientMapper clientMapper;
 
+    @Autowired
+    AddressMapper addressMapper;
+
+    @Autowired
+    CredentialMapper credentialMapper;
+
     @GetMapping
     private ResponseEntity<Iterable<Client>> get(){
         return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
     }
 
-    @GetMapping("/cadastro")
+    @GetMapping("/novo")
     public ModelAndView showNewClientForm(){
 
-        ModelAndView mv = new ModelAndView("client-form");
+        ModelAndView mv = new ModelAndView("client/form");
 
         return mv;
     }
 
-    @PostMapping("/cadastro")
-    public ModelAndView save(@Validated ClientDTO clientDTO, Errors errors){
+    @PostMapping("/novo")
+    public ModelAndView save(@Validated ClientDataDTO clientDataDTO,
+                             Errors errors,
+                             RedirectAttributes redirectAttributes){
 
-        System.out.println("ODINWAIODNAWIONDOAWNIDIO"+ clientDTO);
 
         if(errors.hasErrors()){
-            ModelAndView mv = new ModelAndView("client-form");
-            mv.addObject("dto", clientDTO);
+            ModelAndView mv = new ModelAndView("client/form");
+            mv.addObject("dto", clientDataDTO);
             mv.addObject("errors", errors.getAllErrors());
             return mv;
         }
 
-        ModelAndView mv = new ModelAndView("vehicle-form");
+        redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
 
-        Client client = clientMapper.toEntity(clientDTO);
+        Address address = addressMapper.toEntity(clientDataDTO);
+        Credential credential = credentialMapper.toEntity(clientDataDTO);
+
+        clientDataDTO.setAddress(address);
+        clientDataDTO.setCredential(credential);
+
+        Client client =  clientMapper.toEntity(clientDataDTO);
 
         clientService.save(client);
 
-        mv.addObject("client",client);
-        return mv;
+        return new ModelAndView("redirect:novo");
     }
 
 }
