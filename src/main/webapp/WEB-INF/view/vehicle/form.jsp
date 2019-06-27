@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        <div class="col s12 form" height="600px">
+                        <div class="col s12 form" height="500px">
                             <div class="content-form">
                                 <div class="title-form">Cadastro de veículo</div>
                                 <form action="veiculos" method="post" enctype="multipart/form-data">
@@ -74,7 +74,7 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">color_lens</i>
-                                            <label>Cor</label>
+                                            <label for="color">Cor</label>
                                             <input id="color" name="color" type="text" value="${dto.color}">
                                         </div>
                                         <h6 class="header" style="margin-left: 15px;">Imagem</h6>
