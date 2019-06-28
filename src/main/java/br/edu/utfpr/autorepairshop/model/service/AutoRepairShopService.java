@@ -26,4 +26,8 @@ public class AutoRepairShopService {
 	public Optional<AutoRepairShop> findById(Long id) {
 		return autoRepairShopRepository.findById(id);
 	}
+
+	public void deleteById(Long id) {
+		 autoRepairShopRepository.deleteById(id);
+	}
 }

@@ -9,23 +9,16 @@ import javax.persistence.EntityNotFoundException;
 
 import br.edu.utfpr.autorepairshop.model.Address;
 import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
-import br.edu.utfpr.autorepairshop.model.Client;
-import br.edu.utfpr.autorepairshop.model.Vehicle;
-import br.edu.utfpr.autorepairshop.model.dto.AddressDTO;
 import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
-import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
-import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
-import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.AutoRepairShopMapper;
-import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.AddressService;
 import br.edu.utfpr.autorepairshop.model.service.AutoRepairShopService;
-import br.edu.utfpr.autorepairshop.model.service.ClientService;
-import br.edu.utfpr.autorepairshop.model.service.VehicleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -108,7 +101,7 @@ public class AutoRepairShopController {
 		// redirecionamento para a rota
 		return new ModelAndView("redirect:oficinas");
 	}
-	
+
 	@PutMapping
 	public ModelAndView update(@Validated AutoRepairShopDTO dto, Errors errors, RedirectAttributes redirectAttributes)
 			throws ParseException {
@@ -129,6 +122,22 @@ public class AutoRepairShopController {
 		redirectAttributes.addFlashAttribute("message", "Oficina Atualizada com sucesso!");
 
 		// redirecionamento para a rota
+		return new ModelAndView("redirect:oficinas");
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public ModelAndView delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+
+		Optional<AutoRepairShop> o = autoRepairShopService.findById(id);
+
+		if (!o.isPresent()) {
+			throw new EntityNotFoundException("Erro ao exluir, A oficina com cod.:"+ id +" não foi encontrada");
+		}
+
+		autoRepairShopService.deleteById(id);
+
+		redirectAttributes.addFlashAttribute("message", "Oficina Deletada com sucesso!");
+
 		return new ModelAndView("redirect:oficinas");
 	}
 }
