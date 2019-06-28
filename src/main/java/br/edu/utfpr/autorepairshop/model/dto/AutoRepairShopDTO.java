@@ -1,8 +1,6 @@
 package br.edu.utfpr.autorepairshop.model.dto;
 
 import javax.validation.constraints.NotEmpty;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,6 @@ public class AutoRepairShopDTO {
 	private String state;
 	private String cep;
 	private String number;
-
+	
 	private AddressDTO addressDTO;
 }

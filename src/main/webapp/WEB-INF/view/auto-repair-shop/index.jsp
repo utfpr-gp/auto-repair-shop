@@ -1,11 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template title="Oficinas">
     <jsp:body>
         <div class="container">
+                    <c:if test="${not empty message}">
+                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
+            </c:if>
+            
             <h1 class="header">Oficinas</h1>
             <a href="oficinas/novo" class="btn-floating btn-small waves-effect waves-light blue"><i
                     class="material-icons" title="Cadastrar Oficina">add</i></a>

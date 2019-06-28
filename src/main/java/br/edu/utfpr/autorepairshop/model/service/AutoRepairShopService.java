@@ -1,6 +1,7 @@
 package br.edu.utfpr.autorepairshop.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class AutoRepairShopService {
 
 	public List<AutoRepairShop> findAll() {
 		return autoRepairShopRepository.findAll();
+	}
+
+	public Optional<AutoRepairShop> findById(Long id) {
+		return autoRepairShopRepository.findById(id);
 	}
 }

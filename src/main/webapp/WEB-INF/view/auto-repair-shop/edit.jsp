@@ -25,7 +25,9 @@
                             <div class="content-form">
                                 <div class="title-form">Cadastro de oficina</div>
                                 <form action="oficinas" method="post" enctype="multipart/form-data">
-                                   <div class="row">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                 <input name="id" type="hidden" value="${dto.id}"/>
+                                    <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">label_outline</i>
                                             <input id="name" name="name" type="text" value="${dto.name}">
@@ -43,22 +45,22 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                            <input id="cep" name="cep" type="text" value="${dto.addressDTO.cep}">
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <input id="state" name="state" type="text" value="${dto.addressDTO.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="city" name="city" type="text" value="${dto.city}">
+                                            <input id="city" name="city" type="text" value="${dto.addressDTO.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="street" name="street" type="text" value="${dto.street}">
+                                            <input id="street" name="street" type="text" value="${dto.addressDTO.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="number" name="number" type="text" value="${dto.number}">
+                                            <input id="number" name="number" type="text" value="${dto.addressDTO.number}">
                                             <label for="number">Numero</label>
                                         </div>
                                         

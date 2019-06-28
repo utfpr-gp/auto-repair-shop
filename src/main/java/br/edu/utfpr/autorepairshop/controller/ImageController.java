@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
@@ -27,7 +26,7 @@ public class ImageController {
 	}
 
 
-	public ImageDTO upload(@RequestParam("file") MultipartFile file) {
+	public ImageDTO upload(MultipartFile file) {
 
 //		if (file == null) {
 //			throw new ImageUploadException("Nenhum arquivo foi enviado. Tente novamente!");
@@ -52,7 +51,7 @@ public class ImageController {
 			return dto;
 
 		} catch (Exception e) {
-			// return ResponseEntity.badRequest().body(response);
+			System.out.println();
 		}
 		return null;
 	}
