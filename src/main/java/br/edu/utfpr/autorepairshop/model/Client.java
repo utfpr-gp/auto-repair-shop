@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "clients")
-@Data
 @NoArgsConstructor
+@Data
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

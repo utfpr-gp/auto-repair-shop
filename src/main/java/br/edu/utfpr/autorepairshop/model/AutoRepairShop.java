@@ -20,7 +20,7 @@ public class AutoRepairShop {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@OneToOne
-	private Address adress;
+	private Address address;
 	private String name;
 	private String cnpj;
 	private String telephone;
@@ -29,7 +29,7 @@ public class AutoRepairShop {
 	public AutoRepairShop(Address adress, String name, String cnpj, String telephone,
 			String image) {
 		super();
-		this.adress = adress;
+		this.address = adress;
 		this.name = name;
 		this.cnpj = cnpj;
 		this.telephone = telephone;

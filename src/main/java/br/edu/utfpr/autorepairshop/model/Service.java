@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "services")
-@Data
 @NoArgsConstructor
+@Data
 public class Service {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

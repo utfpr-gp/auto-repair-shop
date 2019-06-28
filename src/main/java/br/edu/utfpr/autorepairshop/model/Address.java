@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="addresses")
-@Data
 @NoArgsConstructor
+@Data
 public class Address {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
