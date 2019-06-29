@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/clientes")
@@ -47,6 +50,21 @@ public class ClientController {
         return mv;
     }
 
+    @GetMapping("/{id}")
+    public ModelAndView showFormForUpdate(@PathVariable("id") Long id){
+        ModelAndView mv = new ModelAndView("client/form");
+
+        Optional<Client> client = clientService.findById(id);
+
+        if (!client.isPresent()){
+            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
+        }
+
+        ClientDataDTO clientDataDTO = clientMapper.toResponseDto(client.get());
+        mv.addObject("dto", clientDataDTO);
+        return mv;
+    }
+
     @PostMapping("/novo")
     public ModelAndView save(@Validated ClientDataDTO clientDataDTO,
                              Errors errors,
@@ -74,5 +92,7 @@ public class ClientController {
 
         return new ModelAndView("redirect:novo");
     }
+
+
 
 }

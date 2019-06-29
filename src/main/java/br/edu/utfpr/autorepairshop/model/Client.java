@@ -24,14 +24,14 @@ public class Client {
 	private Credential credential;
 	@Column(name = "date_birth")
     @Temporal(TemporalType.DATE)
-	private Date dateBirth;
+	private Date birthDate;
 	private String name;
 	private String telephone;
 
-	public Client(Address address, Credential credential, Date dateBirth, String name, String telephone) {
+	public Client(Address address, Credential credential, Date birthDate, String name, String telephone) {
 		this.address = address;
 		this.credential = credential;
-		this.dateBirth = dateBirth;
+		this.birthDate =  birthDate;
 		this.name = name;
 		this.telephone = telephone;
 	}
