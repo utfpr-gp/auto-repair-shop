@@ -16,6 +16,5 @@ public class AddressMapper {
 	 public AddressDTO toDto(Address entity) {
 		 AddressDTO dto = mapper.map(entity, AddressDTO.class);
 	        return dto;
-	    }
-	 
+	 }	 
 }

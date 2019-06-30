@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        <div class="form" height="900px">
+                        <div class="form" >
                             <div class="content-form">
                                 <div class="title-form">Cadastro de oficina</div>
                                 <form action="oficinas" method="post" enctype="multipart/form-data">
@@ -37,8 +37,8 @@
                                             <label for="cnpj">CNPJ</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">telephone</i>
-                                            <input id="telephone" name="telephone" type="text" value="${dto.telephone}">
+                                        	<i class="material-icons prefix">local_phone</i>
+                                            <input id="telephone" name="telephone" type="text" value="${dto.telephone}" placeholder="(DD) ?XXXX-XXXX">
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -61,8 +61,9 @@
                                             <input id="number" name="number" type="text" value="${dto.number}">
                                             <label for="number">Numero</label>
                                         </div>
-                                        
-                                        <input type="file" name="file" id="file"/> 
+                                       	<div class="input-field col s6">
+                                       		<input type="file" name="file" id="file"/> 
+                                        </div>
                                     </div>
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar oficina</button>

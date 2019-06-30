@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
-import br.edu.utfpr.autorepairshop.model.dto.AddressDTO;
 import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
 
 
@@ -16,20 +15,23 @@ public class AutoRepairShopMapper {
     
 	@Autowired
     private ModelMapper mapper;
-
-    public AutoRepairShopDTO toDto(AutoRepairShop entity) {
+	
+	@Autowired
+	private AddressMapper address;
+    
+	public AutoRepairShopDTO toDto(AutoRepairShop entity) {
     	AutoRepairShopDTO dto = mapper.map(entity, AutoRepairShopDTO.class);
         return dto;
     }
     
-    public AutoRepairShopDTO toResponseDto(AutoRepairShop entity) {
+    public AutoRepairShopDTO toResponseDto(AutoRepairShop entity){
     	AutoRepairShopDTO dto = mapper.map(entity, AutoRepairShopDTO.class);
-    	dto.setAddressDTO(mapper.map(entity.getAddress(), AddressDTO.class));
-        dto.setId(entity.getId());
+    	dto.setAddress(address.toDto(entity.getAddress()));
         return dto;
     }
     
     public AutoRepairShop toEntity(AutoRepairShopDTO dto) throws ParseException {
+    	dto.convertAddress();
     	AutoRepairShop entity = mapper.map(dto, AutoRepairShop.class);
         return entity;
     }

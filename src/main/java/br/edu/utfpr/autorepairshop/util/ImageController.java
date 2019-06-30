@@ -1,4 +1,4 @@
-package br.edu.utfpr.autorepairshop.controller;
+package br.edu.utfpr.autorepairshop.util;
 
 import java.io.File;
 
@@ -27,19 +27,13 @@ public class ImageController {
 
 
 	public ImageDTO upload(MultipartFile file) {
-
-//		if (file == null) {
-//			throw new ImageUploadException("Nenhum arquivo foi enviado. Tente novamente!");
-//		}
-
-//		if (!isValidExtension(file)) {
-//			throw new InvalidParamsException(
-//					"Extensão de arquivo inválido! Por favor, carregue apenas extensões .png, .jpeg ou .gif");
-//		}
-//
-//		if (file != null && file.getContentType() != null && !file.getContentType().toLowerCase().startsWith("image"))
-//			throw new InvalidParamsException("Não é uma imagem válida.");
-
+		init();
+		
+		if (file == null) {
+			System.out.println("Chegou nulo");
+			return null;
+		}
+		
 		try {
 			File f = Files.createTempFile("temp", file.getOriginalFilename()).toFile();
 			file.transferTo(f);
@@ -55,14 +49,4 @@ public class ImageController {
 		}
 		return null;
 	}
-
-	private boolean isValidExtension(MultipartFile file) {
-		String fileContentType = file.getContentType();
-		if (!CONTENT_TYPES.contains(fileContentType)) {
-			return false;
-		}
-
-		return true;
-	}
-
 }

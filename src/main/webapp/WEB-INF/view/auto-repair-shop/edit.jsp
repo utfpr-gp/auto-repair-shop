@@ -39,32 +39,33 @@
                                             <label for="cnpj">CNPJ</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">telephone</i>
+                                            <i class="material-icons prefix">local_phone</i>
                                             <input id="telephone" name="telephone" type="text" value="${dto.telephone}">
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${dto.addressDTO.cep}">
+                                            <input id="cep" name="cep" type="text" value="${dto.address.cep}">
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="state" name="state" type="text" value="${dto.addressDTO.state}">
+                                            <input id="state" name="state" type="text" value="${dto.address.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="city" name="city" type="text" value="${dto.addressDTO.city}">
+                                            <input id="city" name="city" type="text" value="${dto.address.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="street" name="street" type="text" value="${dto.addressDTO.street}">
+                                            <input id="street" name="street" type="text" value="${dto.address.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="number" name="number" type="text" value="${dto.addressDTO.number}">
+                                            <input id="number" name="number" type="text" value="${dto.address.number}">
                                             <label for="number">Numero</label>
                                         </div>
-                                        
-                                        <input type="file" name="file" id="file"/> 
+                                       	<div class="input-field col s6">
+                                       		<img class="materialboxed" width="200" src="${dto.image}">
+                                        </div>
                                     </div>
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar oficina</button>

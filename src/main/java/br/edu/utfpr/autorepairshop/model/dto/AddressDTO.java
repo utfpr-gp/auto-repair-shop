@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
 @NoArgsConstructor
+@Data
 @AllArgsConstructor
 @ToString
 public class AddressDTO {
@@ -16,4 +16,12 @@ public class AddressDTO {
 	private String state;
 	private String cep;
 	private String number;
+	
+	public AddressDTO(String street, String city, String state, String cep, String number) {
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.cep = cep;
+		this.number = number;
+	}
 }

@@ -6,13 +6,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
-
-import br.edu.utfpr.autorepairshop.model.Address;
 import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
 import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
+import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.AutoRepairShopMapper;
-import br.edu.utfpr.autorepairshop.model.service.AddressService;
 import br.edu.utfpr.autorepairshop.model.service.AutoRepairShopService;
+import br.edu.utfpr.autorepairshop.util.ImageController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,10 +35,7 @@ public class AutoRepairShopController {
 
 	@Autowired
 	private AutoRepairShopService autoRepairShopService;
-
-	@Autowired
-	private AddressService addressService;
-
+	
 	@Autowired
 	ImageController ImageController;
 
@@ -89,16 +85,17 @@ public class AutoRepairShopController {
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
-
-		// Verificar para salvar novo endereço
-		Address address = new Address(dto.getStreet(), dto.getCity(), dto.getState(), dto.getCity(), dto.getNumber());
+		
+		//Envia imagem e recupera URL
+		if (!dto.getFile().isEmpty()) {
+			ImageDTO image = ImageController.upload(dto.getFile());
+			dto.setImage(image.getUrl());
+		}
+		
 		AutoRepairShop auto = autoRepairShopMapper.toEntity(dto);
-		Address atual = addressService.save(address);
-		auto.setAddress(atual);
 		autoRepairShopService.save(auto);
 		redirectAttributes.addFlashAttribute("message", "Oficina salva com sucesso!");
 
-		// redirecionamento para a rota
 		return new ModelAndView("redirect:oficinas");
 	}
 
@@ -112,16 +109,18 @@ public class AutoRepairShopController {
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
-
-		// Verificar para salvar novo endereço
-		Address address = new Address(dto.getStreet(), dto.getCity(), dto.getState(), dto.getCity(), dto.getNumber());
+		
+		Optional<AutoRepairShop> optionalAutoRepairShop = autoRepairShopService.findById(dto.getId());
+		if (!optionalAutoRepairShop.isPresent()) {
+			throw new EntityNotFoundException("A oficina não foi encontrada pelo id informado.");
+		}
+		
 		AutoRepairShop auto = autoRepairShopMapper.toEntity(dto);
-		Address atual = addressService.save(address);
-		auto.setAddress(atual);
+		
 		autoRepairShopService.save(auto);
+		
 		redirectAttributes.addFlashAttribute("message", "Oficina Atualizada com sucesso!");
-
-		// redirecionamento para a rota
+		
 		return new ModelAndView("redirect:oficinas");
 	}
 

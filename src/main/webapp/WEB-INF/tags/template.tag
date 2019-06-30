@@ -52,10 +52,10 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="auto-repair-shop-register">
-                                <a href="#">Cadastro de oficina<i id="auto-repair-shop-register-icon" class="material-icons left">queue</i></a>
+                                <a href="oficinas/novo">Cadastro de oficina<i id="auto-repair-shop-register-icon" class="material-icons left">queue</i></a>
                             </li>
                             <li class="auto-repair-shop-list">
-                                <a href="#">Lista de oficinas<i id="auto-repair-shop-list-icon" class="material-icons left">format_list_numbered</i></a>
+                                <a href="oficinas">Lista de oficinas<i id="auto-repair-shop-list-icon" class="material-icons left">format_list_numbered</i></a>
                             </li>
                         </ul>
                     </div>
