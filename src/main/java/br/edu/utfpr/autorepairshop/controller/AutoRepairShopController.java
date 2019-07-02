@@ -11,7 +11,7 @@ import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
 import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.AutoRepairShopMapper;
 import br.edu.utfpr.autorepairshop.model.service.AutoRepairShopService;
-import br.edu.utfpr.autorepairshop.util.ImageController;
+import br.edu.utfpr.autorepairshop.model.service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +37,7 @@ public class AutoRepairShopController {
 	private AutoRepairShopService autoRepairShopService;
 	
 	@Autowired
-	ImageController ImageController;
+	ImageService ImageController;
 
 	@GetMapping
 	public ModelAndView index() {
