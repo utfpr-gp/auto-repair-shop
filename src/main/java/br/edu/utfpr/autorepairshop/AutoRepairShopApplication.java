@@ -16,5 +16,4 @@ public class AutoRepairShopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AutoRepairShopApplication.class, args);
 	}
-
 }

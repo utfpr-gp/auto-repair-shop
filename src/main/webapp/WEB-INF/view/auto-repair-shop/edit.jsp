@@ -21,11 +21,13 @@
             <div class="row">
                 <div class="col s12">
                     <div class="row">
-                        <div class="form" >
+                        <div class="form" height="900px">
                             <div class="content-form">
                                 <div class="title-form">Cadastro de oficina</div>
                                 <form action="oficinas" method="post" enctype="multipart/form-data">
-                                   <div class="row">
+                                <input type="hidden" name="_method" value="PUT"/>
+                                 <input name="id" type="hidden" value="${dto.id}"/>
+                                    <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">label_outline</i>
                                             <input id="name" name="name" type="text" value="${dto.name}">
@@ -37,32 +39,32 @@
                                             <label for="cnpj">CNPJ</label>
                                         </div>
                                         <div class="input-field col s6">
-                                        	<i class="material-icons prefix">local_phone</i>
-                                            <input id="telephone" name="telephone" type="text" value="${dto.telephone}" placeholder="(DD) ?XXXX-XXXX">
+                                            <i class="material-icons prefix">local_phone</i>
+                                            <input id="telephone" name="telephone" type="text" value="${dto.telephone}">
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                            <input id="cep" name="cep" type="text" value="${dto.address.cep}">
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <input id="state" name="state" type="text" value="${dto.address.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="city" name="city" type="text" value="${dto.city}">
+                                            <input id="city" name="city" type="text" value="${dto.address.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="street" name="street" type="text" value="${dto.street}">
+                                            <input id="street" name="street" type="text" value="${dto.address.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="number" name="number" type="text" value="${dto.number}">
+                                            <input id="number" name="number" type="text" value="${dto.address.number}">
                                             <label for="number">Numero</label>
                                         </div>
                                        	<div class="input-field col s6">
-                                       		<input type="file" name="file" id="file"/> 
+                                       		<img class="materialboxed" width="200" src="${dto.image}">
                                         </div>
                                     </div>
                                     <div class="action-form">
