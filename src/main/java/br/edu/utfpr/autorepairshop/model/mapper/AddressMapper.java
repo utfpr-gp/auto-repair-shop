@@ -11,14 +11,15 @@ import br.edu.utfpr.autorepairshop.model.dto.AddressDTO;
 public class AddressMapper {
 
 	@Autowired
-    private ModelMapper mapper;
+	private ModelMapper mapper;
 
-	 public AddressDTO toDto(Address entity) {
-		 AddressDTO dto = mapper.map(entity, AddressDTO.class);
-	        return dto;
-	 }
-    public Address toEntity(ClientDataDTO clientDataDTO){
-        Address address = mapper.map(clientDataDTO, Address.class);
-        return address;
-    }
+	public AddressDTO toDto(Address entity) {
+		AddressDTO dto = mapper.map(entity, AddressDTO.class);
+		return dto;
+	}
+
+	public Address toEntity(ClientDataDTO clientDataDTO) {
+		Address address = mapper.map(clientDataDTO, Address.class);
+		return address;
+	}
 }
