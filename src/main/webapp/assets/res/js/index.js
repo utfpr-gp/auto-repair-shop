@@ -15,3 +15,24 @@ $(document).ready(function () {
 });
 
 
+function getCurrentYear(){
+    return new Date().getFullYear();
+}
+
+function efeitoMenu() {
+    CAD_VEHICLE = 'veiculos/novo';
+    LIS_VEHICLE = 'veiculos';
+
+    pagina = window.location.href;
+    if (pagina.includes(LIS_VEHICLE)) {
+        if (pagina.includes(CAD_VEHICLE)) {
+            $(".vehicle-register").addClass("active");
+        } else if (pagina.includes(LIS_VEHICLE)) {
+            $(".vehicle-list").addClass("active");
+        } else {
+            $(".vehicle-client-list").addClass("active");
+        }
+        $(".vehicle").addClass("active");
+    }
+
+}

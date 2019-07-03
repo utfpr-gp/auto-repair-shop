@@ -16,18 +16,19 @@
     <!-- CSS -->
     <%--  <link rel="stylesheet" href="assets/lib/materialize/css/materialize.css"></link>--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+<%--    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.css">--%>
     <link rel="stylesheet" href="assets/res/css/index.css">
     <link rel="stylesheet" href="assets/res/css/material-icons.css">
 
-    <link rel="stylesheet" href="assets/res/css/template.css">
+<%--    <link rel="stylesheet" href="assets/res/css/template.css">--%>
 
 
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"></link>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:200,700'
-          rel='stylesheet' type='text/css'></link>
+<%--    <link href="http://fonts.googleapis.com/icon?family=Material+Icons"--%>
+<%--          rel="stylesheet"></link>--%>
+<%--    <link href='http://fonts.googleapis.com/css?family=Roboto:200,700'--%>
+<%--          rel='stylesheet' type='text/css'></link>--%>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -51,10 +52,10 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="auto-repair-shop-register">
-                                <a href="#">Cadastro de oficina<i id="auto-repair-shop-register-icon" class="material-icons left">queue</i></a>
+                                <a href="oficinas/novo">Cadastro de oficina<i id="auto-repair-shop-register-icon" class="material-icons left">queue</i></a>
                             </li>
                             <li class="auto-repair-shop-list">
-                                <a href="#">Lista de oficinas<i id="auto-repair-shop-list-icon" class="material-icons left">format_list_numbered</i></a>
+                                <a href="oficinas">Lista de oficinas<i id="auto-repair-shop-list-icon" class="material-icons left">format_list_numbered</i></a>
                             </li>
                         </ul>
                     </div>
@@ -158,6 +159,6 @@
     </footer>
 </main>
 
-
+<script type="text/javascript">efeitoMenu();</script>
 </body>
 </html>

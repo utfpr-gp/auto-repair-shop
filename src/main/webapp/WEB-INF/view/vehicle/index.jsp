@@ -6,7 +6,7 @@
 <t:template title="Veículos">
     <jsp:body>
         <div class="container">
-            <h1>Veículos</h1>
+            <h1 class="header">Veículos</h1>
             <a href="veiculos/novo" class="btn-floating btn-small waves-effect waves-light blue"><i
                     class="material-icons" title="Cadastrar veículo">add</i></a>
             <c:if test="${not empty vehicles}">
@@ -37,7 +37,7 @@
                 </table>
             </c:if>
             <c:if test="${empty vehicles}">
-                <h3>Sem veículos cadastrados</h3>
+                <h3 class="header">Sem veículos cadastrados</h3>
             </c:if>
         </div>
     </jsp:body>

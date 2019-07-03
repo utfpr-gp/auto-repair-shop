@@ -9,6 +9,18 @@ main {
 	padding-left: 200px;
 }
 
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+
+
 /*
 body {
     background: url('../img/background3.jpeg') center center no-repeat fixed;
@@ -97,8 +109,21 @@ a {
 }
 
 /*
+    Cor dos itens do menu
+    |     |     |     |     |
+    v     v     v     v     v
+*/
+.sidenav .collapsible-body>ul:not(.collapsible)>li.active a, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active a {
+	color: rgba(0,0,0,0.87);
+}
+
+.sidenav .collapsible-body>ul:not(.collapsible)>li.active, .sidenav.sidenav-fixed .collapsible-body>ul:not(.collapsible)>li.active {
+	background-color: #e3f2fd;
+}
+
+/*
     Cor dos radio buttons, paginacão, calendadrio, e selecionador de horario
-    |||||||||||||||||||||||||
+    |     |     |     |     |
     v     v     v     v     v
 */
 
@@ -119,7 +144,7 @@ a {
 
 /*
     Cor dos options dos selects
-    |||||||||||||||||||||||||
+    |     |     |     |     |
     v     v     v     v     v
 */
 .dropdown-content li > a,
@@ -129,7 +154,7 @@ a {
 
 /*
     Cor dos checkboxes
-    |||||||||||||||||||||||||
+    |     |     |     |     |
     v     v     v     v     v
 */
 
