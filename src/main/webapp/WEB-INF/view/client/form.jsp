@@ -1,7 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <t:template title="Cadastro de clientes">
     <jsp:body>
@@ -23,7 +25,7 @@
                         <div class="col s12 form" height="850px">
                             <div class="content-form">
                                 <div class="title-form">Cadastro de cliente</div>
-                                <form action="clientes/cadastro" method="post">
+                                <form action="clientes/novo" method="post">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">person</i>
@@ -32,22 +34,12 @@
 
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">credit_card</i>
-                                            <input id="cpf" name="cpf" type="text">
-                                            <label for="cpf">CPF</label>
-                                        </div>
-                                        <div class="input-field col s6">
-                                            <i class="material-icons prefix">art_track</i>
-                                            <input id="rg" name="rg" type="text">
-                                            <label for="rg">RG</label>
-                                        </div>
-                                        <div class="input-field col s6">
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                            <input id="cep" name="cep" type="text" value="${dto.cep}" maxlength="8">
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <input id="state" name="state" type="text" value="${dto.state}" maxlength="2">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -67,37 +59,25 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">date_range</i>
-                                            <input id="birthDate" name="birthDate" class="datepicker" value="${dto.birthDate}">
-                                            <label for="birthDate">Data de nascimento</label>
+                                            <label for="birthDate">Data de Nascimento</label>
+                                            <fmt:formatDate value="${dto.birthDate}" var="dateFormatted" type="date" pattern="dd/MM/yyyy"/>
+                                            <input id="birthDate" name="birthDate"  type="text" value="${dateFormatted}" readonly="true"/>
                                         </div>
+
                                     </div>
 
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
-                                            <input id="telephone" name="telephone" type="text" value="${dto.telephone}>
+                                            <input id="telephone" name="telephone" type="text" value="${dto.telephone}" maxlength="11">
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <i class="material-icons prefix">phone_android</i>
-                                            <input id="cellular" name="cellular" type="text">
-                                            <label for="cellular">Celular</label>
+                                            <i class="material-icons prefix">mail</i>
+                                            <input id="email" name="email" type="text" value="${dto.email}">
+                                            <label for="email">Email</label>
                                         </div>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <h5 class="header">Sexo</h5>
-                                        <p>
-                                            <label>
-                                                <input name="sex" value="m" type="radio" />
-                                                <span>Masculino</span>
-                                            </label>
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input name="sex" value="f" type="radio" />
-                                                <span>Feminino</span>
-                                            </label>
-                                        </p>
+                                        <input name="role" type="hidden" value="client">
                                     </div>
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar cliente</button>

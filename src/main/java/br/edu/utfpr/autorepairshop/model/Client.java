@@ -2,38 +2,35 @@ package br.edu.utfpr.autorepairshop.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "clients")
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@ToString
 public class Client {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Address address;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Credential credential;
 	@Column(name = "date_birth")
-	private Date dateBirth;
+    @Temporal(TemporalType.DATE)
+	private Date birthDate;
 	private String name;
 	private String telephone;
 
-	public Client(Address address, Credential credential, Date dateBirth, String name, String telephone) {
+	public Client(Address address, Credential credential, Date birthDate, String name, String telephone) {
 		this.address = address;
 		this.credential = credential;
-		this.dateBirth = dateBirth;
+		this.birthDate =  birthDate;
 		this.name = name;
 		this.telephone = telephone;
 	}

@@ -6,7 +6,12 @@ $(document).ready(function () {
     $('.input-field').mouseout(function (e) {
         $(this).find('i').removeClass('active');
     });
-    $('#year').html(getCurrentYear());
+
+    $("#birthDate").datepicker({
+        format: 'dd/mm/yyyy',
+        changeMonth: true,
+        changeYear: true
+    });
 });
 
 
