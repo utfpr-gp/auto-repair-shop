@@ -56,8 +56,8 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
-                                            <input id="phone" name="phone" type="text">
-                                            <label for="phone">Telefone</label>
+                                            <input id="telephone" name="telephone" type="text">
+                                            <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone_android</i>
@@ -76,22 +76,9 @@
                                         <input id="password" type="password" class="validate">
                                         <label for="password">Senha</label>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">done_all</i>
-                                        <input id="reemail" type="email" class="validate">
-                                        <label for="reemail">Confirmação de email</label>
-                                        <span class="helper-text" data-error="incorreto" data-success="correto"></span>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <i class="material-icons prefix">done_all</i>
-                                        <input id="repassword" type="password" class="validate">
-                                        <label for="repassword">Confirmação de senha</label>
-                                    </div>
-
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar funcionário</button>
                                     </div>
-
                                 </form>
                             </div>
                         </div>

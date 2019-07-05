@@ -1,15 +1,10 @@
 package br.edu.utfpr.autorepairshop.model.dto;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 import br.edu.utfpr.autorepairshop.model.Address;
-import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
 import br.edu.utfpr.autorepairshop.model.Credential;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,8 +23,9 @@ public class EmployeeDTO {
 	@NotEmpty(message = "Nome deve ser preenchido!")
 	private String name;
 
-	@NotEmpty(message = "Por favor informe o telefone.")
-	private String telephone;
+	
+	@NotEmpty(message = "O Telefone da Oficina é obrigatório")
+	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")	private String telephone;
 
 	@NotEmpty(message = "Por favor informe o cep.")
 	private String cep;
@@ -47,7 +43,6 @@ public class EmployeeDTO {
 	private String number;
 
 	@Email(message = "Insira um email válido.")
-	@NotEmpty(message = "Por favor informe o email.")
 	private String email;
 
 	private String role;

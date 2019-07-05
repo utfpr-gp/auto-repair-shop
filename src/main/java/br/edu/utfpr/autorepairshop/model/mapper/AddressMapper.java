@@ -2,6 +2,8 @@ package br.edu.utfpr.autorepairshop.model.mapper;
 
 import br.edu.utfpr.autorepairshop.model.Address;
 import br.edu.utfpr.autorepairshop.model.dto.ClientDataDTO;
+import br.edu.utfpr.autorepairshop.model.dto.EmployeeDTO;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,11 @@ public class AddressMapper {
 
 	public Address toEntity(ClientDataDTO clientDataDTO) {
 		Address address = mapper.map(clientDataDTO, Address.class);
+		return address;
+	}
+	
+	public Address toEntity(EmployeeDTO employeeDTO) {
+		Address address = mapper.map(employeeDTO, Address.class);
 		return address;
 	}
 }

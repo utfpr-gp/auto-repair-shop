@@ -1,6 +1,7 @@
 package br.edu.utfpr.autorepairshop.controller;
 
-import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,12 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 
 import br.edu.utfpr.autorepairshop.model.Address;
+import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.Employee;
 import br.edu.utfpr.autorepairshop.model.dto.AddressDTO;
+import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
 import br.edu.utfpr.autorepairshop.model.dto.EmployeeDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.AddressMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.ClientMapper;
@@ -40,9 +43,23 @@ public class EmployeeController {
     @Autowired
 	EmployeeMapper employeeMapper;
     
-	@GetMapping
+    @GetMapping("/novo")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("employee/form");
+		return mv;
+	}
+	
+	@GetMapping()
+	public ModelAndView indexList() {
+
+		List<Employee> emp = employeeService.findAll();
+
+		List<EmployeeDTO> empDTOs = emp.stream().map(s -> employeeMapper.toResponseDto(s))
+				.collect(Collectors.toList());
+
+		ModelAndView mv = new ModelAndView("employee/index");
+		mv.addObject("employees", empDTOs);
+
 		return mv;
 	}
 
