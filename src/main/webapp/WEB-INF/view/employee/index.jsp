@@ -39,7 +39,7 @@
                     </tbody>
                 </table>
             </c:if>
-            <c:if test="${empty employee}">
+            <c:if test="${empty employees}">
                 <h3 class="header">Sem Funcionários cadastrados</h3>
             </c:if>
         </div>

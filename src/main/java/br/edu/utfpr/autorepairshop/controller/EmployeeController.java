@@ -1,13 +1,17 @@
 package br.edu.utfpr.autorepairshop.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,5 +92,20 @@ public class EmployeeController {
 		Employee employee = employeeMapper.toEntity(employeeDto);
 		employeeService.save(employee);
 		return new ModelAndView("redirect:funcionarios");
+	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
+
+		ModelAndView mv = new ModelAndView("employee/edit");
+
+		Optional<Employee> employee = employeeService.findById(id);
+
+		if (!employee.isPresent()) {
+			throw new EntityNotFoundException("O funcionário não foi encontrada pelo id informado.");
+		}
+		EmployeeDTO employeeDTO = employeeMapper.toResponseDto(employee.get());
+		mv.addObject("dto", employeeDTO);
+		return mv;
 	}
 }
