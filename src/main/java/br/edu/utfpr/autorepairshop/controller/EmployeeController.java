@@ -1,5 +1,8 @@
 package br.edu.utfpr.autorepairshop.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,14 +47,23 @@ public class EmployeeController {
 	EmployeeMapper employeeMapper;
     
     @GetMapping("/novo")
-	public ModelAndView index() {
+	public ModelAndView showForm() {
 		ModelAndView mv = new ModelAndView("employee/form");
 		return mv;
 	}
 	
-	@GetMapping
-	private ResponseEntity<Iterable<Employee>> get() {
-		return ResponseEntity.status(HttpStatus.OK).body(employeeService.findAll());
+    @GetMapping
+	public ModelAndView index() {
+
+		List<Employee> auto = employeeService.findAll();
+
+		List<EmployeeDTO> empDTOs = auto.stream().map(s -> employeeMapper.toResponseDto(s))
+				.collect(Collectors.toList());
+
+		ModelAndView mv = new ModelAndView("employee/index");
+		mv.addObject("employees", empDTOs);
+
+		return mv;
 	}
 
 	@PostMapping

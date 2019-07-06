@@ -51,6 +51,8 @@ public class EmployeeDTO {
 	private String role;
 
 	private Address address;
+	
+	private AddressDTO addressDTO;
 
 	private Credential credential;
 }
