@@ -71,12 +71,12 @@
                                     <h5 class="header">Dados de acesso</h5>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">email</i>
-                                        <input id="email" type="email" name="email" class="validate">
+                                        <input id="email" type="email" name="email" value="${dto.credential.email}" class="validate">
                                         <label for="email">Email</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">lock</i>
-                                        <input id="password" type="password" name="password" class="validate">
+                                        <input id="password" type="password" name="password" value="${dto.credential.password}" class="validate">
                                         <label for="password">Senha</label>
                                     </div>
                                     <div class="action-form">

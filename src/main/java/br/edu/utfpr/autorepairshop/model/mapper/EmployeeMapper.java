@@ -20,6 +20,11 @@ public class EmployeeMapper {
 	@Autowired
 	private AddressMapper address;
 
+	public EmployeeDTO toDto(Employee entity) {
+    	EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
+        return dto;
+    }
+	
 	public Employee toEntity(EmployeeDTO employeeDTO) {
 		Employee employee = mapper.map(employeeDTO, Employee.class);
 		return employee;

@@ -21,7 +21,11 @@
                         <th>Id</th>
                         <th>Nome</th>
                         <th>Telefone</th>
-                        <th></th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th>Rua</th>
+                        <th>Número</th>
+                        <th>CEP</th>
                     </tr>
                     </thead>
 
@@ -31,6 +35,11 @@
                             <td>${employee.id}</td>
                             <td>${employee.name}</td>
                             <td>${employee.telephone}</td>
+                            <td>${employee.address.city}</td>
+                            <td>${employee.address.state}</td>
+                            <td>${employee.address.street}</td>
+                            <td>${employee.address.number}</td>
+                            <td>${employee.address.cep}</td> 
                             <td>
                                 <a href="funcionarios/${employee.id}"><i class="material-icons">edit</i></a>
                             </td>
