@@ -67,7 +67,6 @@ public class ClientController {
 	@PostMapping("/novo")
 	public ModelAndView save(@Validated ClientDataDTO clientDataDTO, Errors errors,
 			RedirectAttributes redirectAttributes) {
-
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("client/form");
 			mv.addObject("dto", clientDataDTO);

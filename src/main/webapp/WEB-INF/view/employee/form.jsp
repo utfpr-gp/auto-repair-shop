@@ -56,12 +56,12 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
-                                            <input id="telephone" name="telephone" type="text">
+                                            <input id="telephone" name="telephone" type="text" placeholder="(DD) ?XXXX-XXXX">
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone_android</i>
-                                            <input id="cellular" name="cellular" type="text">
+                                            <input id="cellular" name="cellular" type="text" placeholder="(DD) ?XXXX-XXXX">
                                             <label for="cellular">Celular</label>
                                         </div>
                                     </div>

@@ -1,13 +1,13 @@
 package br.edu.utfpr.autorepairshop.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.validation.Errors;
@@ -49,22 +49,13 @@ public class EmployeeController {
 		return mv;
 	}
 	
-	@GetMapping()
-	public ModelAndView indexList() {
-
-		List<Employee> emp = employeeService.findAll();
-
-		List<EmployeeDTO> empDTOs = emp.stream().map(s -> employeeMapper.toResponseDto(s))
-				.collect(Collectors.toList());
-
-		ModelAndView mv = new ModelAndView("employee/index");
-		mv.addObject("employees", empDTOs);
-
-		return mv;
+	@GetMapping
+	private ResponseEntity<Iterable<Employee>> get() {
+		return ResponseEntity.status(HttpStatus.OK).body(employeeService.findAll());
 	}
 
 	@PostMapping
-	public ModelAndView save(@Validated EmployeeDTO employeeDto, 
+	public ModelAndView save(@Validated EmployeeDTO employeeDto, @RequestParam("email") String email,
 			Errors errors, RedirectAttributes redirectAttributes) {
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("employee/form");
@@ -77,11 +68,13 @@ public class EmployeeController {
 
 		Address address = addressMapper.toEntity(employeeDto);
 		Credential credential = credentialMapper.toEntity(employeeDto);
+		credential.setRole("funcionario");
+
+		employeeDto.setAddress(address);
+		employeeDto.setCredential(credential);
 
 		Employee employee = employeeMapper.toEntity(employeeDto);
-
 		employeeService.save(employee);
-
 		return new ModelAndView("redirect:funcionarios");
 	}
 }
