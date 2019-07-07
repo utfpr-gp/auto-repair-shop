@@ -110,7 +110,6 @@ public class EmployeeController {
 	@PutMapping
 	public ModelAndView update(@Validated EmployeeDTO employeeDto, Errors errors,
 			RedirectAttributes redirectAttributes) {
-
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("funcionarios/edit");
 			mv.addObject("dto", employeeDto);
@@ -133,6 +132,6 @@ public class EmployeeController {
 		employeeService.save(emp);
 
 		redirectAttributes.addFlashAttribute("message", "Funcionário atualizada com sucesso!");
-		return new ModelAndView("redirect:funcionarios");
+		return new ModelAndView("redirect:funcionarios/");
 	}
 }
