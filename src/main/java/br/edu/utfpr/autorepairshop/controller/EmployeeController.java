@@ -84,10 +84,16 @@ public class EmployeeController {
 		Credential credential = credentialMapper.toEntity(employeeDto);
 		credential.setRole("funcionario");
 
+		Optional<Credential> c = credentialService.findByEmail(credential.getEmail());
+		if (c.isPresent()) {
+			throw new EntityNotFoundException("O email informado já esta em uso");
+		}
+
 		employeeDto.setAddress(address);
 		employeeDto.setCredential(credential);
 
 		Employee employee = employeeMapper.toEntity(employeeDto);
+
 		employeeService.save(employee);
 		return new ModelAndView("redirect:funcionarios");
 	}
@@ -116,7 +122,7 @@ public class EmployeeController {
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
-	
+
 		Optional<Employee> employee = employeeService.findById(employeeDto.getId());
 		if (!employee.isPresent()) {
 			throw new EntityNotFoundException("O funcionario não foi encontrada pelo id informado.");
@@ -124,11 +130,20 @@ public class EmployeeController {
 		
 		Address address = addressMapper.toEntity(employeeDto);
 		Credential credential = credentialMapper.toEntity(employeeDto);
+		
+		Optional<Credential> c = credentialService.findByEmail(employee.get().getCredential().getEmail());
+		System.out.println(c.get().getEmail());
+		System.out.println(credential.getEmail());
+		if (c.isPresent()) {
+			if (!c.get().getEmail().equals(credential.getEmail())) {
+				throw new EntityNotFoundException("O email informado já esta em uso");
+			}
+		}
 
 		Employee emp = employeeMapper.toEntity(employeeDto);
 		emp.setAddress(address);
 		emp.setCredential(credential);
-		
+
 		employeeService.save(emp);
 
 		redirectAttributes.addFlashAttribute("message", "Funcionário atualizada com sucesso!");
