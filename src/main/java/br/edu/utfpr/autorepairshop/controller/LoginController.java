@@ -75,11 +75,14 @@ public class LoginController {
 		log.info("Gerando token parte 2");
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+		log.info("autenticacao"+authentication.getName());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
 		String token = jwtTokenUtil.generateToken(userDetails);
+		log.info("token" + token);
 		Cookie cookieToken = new Cookie("token", token);
+		log.info("cookie value" + cookieToken.getValue());
         cookieToken.setMaxAge(60*60*24); //24 hour
 	
 		return new ModelAndView("index");
