@@ -27,14 +27,14 @@
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">email</i>
-                                            <input id="email" type="email" class="validate" value="${dto.email}">
+                                            <input id="email" name="email" type="email" class="validate" value="${dto.email}">
                                             <label for="email">Email</label>
                                             <span class="helper-text" data-error="incorreto" data-success="correto"></span>
 
                                         </div>
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">lock</i>
-                                            <input id="password" type="password" class="validate">
+                                            <input id="password" name="password" type="password" class="validate">
                                             <label for="password">Senha</label>
                                         </div>
                                         <div class="input-field col s11 offset-s1">
