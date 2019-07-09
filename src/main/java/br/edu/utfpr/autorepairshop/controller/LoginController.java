@@ -25,10 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.edu.utfpr.autorepairshop.model.dto.ClientDataDTO;
-import br.edu.utfpr.autorepairshop.model.dto.JwtAuthenticationDTO;
 import br.edu.utfpr.autorepairshop.security.JwtCredentialDetailService;
-import br.edu.utfpr.autorepairshop.model.dto.TokenDTO;
+import br.edu.utfpr.autorepairshop.model.dto.JwtAuthenticationDTO;
 import br.edu.utfpr.autorepairshop.util.TokenUtil;
 
 @RequestMapping("/login")
@@ -53,11 +51,6 @@ public class LoginController {
 		log.info("Mostrando o index");
 		return new ModelAndView("login/form");
 	}
-	
-//	@GetMapping
-//	public ModelAndView showIndex() {
-//		return new ModelAndView("redirect:login");
-//	}
 	
 	@PostMapping
 	public ModelAndView generateToken(@Validated JwtAuthenticationDTO dto, Errors errors, RedirectAttributes redirectAttributes) throws AuthenticationException{	
