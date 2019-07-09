@@ -14,6 +14,7 @@ import br.edu.utfpr.autorepairshop.model.service.AutoRepairShopService;
 import br.edu.utfpr.autorepairshop.model.service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +41,7 @@ public class AutoRepairShopController {
 	ImageService ImageController;
 
 	@GetMapping
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView index() {
 
 		List<AutoRepairShop> auto = autoRepairShopService.findAll();

@@ -1,6 +1,7 @@
 package br.edu.utfpr.autorepairshop.controller;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -60,9 +61,8 @@ public class LoginController {
 //	}
 	
 	@PostMapping
-	public ModelAndView generateToken(@Validated JwtAuthenticationDTO dto, Errors errors, RedirectAttributes redirectAttributes) throws AuthenticationException{	
+	public ModelAndView generateToken(@Validated JwtAuthenticationDTO dto, Errors errors, RedirectAttributes redirectAttributes, HttpServletResponse response) throws AuthenticationException{
 		log.info("Gerando token parte 1");
-		log.info(dto.getEmail() + dto.getPassword());
 		
 		if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("login/form");
@@ -75,17 +75,15 @@ public class LoginController {
 		log.info("Gerando token parte 2");
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
-		log.info("autenticacao"+authentication.getName());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
 		String token = jwtTokenUtil.generateToken(userDetails);
-		log.info("token" + token);
-		Cookie cookieToken = new Cookie("token", token);
-		log.info("cookie value" + cookieToken.getValue());
+		Cookie cookieToken = new Cookie("tokenKey", token);
         cookieToken.setMaxAge(60*60*24); //24 hour
-	
-		return new ModelAndView("index");
+
+		response.addCookie(cookieToken);
+		return new ModelAndView("redirect:oficinas");
 	}	
 
 }
