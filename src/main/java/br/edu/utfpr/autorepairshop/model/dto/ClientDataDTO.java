@@ -6,13 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +28,9 @@ public class ClientDataDTO {
     private String name;
 
     @NotEmpty(message = "A data de nascimento é obrigatória")
-    @Pattern(regexp = "^([12]\\d|3[01])/(0\\d|1[012])/\\d{4}$",
-            message = "A data precisa estar formatada como dd/MM/yyyy")
+//    @Pattern(regexp = "^([12]\\d|3[01])/(0\\d|1[012])/\\d{4}$",
+//            message = "A data precisa estar formatada como dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private String birthDate;
 
     @NotEmpty(message = "Por favor informe o telefone.")
@@ -55,6 +54,10 @@ public class ClientDataDTO {
     @Email(message = "Insira um email válido.")
     @NotEmpty(message = "Por favor informe o email.")
     private String email;
+
+    private String password;
+
+    private String passwordConfirmation;
 
     private String role;
 

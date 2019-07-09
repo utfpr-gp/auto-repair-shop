@@ -18,7 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -38,9 +42,19 @@ public class ClientController {
     CredentialMapper credentialMapper;
 
     @GetMapping
-    private ResponseEntity<Iterable<Client>> get(){
-        return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
+    public ModelAndView index() {
+        List<Client> clients = clientService.findAll();
+
+        List<ClientDataDTO> clientDataDTOS = clients.stream()
+                .map(s -> clientMapper.toResponseDto(s))
+                .collect(Collectors.toList());
+
+        ModelAndView mv = new ModelAndView("client/index");
+        mv.addObject("clients", clientDataDTOS);
+
+        return mv;
     }
+
 
     @GetMapping("/novo")
     public ModelAndView showNewClientForm(){
@@ -70,6 +84,44 @@ public class ClientController {
                              Errors errors,
                              RedirectAttributes redirectAttributes){
 
+        System.out.println("ADWDKNAWKDNAWDKLNAWKLD"+ clientDataDTO.getBirthDate());
+
+
+        if(errors.hasErrors()){
+            ModelAndView mv = new ModelAndView("client/form");
+            mv.addObject("dto", clientDataDTO);
+            mv.addObject("errors", errors.getAllErrors());
+            return mv;
+        }
+
+        if (!clientDataDTO.getPassword().equals(clientDataDTO.getPasswordConfirmation())){
+            ModelAndView mv = new ModelAndView("client/form");
+            mv.addObject("dto", clientDataDTO);
+            mv.addObject("passwordError", "Senhas não batem.");
+            return mv;
+        }
+
+        redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
+
+        Address address = addressMapper.toEntity(clientDataDTO);
+        Credential credential = credentialMapper.toEntity(clientDataDTO);
+
+        clientDataDTO.setAddress(address);
+        clientDataDTO.setCredential(credential);
+
+        Client client =  clientMapper.toEntity(clientDataDTO);
+
+        System.out.println("CHEGOUUUU AQUI!!" + client.getBirthDate());
+        clientService.save(client);
+
+        return new ModelAndView("redirect:novo");
+    }
+
+    @PutMapping("/{id}")
+    public ModelAndView save(@PathVariable("id") Long id,
+                             @Validated ClientDataDTO clientDataDTO,
+                             Errors errors,
+                             RedirectAttributes redirectAttributes) {
 
         if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("client/form");
@@ -88,11 +140,23 @@ public class ClientController {
 
         Client client =  clientMapper.toEntity(clientDataDTO);
 
-        clientService.save(client);
+       clientService.update(client, id);
 
-        return new ModelAndView("redirect:novo");
+        return new ModelAndView("redirect:/clientes");
     }
 
 
+    @DeleteMapping("/{id}")
+    public ModelAndView delete(@PathVariable Long id){
+
+        Optional<Client> client = clientService.findById(id);
+
+        if (!client.isPresent()){
+            return new ModelAndView("redirect:/clientes");
+        }
+
+        clientService.deleteById(id);
+        return new ModelAndView("redirect:/clientes");
+    }
 
 }
