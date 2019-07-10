@@ -65,17 +65,17 @@
 
                     <div class="collapsible-body">
                         <ul>
-                            <li class="service-register">
-                                <a href="atendimentos/novo">Cadastro de atendimento<i id="service-register-icon" class="material-icons left">note_add</i></a>
+                            <li class="maintenance-register">
+                                <a href="atendimentos/novo">Cadastro de atendimento<i id="maintenance-register-icon" class="material-icons left">note_add</i></a>
                             </li>
-                            <li class="service-history">
-                                <a href="atendimentos">Histórico de atendimento<i id="service-history-icon" class="material-icons left">assignment</i></a>
+                            <li class="maintenance-history">
+                                <a href="atendimentos">Histórico de atendimento<i id="maintenance-history-icon" class="material-icons left">assignment</i></a>
                             </li>
-                            <li class="service-report">
-                                <a href="#">Relatório de atendimento<i id="service-report-icon" class="material-icons left">assessment</i></a>
+                            <li class="maintenance-report">
+                                <a href="#">Relatório de atendimento<i id="maintenance-report-icon" class="material-icons left">assessment</i></a>
                             </li>
-                            <li class="service-client">
-                                <a href="#">Extrato de atendimento<i id="service-client-icon" class="material-icons left">assignment_returned</i></a>
+                            <li class="maintenance-client">
+                                <a href="#">Extrato de atendimento<i id="maintenance-client-icon" class="material-icons left">assignment_returned</i></a>
                             </li>
                         </ul>
                     </div>

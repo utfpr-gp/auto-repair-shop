@@ -20,17 +20,39 @@ function getCurrentYear(){
 }
 
 function efeitoMenu() {
-    CAD_VEHICLE = 'veiculos/novo';
-    LIS_VEHICLE = 'veiculos';
+    FORM_AUTO_REPAIR_SHOP = 'oficinas/novo';
+    AUTO_REPAIR_SHOPS = 'oficinas';
+    FORM_MAINTENANCE = 'atendimentos/novo';
+    MAINTENANCES = 'atendimentos';
+    FORM_VEHICLE = 'veiculos/novo';
+    VEHICLES = 'veiculos';
+
 
     pagina = window.location.href;
-    if (pagina.includes(LIS_VEHICLE)) {
-        if (pagina.includes(CAD_VEHICLE)) {
+
+    if (pagina.includes(AUTO_REPAIR_SHOPS)) {
+        if (pagina.includes(FORM_AUTO_REPAIR_SHOP)) {
+            $(".auto-repair-shop-register").addClass("active");
+        } else if (pagina.includes(AUTO_REPAIR_SHOPS)) {
+            $(".auto-repair-shop-list").addClass("active");
+        }
+        $(".vehicle").addClass("active");
+    }
+
+    if (pagina.includes(MAINTENANCES)) {
+        if (pagina.includes(FORM_MAINTENANCE)) {
+            $(".maintenance-register").addClass("active");
+        } else if (pagina.includes(MAINTENANCES)) {
+            $(".maintenance-history").addClass("active");
+        }
+        $(".vehicle").addClass("active");
+    }
+
+    if (pagina.includes(VEHICLES)) {
+        if (pagina.includes(FORM_VEHICLE)) {
             $(".vehicle-register").addClass("active");
-        } else if (pagina.includes(LIS_VEHICLE)) {
+        } else if (pagina.includes(VEHICLES)) {
             $(".vehicle-list").addClass("active");
-        } else {
-            $(".vehicle-client-list").addClass("active");
         }
         $(".vehicle").addClass("active");
     }
