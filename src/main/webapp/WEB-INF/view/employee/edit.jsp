@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:template title="Cadastro de funcionários">
+<t:template title="Atualização de funcionários">
     <jsp:body>
         <div class="container">
             <c:if test="${not empty message}">

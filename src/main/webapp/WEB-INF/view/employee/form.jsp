@@ -39,26 +39,26 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${dto.address.cep}">
+                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="state" name="state" type="text" value="${dto.address.state}">
+                                            <input id="state" name="state" type="text" value="${dto.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="city" name="city" type="text" value="${dto.address.city}">
+                                            <input id="city" name="city" type="text" value="${dto.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="street" name="street" type="text" value="${dto.address.street}">
+                                            <input id="street" name="street" type="text" value="${dto.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="number" name="number" type="text" value="${dto.address.number}">
+                                            <input id="number" name="number" type="text" value="${dto.number}">
                                             <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -75,12 +75,12 @@
                                     <h5 class="header">Dados de acesso</h5>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">email</i>
-                                        <input id="email" type="email" name="email" class="validate" value="${dto.credential.email}">
+                                        <input id="email" type="email" name="email" class="validate" value="${dto.email}">
                                         <label for="email">Email</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">lock</i>
-                                        <input id="password" type="password" name="password" class="validate">
+                                        <input id="password" type="password" name="password" class="validate" value="${dto.password}">
                                         <label for="password">Senha</label>
                                     </div>
                                     <div class="action-form">
