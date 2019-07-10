@@ -33,7 +33,12 @@
                                             <select id="client" name="client">
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="c" items="${clientsDto}">
-                                                    <option value="${c.id}">${c.name}</option>
+                                                    <c:if test="${dto.registration == c.id}">
+                                                        <option selected value="${c.id}">${c.name}</option>
+                                                    </c:if>
+                                                    <c:if test="${dto.registration != c.id || dto.registration == null}">
+                                                        <option value="${c.id}">${c.name}</option>
+                                                    </c:if>
                                                 </c:forEach>
                                             </select>
                                             <label>Proprietário</label>
@@ -58,16 +63,34 @@
                                             <div>
                                                 <label>TIPO</label>
                                                 <label>
-                                                    <input name="type" type="radio" value="car"/>
+                                                    <c:set var="car" scope="session" value="car"/>
+                                                    <c:if test="${dto.type == car}">
+                                                        <input name="type" type="radio" checked value="car"/>
+                                                    </c:if>
+                                                    <c:if test="${dto.type != car || dto.type == null}">
+                                                        <input name="type" type="radio" value="car"/>
+                                                    </c:if>
                                                     <span>Carro</span>
                                                 </label>
 
                                                 <label>
-                                                    <input name="type" type="radio" value="moto"/>
+                                                    <c:set var="moto" scope="session" value="moto"/>
+                                                    <c:if test="${dto.type == moto}">
+                                                        <input name="type" type="radio" checked value="moto"/>
+                                                    </c:if>
+                                                    <c:if test="${dto.type != moto || dto.type == null}">
+                                                        <input name="type" type="radio" value="moto"/>
+                                                    </c:if>
                                                     <span>Moto</span>
                                                 </label>
                                                 <label>
-                                                    <input name="type" type="radio" value="truck"/>
+                                                    <c:set var="truck" scope="session" value="truck"/>
+                                                    <c:if test="${dto.type == truck}">
+                                                        <input name="type" type="radio" checked value="truck"/>
+                                                    </c:if>
+                                                    <c:if test="${dto.type != truck || dto.type == null}">
+                                                        <input name="type" type="radio" value="truck"/>
+                                                    </c:if>
                                                     <span>Caminhão</span>
                                                 </label>
                                             </div>
@@ -77,17 +100,17 @@
                                             <label for="color">Cor</label>
                                             <input id="color" name="color" type="text" value="${dto.color}">
                                         </div>
-                                        <h6 class="header" style="margin-left: 15px;">Imagem</h6>
-                                        <div class="file-field input-field col s4">
-
-                                            <div>
-                                                <input type="file">
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <i class="material-icons prefix">image</i>
-                                                <input placeholder="Imagem.png" class="file-path validate" type="text">
+                                        <h6 class="header" style="margin-left: 15px;">Imagem:</h6>
+                                        <div class="input-field col s12">
+                                            <div class="input-field col s6">
+                                                <input type="file" name="file" id="file"/>
                                             </div>
                                         </div>
+                                        <c:if test="${dto.image != null}">
+                                            <div class="input-field col s6">
+                                                <img class="materialboxed" width="200" src="${dto.image}">
+                                            </div>
+                                        </c:if>
                                         <div class="action-form">
                                             <button type="submit" class="btn-flat">Cadastrar veículo</button>
                                         </div>

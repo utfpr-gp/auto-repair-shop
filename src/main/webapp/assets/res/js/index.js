@@ -22,15 +22,16 @@ function getCurrentYear(){
 function efeitoMenu() {
     CAD_VEHICLE = 'veiculos/novo';
     LIS_VEHICLE = 'veiculos';
+    LIS_MY_VEHICLE = 'veiculos/meus';
 
     pagina = window.location.href;
     if (pagina.includes(LIS_VEHICLE)) {
         if (pagina.includes(CAD_VEHICLE)) {
             $(".vehicle-register").addClass("active");
-        } else if (pagina.includes(LIS_VEHICLE)) {
-            $(".vehicle-list").addClass("active");
-        } else {
+        } else if (pagina.includes(LIS_MY_VEHICLE)) {
             $(".vehicle-client-list").addClass("active");
+        } else {
+            $(".vehicle-list").addClass("active");
         }
         $(".vehicle").addClass("active");
     }

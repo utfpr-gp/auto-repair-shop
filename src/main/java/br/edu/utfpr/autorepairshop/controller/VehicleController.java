@@ -1,11 +1,14 @@
 package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.Client;
+import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
+import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
+import br.edu.utfpr.autorepairshop.model.service.ImageService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,9 @@ public class VehicleController {
     @Autowired
     private VehicleMapper vehicleMapper;
 
+    @Autowired
+    ImageService imageService;
+
     @GetMapping
     public ModelAndView index() {
         List<Vehicle> vehicles = vehicleService.findAll();
@@ -46,6 +52,23 @@ public class VehicleController {
 
         ModelAndView mv = new ModelAndView("vehicle/index");
         mv.addObject("vehicles", vehicleDTOs);
+
+        return mv;
+    }
+
+    @GetMapping("/meus")
+    public ModelAndView myVehicles() {
+        Optional<Client> clientOptional = this.clientService.findByCredentialId(1);
+        ModelAndView mv = new ModelAndView("vehicle/my-vehicles");
+
+        if (clientOptional.isPresent()) {
+            List<Vehicle> vehicles = vehicleService.findByClientId(clientOptional.get().getId());
+
+            List<VehicleDTO> vehicleDTOs = vehicles.stream()
+                    .map(s -> vehicleMapper.toResponseDto(s))
+                    .collect(Collectors.toList());
+            mv.addObject("vehicles", vehicleDTOs);
+        }
 
         return mv;
     }
@@ -101,6 +124,12 @@ public class VehicleController {
             mv.addObject("dto", dto);
             mv.addObject("errors", errors.getAllErrors());
             return mv;
+        }
+
+        //Envia imagem e recupera URL
+        if (!dto.getFile().isEmpty()) {
+            ImageDTO image = this.imageService.upload(dto.getFile());
+            dto.setImage(image.getUrl());
         }
 
         redirectAttributes.addFlashAttribute("message", "Veículo salvo com sucesso!");
