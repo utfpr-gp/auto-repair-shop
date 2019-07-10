@@ -60,7 +60,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="service bold">
+                <li class="maintenance bold">
                     <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Atendimentos<i class="material-icons left" style="color: aliceblue">assignment_turned_in</i></a>
 
                     <div class="collapsible-body">

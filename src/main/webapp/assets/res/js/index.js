@@ -26,6 +26,8 @@ function efeitoMenu() {
     MAINTENANCES = 'atendimentos';
     FORM_VEHICLE = 'veiculos/novo';
     VEHICLES = 'veiculos';
+    FORM_CLIENT = 'clientes/novo';
+    CLIENTS = 'clientes';
 
 
     pagina = window.location.href;
@@ -33,28 +35,37 @@ function efeitoMenu() {
     if (pagina.includes(AUTO_REPAIR_SHOPS)) {
         if (pagina.includes(FORM_AUTO_REPAIR_SHOP)) {
             $(".auto-repair-shop-register").addClass("active");
-        } else if (pagina.includes(AUTO_REPAIR_SHOPS)) {
+        } else {
             $(".auto-repair-shop-list").addClass("active");
         }
-        $(".vehicle").addClass("active");
+        $(".auto-repair-shop").addClass("active");
     }
 
     if (pagina.includes(MAINTENANCES)) {
         if (pagina.includes(FORM_MAINTENANCE)) {
             $(".maintenance-register").addClass("active");
-        } else if (pagina.includes(MAINTENANCES)) {
+        } else {
             $(".maintenance-history").addClass("active");
         }
-        $(".vehicle").addClass("active");
+        $(".maintenance").addClass("active");
     }
 
     if (pagina.includes(VEHICLES)) {
         if (pagina.includes(FORM_VEHICLE)) {
             $(".vehicle-register").addClass("active");
-        } else if (pagina.includes(VEHICLES)) {
+        } else {
             $(".vehicle-list").addClass("active");
         }
         $(".vehicle").addClass("active");
+    }
+
+    if (pagina.includes(CLIENTS)) {
+        if (pagina.includes(FORM_CLIENT)) {
+            $(".client-register").addClass("active");
+        } else {
+            $(".client-list").addClass("active");
+        }
+        $(".client").addClass("active");
     }
 
 }
