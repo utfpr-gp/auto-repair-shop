@@ -9,6 +9,12 @@
             <c:if test="${not empty message}">
                 <script>M.toast({html: "${message}", classes: 'rounded'})</script>
             </c:if>
+            
+            <c:if test="${not empty messageError}">
+                <div class="card-panel red">
+                	<span class="white-text">${messageError}</span><br>                    
+                </div>
+            </c:if>
 
             <c:if test="${not empty errors}">
                 <div class="card-panel red">
@@ -17,6 +23,7 @@
                     </c:forEach>
                 </div>
             </c:if>
+           
             <div class="row">
                 <div class="col s12">
                     <div class="row">
@@ -27,48 +34,48 @@
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">person</i>
-                                            <input id="name" name="name" type="text">
+                                            <input id="name" name="name" type="text" value="${dto.name}">
                                             <label for="name">Nome completo</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                            <input id="cep" name="cep" type="text" value="${dto.address.cep}">
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <input id="state" name="state" type="text" value="${dto.address.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="city" name="city" type="text" value="${dto.city}">
+                                            <input id="city" name="city" type="text" value="${dto.address.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="street" name="street" type="text" value="${dto.street}">
+                                            <input id="street" name="street" type="text" value="${dto.address.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="number" name="number" type="text" value="${dto.number}">
+                                            <input id="number" name="number" type="text" value="${dto.address.number}">
                                             <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
-                                            <input id="telephone" name="telephone" type="text" placeholder="(DD) ?XXXX-XXXX">
+                                            <input id="telephone" name="telephone" type="text" placeholder="(DD) ?XXXX-XXXX" value="${dto.telephone}">
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone_android</i>
-                                            <input id="cellular" name="cellular" type="text" placeholder="(DD) ?XXXX-XXXX">
+                                            <input id="cellular" name="cellular" type="text" placeholder="(DD) ?XXXX-XXXX" value="${dto.cellular}">
                                             <label for="cellular">Celular</label>
                                         </div>
                                     </div>
                                     <h5 class="header">Dados de acesso</h5>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">email</i>
-                                        <input id="email" type="email" name="email" class="validate">
+                                        <input id="email" type="email" name="email" class="validate" value="${dto.credential.email}">
                                         <label for="email">Email</label>
                                     </div>
                                     <div class="input-field col s6">

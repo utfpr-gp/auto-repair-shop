@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,12 @@ public class EmployeeController {
 		ModelAndView mv = new ModelAndView("employee/form");
 		return mv;
 	}
+	
+	@GetMapping("/editar")
+	public ModelAndView showFormEditar() {
+		ModelAndView mv = new ModelAndView("employee/edit");
+		return mv;
+	}
 
 	@GetMapping
 	public ModelAndView index() {
@@ -70,31 +77,33 @@ public class EmployeeController {
 	}
 
 	@PostMapping
-	public ModelAndView save(@Validated EmployeeDTO employeeDto, Errors errors, RedirectAttributes redirectAttributes) {
+	public ModelAndView save(@Validated EmployeeDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("employee/form");
-			mv.addObject("dto", employeeDto);
+			mv.addObject("dto", dto);
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
 
-		redirectAttributes.addFlashAttribute("message", "Funcionário salvo com sucesso!");
-
-		Address address = addressMapper.toEntity(employeeDto);
-		Credential credential = credentialMapper.toEntity(employeeDto);
+		Address address = addressMapper.toEntity(dto);
+		Credential credential = credentialMapper.toEntity(dto);
 		credential.setRole("funcionario");
 
 		Optional<Credential> c = credentialService.findByEmail(credential.getEmail());
 		if (c.isPresent()) {
-			throw new EntityNotFoundException("O email informado já esta em uso");
+			ModelAndView mv = new ModelAndView("redirect:funcionarios/novo");
+			mv.addObject("dto", dto);
+			redirectAttributes.addFlashAttribute("messageError", "Email já utilizado");
+			return mv;
 		}
 
-		employeeDto.setAddress(address);
-		employeeDto.setCredential(credential);
+		dto.setAddress(address);
+		dto.setCredential(credential);
 
-		Employee employee = employeeMapper.toEntity(employeeDto);
+		Employee employee = employeeMapper.toEntity(dto);
 
 		employeeService.save(employee);
+		redirectAttributes.addFlashAttribute("message", "Funcionário salvo com sucesso!");
 		return new ModelAndView("redirect:funcionarios");
 	}
 
@@ -114,38 +123,33 @@ public class EmployeeController {
 	}
 
 	@PutMapping
-	public ModelAndView update(@Validated EmployeeDTO employeeDto, Errors errors,
-			RedirectAttributes redirectAttributes) {
+	public ModelAndView update(@Valid EmployeeDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
 		if (errors.hasErrors()) {
-			ModelAndView mv = new ModelAndView("funcionarios/edit");
-			mv.addObject("dto", employeeDto);
+			ModelAndView mv = new ModelAndView("redirect:funcionarios/editar/");
+			mv.addObject("dto", dto);
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
 
-		Optional<Employee> employee = employeeService.findById(employeeDto.getId());
-		if (!employee.isPresent()) {
-			throw new EntityNotFoundException("O funcionario não foi encontrada pelo id informado.");
-		}
+		Address address = addressMapper.toEntity(dto);
+		Credential credential = credentialMapper.toEntity(dto);
 		
-		Address address = addressMapper.toEntity(employeeDto);
-		Credential credential = credentialMapper.toEntity(employeeDto);
-		
+		Optional<Employee> employee = employeeService.findById(dto.getId());
 		Optional<Credential> c = credentialService.findByEmail(employee.get().getCredential().getEmail());
-		System.out.println(c.get().getEmail());
-		System.out.println(credential.getEmail());
+		
 		if (c.isPresent()) {
 			if (!c.get().getEmail().equals(credential.getEmail())) {
-				throw new EntityNotFoundException("O email informado já esta em uso");
+				ModelAndView mv = new ModelAndView("redirect:funcionarios/editar");
+				mv.addObject("dto", dto);
+				redirectAttributes.addFlashAttribute("messageError", "Email já utilizado");
+				return mv;
 			}
 		}
 
-		Employee emp = employeeMapper.toEntity(employeeDto);
+		Employee emp = employeeMapper.toEntity(dto);
 		emp.setAddress(address);
 		emp.setCredential(credential);
-
 		employeeService.save(emp);
-
 		redirectAttributes.addFlashAttribute("message", "Funcionário atualizada com sucesso!");
 		return new ModelAndView("redirect:funcionarios/");
 	}

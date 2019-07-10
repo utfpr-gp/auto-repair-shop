@@ -1,3 +1,5 @@
+
+
 package br.edu.utfpr.autorepairshop.model.dto;
 
 import javax.validation.constraints.Email;
@@ -24,7 +26,11 @@ public class EmployeeDTO {
 	private String name;
 	
 	@NotEmpty(message = "O Telefone da Oficina é obrigatório")
-	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")	private String telephone;
+	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")	
+	private String telephone;
+	
+	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Celular em formato inválido")	
+	private String cellular;
 
 	@NotEmpty(message = "Por favor informe o cep.")
 	private String cep;

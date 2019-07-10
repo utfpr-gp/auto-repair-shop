@@ -30,13 +30,15 @@ public class Employee {
 	private AutoRepairShop autoRepairShop;
 	private String name;
 	private String telephone;
+	private String cellular;
 
-	public Employee(Credential credential, AutoRepairShop autoRepairShop, Address address, String name,
+	public Employee(Credential credential, AutoRepairShop autoRepairShop, Address address, String name, String cellular,
 			String telephone) {
 		this.credential = credential;
 		this.autoRepairShop = autoRepairShop;
 		this.address = address;
 		this.name = name;
 		this.telephone = telephone;
+		this.cellular = cellular;
 	}
 }
