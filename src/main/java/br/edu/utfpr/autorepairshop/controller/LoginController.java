@@ -50,8 +50,7 @@ public class LoginController {
 	
 	@PostMapping
 	public ModelAndView generateToken(@Validated JwtAuthenticationDTO dto, Errors errors, RedirectAttributes redirectAttributes, HttpServletResponse response) throws AuthenticationException{
-		log.info("Gerando token parte 1");
-		
+
 		if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("login/form");
             mv.addObject("dto", dto);
@@ -60,7 +59,6 @@ public class LoginController {
             return mv;
         }
 		
-		log.info("Gerando token parte 2");
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -71,7 +69,9 @@ public class LoginController {
         cookieToken.setMaxAge(60*60*24); //24 hour
 
 		response.addCookie(cookieToken);
-		return new ModelAndView("redirect:oficinas");
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("dto", dto);
+		return mv;
 	}	
 
 }

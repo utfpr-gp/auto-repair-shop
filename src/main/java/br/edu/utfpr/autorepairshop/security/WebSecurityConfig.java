@@ -26,8 +26,8 @@ import com.google.common.collect.ImmutableList;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String[] PUBLIC_MATCHERS = {"/", "/login", "/assets/**", "/h2-console/**", "/v2/api-docs", "/swagger-ui.html",
-			"/swagger-resources/**", "/configuration/ui", "/configuration/security", "/webjars/**", "/auth"};
+	private static final String[] PUBLIC_MATCHERS = {"/", "/login", "/assets/**", "/*.html", "/favicon.ico", "/**/*.html",
+			"/**/*.css", "/**/*.js"};
 
 	private static final String[] PUBLIC_MATCHERS_WRITE = {"/login"};
 	

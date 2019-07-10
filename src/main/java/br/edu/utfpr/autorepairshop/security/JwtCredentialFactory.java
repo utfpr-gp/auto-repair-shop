@@ -10,9 +10,7 @@ import br.edu.utfpr.autorepairshop.model.Credential;
 
 public class JwtCredentialFactory {
 	
-	private JwtCredentialFactory() {
-		// TODO Auto-generated constructor stub
-	}
+	private JwtCredentialFactory() {}
 	
 	public static JwtCredential create(Credential credential) {
 		return new JwtCredential(credential.getId(), credential.getEmail(), credential.getPassword(), 

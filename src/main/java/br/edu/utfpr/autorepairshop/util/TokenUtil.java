@@ -1,5 +1,6 @@
 package br.edu.utfpr.autorepairshop.util;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +14,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
-public class TokenUtil {
+public class TokenUtil implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	static final String CLAIM_KEY_USERNAME = "sub";
-	static final String CLAIM_KEY_ROLE = "role";
-	static final String CLAIM_KEY_CREATED = "created";
+	static final String CLAIM_KEY_ROLE = "created";
+	static final String CLAIM_KEY_CREATED = "exp";
 	
 	@Value("$(jwt.secret}")
 	private String secret;
