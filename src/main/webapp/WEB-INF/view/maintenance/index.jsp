@@ -19,25 +19,26 @@
                                 <table class="highlight centered">
                                     <thead>
                                     <tr>
-                                        <th>Mecânico</th>
-                                        <th>Cliente</th>
                                         <th>Veiculo</th>
                                         <th>Descrição</th>
+                                        <th>Preço das partes</th>
+                                        <th>Preço da mão-de-obra</th>
                                         <th>Preço total</th>
                                         <th>Data</th>
+                                        <th>Hora</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <c:forEach var="s" items="${services}">
+                                    <c:forEach var="s" items="${maintenances}">
                                         <tr>
-                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver informações sobre o mecânico" href="#modal-mechanic-${s.id}">${s.employee.name}</a></td>
-                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver informações sobre o cliente" href="#modal-client-${s.id}">${s.client.name}</a></td>
-                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver mais informações sobre este veiculo" href="#modal-vehicle-${s.id}">${s.vehicle.model}</a>
-                                            </td>
+                                            <td>${s.vehicle.placa}</td>
                                             <td>${s.description}</td>
-                                            <td><a class="waves-effect waves-light btn-flat modal-trigger tooltipped" data-position="bottom" data-tooltip="Clique para ver detalhes sobre o custo" href="#modal-price-${s.id}">R$ ${s.totalPrice}</a></td>
+                                            <td>R$ ${s.priceParts}</td>
+                                            <td>R$ ${s.priceHandWork}</td>
+                                            <td>R$ ${s.totalPrice}</td>
                                             <td>${s.date}</td>
+                                            <td>${s.hour}</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -67,8 +68,6 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <h5 class="header">Imagem do veiculo</h5>
-                                            <img class="materialboxed tooltipped" data-position="bottom" data-tooltip="Clique na imagem para expandir ou retornar ao tamanho normal" width="150" src="vehicle${s.vehicle.id}.png">
                                         </div>
 
                                         <div class="modal-footer">
@@ -76,15 +75,6 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-                                <ul class="pagination right">
-                                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                                    <li class="active"><a href="#!">1</a></li>
-                                    <li class="waves-effect"><a href="#!">2</a></li>
-                                    <li class="waves-effect"><a href="#!">3</a></li>
-                                    <li class="waves-effect"><a href="#!">4</a></li>
-                                    <li class="waves-effect"><a href="#!">5</a></li>
-                                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>

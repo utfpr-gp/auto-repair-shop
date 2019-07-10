@@ -23,7 +23,8 @@
                         <div class="col s12 form">
                             <div class="content-form">
                                 <div class="title-form">Cadastro de atendimento</div>
-                                <form method="post">
+                                <form action="atendimentos" method="post">
+                                	<input name="registration" type="hidden" value="${dto.registration}"/>
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">date_range</i>
@@ -39,10 +40,10 @@
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">directions_car</i>
-                                            <select>
+                                            <select id="vehicle" name="vehicle">
                                                 <option value="" disabled selected>Selecione</option>
-                                                <c:forEach var="v" items="${vehicles}">
-                                                    <option value="${v.id}">${v.model} - ${v.placa} - ${v.client.name}</option>
+                                                <c:forEach var="v" items="${vehiclesDto}">
+                                                    <option value="${v.id}">${v.model} - ${v.placa}</option>
                                                 </c:forEach>
                                             </select>
                                             <label>Veiculo</label>
@@ -65,45 +66,28 @@
                                             <label for="description">Descrição</label>
                                         </div>
                                     </div>
-                                    <div class="input-field col s12">
-                                        <h5 class="header">Peças</h5>
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" name="pieces[]" value="1" />
-                                                <span>Motor</span>
-                                            </label>
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" name="pieces[]" value="2" />
-                                                <span>Radiador</span>
-                                            </label>
-                                        </p>
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" name="pieces[]" value="3" />
-                                                <span>Pneus</span>
-                                            </label>
-                                        </p>
-                                    </div>
                                     <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="input-field col s4">
                                             <i class="material-icons prefix">attach_money</i>
-                                            <input id="pieces-price" name="pieces-price" type="text">
-                                            <label for="pieces-price">Preço das peças ou produtos</label>
+                                            <input id="priceParts" name="priceParts" type="text">
+                                            <label for="priceParts">Preço das peças</label>
 
                                         </div>
-                                        <div class="input-field col s6">
+                                        <div class="input-field col s4">
                                             <i class="material-icons prefix">monetization_on</i>
-                                            <input id="price" name="price" type="text">
-                                            <label for="price">Mão de obra</label>
-
+                                            <input id="priceHandWork" name="priceHandWork" type="text">
+                                            <label for="priceHandWork">Mão de obra</label>
                                         </div>
-                                    </div>
+                                        
+                                        <div class="input-field col s4">
+                                            <i class="material-icons prefix">monetization_on</i>
+                                            <input id="totalPrice" name="totalPrice" type="text">
+                                            <label for="totalPrice">Preço total</label>
+                                        </div>                                        
+                                    </div>                                  
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar atendimento</button>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
