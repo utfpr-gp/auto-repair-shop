@@ -55,6 +55,8 @@ public class VehicleController {
 
     @GetMapping("/meus")
     public ModelAndView myVehicles() {
+//        JwtUser currentUser = (JwtUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //todo após login pronto descomentar código acima alterar o 1 abaxo por currentUser.getId();
         Optional<Client> clientOptional = this.clientService.findByCredentialId(1);
         ModelAndView mv = new ModelAndView("vehicle/my-vehicles");
 
