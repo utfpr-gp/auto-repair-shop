@@ -1,5 +1,6 @@
 package br.edu.utfpr.autorepairshop.controller;
 
+import br.edu.utfpr.autorepairshop.model.BrandEnum;
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
@@ -63,7 +64,7 @@ public class VehicleController {
                 .collect(Collectors.toList());
         ModelAndView mv = new ModelAndView("vehicle/form");
         mv.addObject("clientsDto", clientsDto);
-
+        mv.addObject("brand", BrandEnum.getValues());
         return mv;
     }
 
