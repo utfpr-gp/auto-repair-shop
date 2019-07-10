@@ -75,7 +75,7 @@
                                 <a href="#">Relatório de atendimento<i id="service-report-icon" class="material-icons left">assessment</i></a>
                             </li>
                             <li class="service-client">
-                                <a href="#">Estrato de atendimento<i id="service-client-icon" class="material-icons left">assignment_returned</i></a>
+                                <a href="#">Extrato de atendimento<i id="service-client-icon" class="material-icons left">assignment_returned</i></a>
                             </li>
                         </ul>
                     </div>
@@ -106,7 +106,7 @@
                                 <a href="clientes/novo">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
                             </li>
                             <li class="client-list">
-                                <a href="#">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                <a href="#">Lista de clientes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
                             </li>
                         </ul>
                     </div>
