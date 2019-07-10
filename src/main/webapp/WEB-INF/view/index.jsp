@@ -6,7 +6,7 @@
     <jsp:body>
         <div class="container">
             <h1>Início</h1>
-            <h1>Bem vindo(a) ${dto.email}</h1>
+            <h1>Bem vindo(a)</h1>
         </div>
     </jsp:body>
 </t:template>

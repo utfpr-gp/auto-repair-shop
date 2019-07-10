@@ -70,8 +70,6 @@ public class LoginController {
 
 		response.addCookie(cookieToken);
 		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("dto", dto);
 		return mv;
 	}	
-
 }
