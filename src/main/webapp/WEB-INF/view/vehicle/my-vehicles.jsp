@@ -6,7 +6,7 @@
 <t:template title="Veículos">
     <jsp:body>
         <div class="container">
-            <h1 class="header">Veículos</h1>
+            <h1 class="header">Meus Veículos</h1>
             <a href="veiculos/novo" class="btn-floating btn-small waves-effect waves-light blue"><i
                     class="material-icons" title="Cadastrar veículo">add</i></a>
             <c:if test="${not empty vehicles}">
@@ -17,7 +17,6 @@
                         <th>Modelo</th>
                         <th>Marca</th>
                         <th>Placa</th>
-                        <th>Atendimentos</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -29,10 +28,10 @@
                             <td>${vehicle.model}</td>
                             <td>${vehicle.color}</td>
                             <td>${vehicle.placa}</td>
-                            <td><a href="atendimentos/${vehicle.registration}" target="_blank">Atendimentos</a></td>
                             <td>
                                 <a href="veiculos/${vehicle.registration}"><i class="material-icons">edit</i></a>
                                 <a href="#modal-delete" class="modal-trigger" data-url="${pageContext.request.contextPath}/veiculos/${vehicle.id}" data-name="${vehicle.placa}"><i class="material-icons red-text">delete</i></a>
+
                             </td>
                         </tr>
                     </c:forEach>

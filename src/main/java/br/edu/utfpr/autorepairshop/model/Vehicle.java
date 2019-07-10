@@ -22,11 +22,10 @@ public class Vehicle {
 	private String color;
 	private String placa;
 	private String type;
-	@Lob
-	private byte[] image;
+	private String image;
 
 	public Vehicle(Client client, String brand, String model, String color, String placa, String type,
-			byte[] image) {
+			String image) {
 		this.client = client;
 		this.brand = brand;
 		this.model = model;

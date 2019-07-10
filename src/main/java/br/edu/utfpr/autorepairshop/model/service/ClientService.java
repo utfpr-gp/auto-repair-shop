@@ -23,4 +23,8 @@ public class ClientService {
     }
 
     public Optional<Client> findById(Long id){return this.clientRepository.findById(id); }
+
+    public Optional<Client> findByCredentialId(long credentialId) {
+        return this.clientRepository.findByCredentialId(credentialId);
+    }
 }

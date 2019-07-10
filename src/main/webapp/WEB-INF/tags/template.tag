@@ -92,7 +92,7 @@
                                 <a href="veiculos">Todos os veículos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
                             </li>
                             <li class="vehicle-client-list">
-                                <a href="#">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
+                                <a href="veiculos/meus">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
                             </li>
                         </ul>
                     </div>
