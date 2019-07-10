@@ -1,12 +1,10 @@
 package br.edu.utfpr.autorepairshop;
 
-import br.edu.utfpr.autorepairshop.filter.AuthenticationFilter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import br.edu.utfpr.autorepairshop.model.Credential;
@@ -24,17 +22,17 @@ public class AutoRepairShopApplication {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-
-	@Bean
-	public FilterRegistrationBean authenticationFilterBean() {
-		final FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
-		filterRegBean.setFilter(new AuthenticationFilter());
-		filterRegBean.addUrlPatterns("/*");
-		filterRegBean.setEnabled(Boolean.TRUE);
-		filterRegBean.setName("Autenticação");
-		filterRegBean.setAsyncSupported(Boolean.TRUE);
-		return filterRegBean;
-	}
+//
+//	@Bean
+//	public FilterRegistrationBean authenticationFilterBean() {
+//		final FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
+//		filterRegBean.setFilter(new AuthenticationFilter());
+//		filterRegBean.addUrlPatterns("/*");
+//		filterRegBean.setEnabled(Boolean.TRUE);
+//		filterRegBean.setName("Autenticação");
+//		filterRegBean.setAsyncSupported(Boolean.TRUE);
+//		return filterRegBean;
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(AutoRepairShopApplication.class, args);

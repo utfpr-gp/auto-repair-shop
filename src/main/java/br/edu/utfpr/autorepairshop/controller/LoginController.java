@@ -69,7 +69,7 @@ public class LoginController {
         cookieToken.setMaxAge(60*60*24); //24 hour
 
 		response.addCookie(cookieToken);
-		ModelAndView mv = new ModelAndView("index");
-		return mv;
+		return new ModelAndView("redirect:oficinas");
 	}	
+
 }
