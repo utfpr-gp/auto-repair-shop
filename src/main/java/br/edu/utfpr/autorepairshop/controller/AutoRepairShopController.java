@@ -28,8 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequestMapping("/oficinas")
+@PreAuthorize("hasAnyRole('ADMIN')")
 @Controller
-
 public class AutoRepairShopController {
 	@Autowired
 	private AutoRepairShopMapper autoRepairShopMapper;
@@ -41,7 +41,6 @@ public class AutoRepairShopController {
 	ImageService ImageController;
 
 	@GetMapping
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView index() {
 
 		List<AutoRepairShop> auto = autoRepairShopService.findAll();

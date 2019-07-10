@@ -11,6 +11,7 @@ import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,7 @@ public class ClientController {
     }
 
     @GetMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showNewClientForm(){
 
         ModelAndView mv = new ModelAndView("client/form");
@@ -51,6 +53,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showFormForUpdate(@PathVariable("id") Long id){
         ModelAndView mv = new ModelAndView("client/form");
 
@@ -66,6 +69,7 @@ public class ClientController {
     }
 
     @PostMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView save(@Validated ClientDataDTO clientDataDTO,
                              Errors errors,
                              RedirectAttributes redirectAttributes){
@@ -92,7 +96,4 @@ public class ClientController {
 
         return new ModelAndView("redirect:novo");
     }
-
-
-
 }

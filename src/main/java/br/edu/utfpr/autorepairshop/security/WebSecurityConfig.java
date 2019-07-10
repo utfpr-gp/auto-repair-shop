@@ -1,11 +1,8 @@
 package br.edu.utfpr.autorepairshop.security;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -15,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -34,9 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			"/swagger-resources/**", "/configuration/ui", "/configuration/security", "/webjars/**", "/auth"};
 
 	private static final String[] PUBLIC_MATCHERS_WRITE = {"/login"};
-	
-	@Autowired
-	private Environment environment;
 	
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
@@ -61,8 +54,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		ifEnvTestConfigureH2(http);
-		
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll()
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_WRITE).permitAll().anyRequest().authenticated().and()
 		.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
@@ -73,12 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers().cacheControl();
 
 	}
-
-//    private void ifEnvTestConfigureH2(HttpSecurity http) throws Exception {
-//        if (Arrays.asList(environment.getActiveProfiles()).contains("test")) {
-//            http.headers().frameOptions().disable();
-//        }
-//    }
     
 	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
 	@Override

@@ -9,7 +9,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
 @Component
 @Order(1)
 public class AuthenticationFilter implements Filter {

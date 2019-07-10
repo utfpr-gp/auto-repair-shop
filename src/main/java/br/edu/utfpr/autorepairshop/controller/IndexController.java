@@ -1,20 +1,26 @@
-package br.edu.utfpr.autorepairshop.controller;
+ADMINISTRADOR -> 
+	Cadastra veículos
+	Cadastra oficina
+	Cadastra clientes
+	Cadastra funcionário	
+	Visualiza histórico de atendimento
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping("/")
-@Controller
-public class IndexController {
+FUNCIONARIO ->
+	Cadastra atendimentos
 
-	public static final Logger log = LoggerFactory.getLogger(IndexController.class);
-	
-	@GetMapping
-	public ModelAndView showIndex() {
-		return new ModelAndView("redirect:login");
-	}
-}
+
+
+
+
+GERENTE ->
+
+
+
+
+
+
+CLIENTE ->
+	Histórico de manutenção
+	Visualizar os veículos
+	Extrato de cada atendimento
