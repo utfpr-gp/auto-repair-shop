@@ -17,6 +17,7 @@
                         <th>Modelo</th>
                         <th>Marca</th>
                         <th>Placa</th>
+                        <th>Atendimentos</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -28,6 +29,7 @@
                             <td>${vehicle.model}</td>
                             <td>${vehicle.color}</td>
                             <td>${vehicle.placa}</td>
+                            <td><a href="atendimentos/${vehicle.registration}" target="_blank">Atendimentos</a></td>
                             <td>
                                 <a href="veiculos/${vehicle.registration}"><i class="material-icons">edit</i></a>
                             </td>

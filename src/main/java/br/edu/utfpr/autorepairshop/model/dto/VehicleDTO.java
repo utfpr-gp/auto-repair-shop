@@ -15,6 +15,8 @@ import javax.validation.constraints.*;
 @ToString
 public class VehicleDTO {
 
+	private Long id;
+	
     private Long registration;
 
     private Client client;

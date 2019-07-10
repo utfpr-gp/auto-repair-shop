@@ -66,10 +66,10 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="service-register">
-                                <a href="#">Cadastro de atendimento<i id="service-register-icon" class="material-icons left">note_add</i></a>
+                                <a href="atendimentos/novo">Cadastro de atendimento<i id="service-register-icon" class="material-icons left">note_add</i></a>
                             </li>
                             <li class="service-history">
-                                <a href="#">Histórico de atendimento<i id="service-history-icon" class="material-icons left">assignment</i></a>
+                                <a href="atendimentos">Histórico de atendimento<i id="service-history-icon" class="material-icons left">assignment</i></a>
                             </li>
                             <li class="service-report">
                                 <a href="#">Relatório de atendimento<i id="service-report-icon" class="material-icons left">assessment</i></a>
