@@ -32,9 +32,9 @@ public class Maintenance {
 	@ManyToOne
 	private Vehicle vehicle;
 	@Column(name = "total_price")
-	private Double totalPrice;
+	private Long totalPrice;
 	@Column(name = "price_hand_work")
-	private Double priceHandWork;
+	private Long priceHandWork;
 	private Date date;
 	private String hour;
 	private String description;
@@ -43,10 +43,10 @@ public class Maintenance {
 	// no banco será
 	// implementado a modelagem das peças para uma futura atualização.
 	@Column(name = "price_parts")
-	private String priceParts;
+	private Long priceParts;
 
 	public Maintenance(Client client, Employee employee, AutoRepairShop autoRepairShop,
-			Vehicle vehicle, Double totalPrice, Double priceHandWork, String priceParts, Date date, String hour,
+			Vehicle vehicle, Long totalPrice, Long priceHandWork, Long priceParts, Date date, String hour,
 			String description) {
 		this.client = client;
 		this.employee = employee;
