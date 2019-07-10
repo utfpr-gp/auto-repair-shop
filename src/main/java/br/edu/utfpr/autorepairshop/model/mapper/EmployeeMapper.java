@@ -32,7 +32,14 @@ public class EmployeeMapper {
 
 	public EmployeeDTO toResponseDto(Employee entity) {
 		EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
-		dto.setAddressDTO(address.toDto(entity.getAddress()));
+		//dto.setAddressDTO(address.toDto(entity.getAddress()));
+		dto.setCep(entity.getAddress().getCep());
+		dto.setCity(entity.getAddress().getCity());
+		dto.setNumber(entity.getAddress().getNumber());
+		dto.setState(entity.getAddress().getState());
+		dto.setStreet(entity.getAddress().getStreet());
+		dto.setEmail(entity.getCredential().getEmail());
+		dto.setPassword(entity.getCredential().getPassword());
 		return dto;
 	}
 }

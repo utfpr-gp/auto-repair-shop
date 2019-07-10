@@ -2,6 +2,7 @@
 
 package br.edu.utfpr.autorepairshop.model.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -57,8 +58,5 @@ public class EmployeeDTO {
 	private String role;
 
 	private Address address;
-	
-	private AddressDTO addressDTO;
-
 	private Credential credential;
 }
