@@ -45,8 +45,12 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">local_offer</i>
-                                            <input id="brand" name="brand" type="text" value="${dto.brand}">
-                                            <label for="brand">Marca</label>
+                                            <select id="client" name="client">
+                                                <option value="" disabled selected>Selecione</option>
+                                                <c:forEach var="b" items="${brand}">
+                                                    <option value="${b}">${b}</option>
+                                                </c:forEach>
+                                            </select>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">directions_car</i>
