@@ -27,6 +27,7 @@ import br.edu.utfpr.autorepairshop.model.dto.EmployeeDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.AddressMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.CredentialMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.EmployeeMapper;
+import br.edu.utfpr.autorepairshop.model.service.AddressService;
 import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.model.service.EmployeeService;
 
@@ -36,6 +37,9 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	AddressService addressService;
 
 	@Autowired
 	AddressMapper addressMapper;
@@ -117,7 +121,7 @@ public class EmployeeController {
 		return new ModelAndView("redirect:funcionarios");
 	}
 
-	@PutMapping
+	@PostMapping("/update")
 	public ModelAndView update(@Validated EmployeeDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
 
 		if (errors.hasErrors()) {
@@ -150,6 +154,6 @@ public class EmployeeController {
 		Employee emp = employeeMapper.toEntity(dto);
 		employeeService.save(emp);
 		redirectAttributes.addFlashAttribute("message", "Funcionário atualizado com sucesso!");
-		return new ModelAndView("redirect:funcionarios");
+		return new ModelAndView("redirect:/funcionarios");
 	}
 }
