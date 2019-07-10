@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
 import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
 import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
@@ -14,6 +17,8 @@ import br.edu.utfpr.autorepairshop.model.service.AutoRepairShopService;
 import br.edu.utfpr.autorepairshop.model.service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +33,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequestMapping("/oficinas")
 @Controller
-
 public class AutoRepairShopController {
 	@Autowired
 	private AutoRepairShopMapper autoRepairShopMapper;
@@ -39,7 +43,9 @@ public class AutoRepairShopController {
 	@Autowired
 	ImageService ImageController;
 
+
 	@GetMapping
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView index() {
 
 		List<AutoRepairShop> auto = autoRepairShopService.findAll();

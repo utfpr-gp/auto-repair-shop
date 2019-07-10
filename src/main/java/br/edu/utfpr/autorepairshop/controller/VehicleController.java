@@ -8,6 +8,7 @@ import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -51,6 +52,7 @@ public class VehicleController {
     }
 
     @GetMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showForm() {
         List<Client> clients = clientService.findAll();
         List<ClientToFormDTO> clientsDto = clients.stream()
@@ -68,6 +70,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
         ModelAndView mv = new ModelAndView("vehicle/form");
@@ -95,6 +98,7 @@ public class VehicleController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView save(@Validated VehicleDTO  dto, Errors errors, RedirectAttributes redirectAttributes) {
         if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("vehicle/form");
