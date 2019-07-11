@@ -3,6 +3,7 @@ package br.edu.utfpr.autorepairshop.model.service;
 import java.util.List;
 import java.util.Optional;
 
+import br.edu.utfpr.autorepairshop.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ public class CredentialService {
 
 	@Transactional
 	public Credential save(Credential credential) {
+		credential.setPassword(PasswordUtil.generateBCrypt(credential.getPassword()));
 		return repository.save(credential);
 	}
 
