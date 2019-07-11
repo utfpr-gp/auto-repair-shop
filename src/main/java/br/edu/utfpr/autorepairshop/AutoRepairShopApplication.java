@@ -1,7 +1,7 @@
 package br.edu.utfpr.autorepairshop;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +27,22 @@ public class AutoRepairShopApplication {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
+//
+//	@Bean
+//	public FilterRegistrationBean authenticationFilterBean() {
+//		final FilterRegistrationBean filterRegBean = new FilterRegistrationBean();
+//		filterRegBean.setFilter(new AuthenticationFilter());
+//		filterRegBean.addUrlPatterns("/*");
+//		filterRegBean.setEnabled(Boolean.TRUE);
+//		filterRegBean.setName("Autenticação");
+//		filterRegBean.setAsyncSupported(Boolean.TRUE);
+//		return filterRegBean;
+//	}
 
 	public static void main(String[] args) {
-
-		ArrayList<String> marcas = BrandEnum.getValues();
-
-		for(String marca : marcas)
-			System.out.println(marca + "333333333333333333333333333333333333333333333333");
-
 		SpringApplication.run(AutoRepairShopApplication.class, args);
 	}
-
+  
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
