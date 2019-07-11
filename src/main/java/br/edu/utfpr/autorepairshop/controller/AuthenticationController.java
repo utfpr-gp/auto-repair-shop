@@ -28,16 +28,12 @@ import br.edu.utfpr.autorepairshop.util.TokenUtil;
 
 import java.util.Optional;
 
-import static br.edu.utfpr.autorepairshop.security.RoleEnum.*;
-
 @RequestMapping("/")
 @CrossOrigin
 @Controller
 public class AuthenticationController {
 
 	public static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
-	private static final String TOKEN_HEADER = "Authorization";
-	private static final String BEARER_PREFIX = "Bearer ";
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;

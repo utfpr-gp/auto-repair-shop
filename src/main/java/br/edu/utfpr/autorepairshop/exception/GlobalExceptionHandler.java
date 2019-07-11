@@ -36,6 +36,13 @@ public class GlobalExceptionHandler {
 		return new ModelAndView("redirect:login");
 	}
 
+	// se o usuario acessar uma pagina que nao tem permicao é deslogado
+	@ExceptionHandler(value = AccessDeniedException.class)
+	public ModelAndView accessDanied(HttpServletRequest req, Exception e, RedirectAttributes redirectAttributes) throws Exception {
+		return new ModelAndView("redirect:log-out");
+	}
+
+
 	/**
 	 *
 	 * Tratador genérico de exceptions.
@@ -45,10 +52,6 @@ public class GlobalExceptionHandler {
 	 * @return
 	 * @throws Exception
 	 */
-	@ExceptionHandler(value = AccessDeniedException.class)
-	public ModelAndView acessDanied(HttpServletRequest req, Exception e, RedirectAttributes redirectAttributes) throws Exception {
-		return new ModelAndView("redirect:log-out");
-	}
 
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {

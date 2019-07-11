@@ -71,12 +71,14 @@ public class AutoRepairShopController {
 	}
 
 	@GetMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView showForm() {
 		ModelAndView mv = new ModelAndView("auto-repair-shop/form");
 		return mv;
 	}
 
 	@GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
 		ModelAndView mv = new ModelAndView("auto-repair-shop/edit");
@@ -93,6 +95,7 @@ public class AutoRepairShopController {
 	}
 
 	@PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView save(@Validated AutoRepairShopDTO dto, @Validated CredentialDTO managerDto, Errors errors, RedirectAttributes redirectAttributes)
 			throws ParseException {
 
@@ -135,6 +138,7 @@ public class AutoRepairShopController {
 	}
 
 	@PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView update(@Validated AutoRepairShopDTO dto, Errors errors, RedirectAttributes redirectAttributes)
 			throws ParseException {
 
@@ -160,6 +164,7 @@ public class AutoRepairShopController {
 	}
 
 	@DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
 
 		Optional<AutoRepairShop> o = autoRepairShopService.findById(id);

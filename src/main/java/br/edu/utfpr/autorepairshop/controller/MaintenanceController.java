@@ -45,7 +45,6 @@ public class MaintenanceController {
     private MaintenanceMapper maintenanceMapper;
     
     @GetMapping
-    @PreAuthorize("hasAnyRole('MANAGER')")
     public ModelAndView index() {
         List<Maintenance> maintenances = maintenanceService.findAll();
 
