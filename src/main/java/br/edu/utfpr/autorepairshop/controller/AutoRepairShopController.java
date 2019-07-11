@@ -10,12 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
+import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
+import br.edu.utfpr.autorepairshop.model.dto.CredentialDTO;
 import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.AutoRepairShopMapper;
+import br.edu.utfpr.autorepairshop.model.mapper.CredentialMapper;
 import br.edu.utfpr.autorepairshop.model.service.AutoRepairShopService;
+import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.model.service.ImageService;
 
+import br.edu.utfpr.autorepairshop.security.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,7 +43,13 @@ public class AutoRepairShopController {
 	private AutoRepairShopMapper autoRepairShopMapper;
 
 	@Autowired
+	private CredentialMapper credentialMapper;
+
+	@Autowired
 	private AutoRepairShopService autoRepairShopService;
+
+	@Autowired
+	private CredentialService credentialService;
 	
 	@Autowired
 	ImageService ImageController;
@@ -82,23 +93,41 @@ public class AutoRepairShopController {
 	}
 
 	@PostMapping
-	public ModelAndView save(@Validated AutoRepairShopDTO dto, Errors errors, RedirectAttributes redirectAttributes)
+	public ModelAndView save(@Validated AutoRepairShopDTO dto, @Validated CredentialDTO managerDto, Errors errors, RedirectAttributes redirectAttributes)
 			throws ParseException {
 
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("auto-repair-shop/form");
 			mv.addObject("dto", dto);
+			mv.addObject("managerDto", managerDto);
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
+
+		Optional<Credential> c = credentialService.findByEmail(managerDto.getEmail());
+
+		if (c.isPresent()) {
+			ModelAndView mv = new ModelAndView("auto-repair-shop/form");
+			mv.addObject("dto", dto);
+			mv.addObject("managerDto", managerDto);
+			mv.addObject("message", "Gerente ja cadastrado");
+			return mv;
+		}
+
+		Credential manager = credentialMapper.toEntity(managerDto);
+		manager.setRole(RoleEnum.ROLE_MANAGER);
 		
 		//Envia imagem e recupera URL
 		if (!dto.getFile().isEmpty()) {
 			ImageDTO image = ImageController.upload(dto.getFile());
 			dto.setImage(image.getUrl());
 		}
+
+
 		
 		AutoRepairShop auto = autoRepairShopMapper.toEntity(dto);
+		credentialService.save(manager);
+		auto.setManager(manager);
 		autoRepairShopService.save(auto);
 		redirectAttributes.addFlashAttribute("message", "Oficina salva com sucesso!");
 

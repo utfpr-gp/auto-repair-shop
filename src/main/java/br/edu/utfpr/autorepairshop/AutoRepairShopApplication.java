@@ -1,5 +1,6 @@
 package br.edu.utfpr.autorepairshop;
 
+import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +17,7 @@ import br.edu.utfpr.autorepairshop.util.PasswordUtil;
 public class AutoRepairShopApplication {
 
 	@Autowired
-	public CredentialRepository credentialRepository;
+	public CredentialService credentialService;
 	
 	@Bean
 	public ModelMapper modelMapper() {
@@ -44,8 +45,8 @@ public class AutoRepairShopApplication {
 			Credential credential = new Credential();
 			credential.setEmail("admin@utfpr.edu.br"); 
 			credential.setRole(RoleEnum.ROLE_ADMIN);
-			credential.setPassword(PasswordUtil.generateBCrypt("admin"));
-			credentialRepository.save(credential);
+			credential.setPassword("admin");
+			credentialService.save(credential);
 		};
 	}
 }

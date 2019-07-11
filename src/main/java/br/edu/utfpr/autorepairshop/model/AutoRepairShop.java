@@ -9,12 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "auto_repair_shop")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class AutoRepairShop {
 	@Id
@@ -26,6 +28,8 @@ public class AutoRepairShop {
 	private String cnpj;
 	private String telephone;
 	private String image;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Credential manager;
 
 	public AutoRepairShop(Address adress, String name, String cnpj, String telephone,
 			String image) {

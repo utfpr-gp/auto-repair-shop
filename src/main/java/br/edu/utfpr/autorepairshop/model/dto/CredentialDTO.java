@@ -3,6 +3,7 @@ package br.edu.utfpr.autorepairshop.model.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import br.edu.utfpr.autorepairshop.security.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class JwtAuthenticationDTO {
+public class CredentialDTO {
 
 	@NotEmpty(message = "O email não pode ser vazio.")
 	@Email(message = "O email é inválido.")
@@ -19,4 +20,6 @@ public class JwtAuthenticationDTO {
 	
 	@NotEmpty(message = "A senha não pode ser vazia.")
 	private String password;
+
+	private RoleEnum role;
 }
