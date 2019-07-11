@@ -12,6 +12,7 @@ import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import br.edu.utfpr.autorepairshop.model.service.MaintenanceService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;

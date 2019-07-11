@@ -48,13 +48,13 @@ public class MaintenanceDTO {
 
     @NotNull(message = "Preço total deve estar presente.")
     @DecimalMin(value = "0.0", message = "Preço total deve ser maior que 0.")
-	private Double totalPrice;
+	private Long totalPrice;
     
     @NotNull(message = "Preço da mão-de-obra deve estar presente.")
     @DecimalMin(value = "0.0", message = "Preço da mão-de-obra deve ser maior que 0.")
-	private Double priceHandWork;
+	private Long priceHandWork;
     
     @NotNull(message = "Preço das partes deve estar presente.")
     @DecimalMin(value = "0.0", message = "Preço das partes deve ser maior que 0.")
-	private String priceParts;
+	private Long priceParts;
 }

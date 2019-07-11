@@ -62,8 +62,22 @@
                                             <label for="number">Numero</label>
                                         </div>
                                        	<div class="input-field col s6">
-                                       		<input type="file" name="file" id="file"/> 
+                                            <p class="header">Imagem</p>
+                                       		<input type="file" name="file" id="file"/>
                                         </div>
+                                       <div class="col s12">
+                                           <h5 class="header">Dados de acesso</h5>
+                                           <div class="input-field col s6">
+                                               <i class="material-icons prefix">email</i>
+                                               <input id="email" type="email" name="email" class="validate" value="${managerDto.email}">
+                                               <label for="email">Email</label>
+                                           </div>
+                                           <div class="input-field col s6">
+                                               <i class="material-icons prefix">lock</i>
+                                               <input id="password" type="password" name="password" class="validate">
+                                               <label for="password">Senha</label>
+                                           </div>
+                                       </div>
                                     </div>
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar oficina</button>

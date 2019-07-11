@@ -60,22 +60,22 @@
                         </ul>
                     </div>
                 </li>
-                <li class="service bold">
+                <li class="maintenance bold">
                     <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Atendimentos<i class="material-icons left" style="color: aliceblue">assignment_turned_in</i></a>
 
                     <div class="collapsible-body">
                         <ul>
-                            <li class="service-register">
-                                <a href="atendimentos/novo">Cadastro de atendimento<i id="service-register-icon" class="material-icons left">note_add</i></a>
+                            <li class="maintenance-register">
+                                <a href="atendimentos/novo">Cadastro de atendimento<i id="maintenance-register-icon" class="material-icons left">note_add</i></a>
                             </li>
-                            <li class="service-history">
-                                <a href="atendimentos">Histórico de atendimento<i id="service-history-icon" class="material-icons left">assignment</i></a>
+                            <li class="maintenance-history">
+                                <a href="atendimentos">Histórico de atendimento<i id="maintenance-history-icon" class="material-icons left">assignment</i></a>
                             </li>
-                            <li class="service-report">
-                                <a href="#">Relatório de atendimento<i id="service-report-icon" class="material-icons left">assessment</i></a>
+                            <li class="maintenance-report">
+                                <a href="#">Relatório de atendimento<i id="maintenance-report-icon" class="material-icons left">assessment</i></a>
                             </li>
-                            <li class="service-client">
-                                <a href="#">Estrato de atendimento<i id="service-client-icon" class="material-icons left">assignment_returned</i></a>
+                            <li class="maintenance-client">
+                                <a href="#">Extrato de atendimento<i id="maintenance-client-icon" class="material-icons left">assignment_returned</i></a>
                             </li>
                         </ul>
                     </div>
@@ -106,7 +106,7 @@
                                 <a href="clientes/novo">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
                             </li>
                             <li class="client-list">
-                                <a href="#">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                <a href="#">Lista de clientes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
                             </li>
                         </ul>
                     </div>
@@ -126,7 +126,7 @@
                     </div>
                 </li>
                 <li class="bold">
-                    <a class="white-text" href="logout">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
+                    <a class="white-text" href="log-out">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
                 </li>
             </ul>
         </li>

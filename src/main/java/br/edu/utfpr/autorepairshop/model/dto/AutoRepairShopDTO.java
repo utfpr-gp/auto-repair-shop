@@ -3,6 +3,7 @@ package br.edu.utfpr.autorepairshop.model.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import br.edu.utfpr.autorepairshop.model.Credential;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class AutoRepairShopDTO {
 	private String cnpj;
 	
 	@NotEmpty(message = "O Telefone da Oficina é obrigatório")
-	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")
+	//@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")
 	private String telephone;
 	
 	private String image;
@@ -37,6 +38,7 @@ public class AutoRepairShopDTO {
 	private MultipartFile file;
 	
 	private AddressDTO address;
+	private Credential manager;
 	
 	public void convertAddress(){
 		address =  new AddressDTO(street,city, state, cep, number);

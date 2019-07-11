@@ -9,9 +9,15 @@ import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
+import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.model.service.ImageService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -28,11 +34,16 @@ import java.util.stream.Collectors;
 @Controller
 public class VehicleController {
 
+    public static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+
     @Autowired
     private VehicleService vehicleService;
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private CredentialService credentialService;
 
     @Autowired
     private VehicleMapper vehicleMapper;
@@ -56,9 +67,9 @@ public class VehicleController {
 
     @GetMapping("/meus")
     public ModelAndView myVehicles() {
-//        JwtUser currentUser = (JwtUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //todo após login pronto descomentar código acima alterar o 1 abaxo por currentUser.getId();
-        Optional<Client> clientOptional = this.clientService.findByCredentialId(1);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
+        Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
         ModelAndView mv = new ModelAndView("vehicle/my-vehicles");
 
         if (clientOptional.isPresent()) {
@@ -74,6 +85,7 @@ public class VehicleController {
     }
 
     @GetMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showForm() {
         List<Client> clients = clientService.findAll();
         List<ClientToFormDTO> clientsDto = clients.stream()
@@ -91,6 +103,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
         ModelAndView mv = new ModelAndView("vehicle/form");
@@ -118,6 +131,7 @@ public class VehicleController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView save(@Validated VehicleDTO  dto, Errors errors, RedirectAttributes redirectAttributes) {
         if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("vehicle/form");

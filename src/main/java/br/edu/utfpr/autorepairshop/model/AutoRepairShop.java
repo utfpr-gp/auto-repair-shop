@@ -1,20 +1,18 @@
 package br.edu.utfpr.autorepairshop.model;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "auto_repair_shop")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class AutoRepairShop {
 	@Id
@@ -26,11 +24,14 @@ public class AutoRepairShop {
 	private String cnpj;
 	private String telephone;
 	private String image;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Credential manager;
 
-	public AutoRepairShop(Address adress, String name, String cnpj, String telephone,
+
+	public AutoRepairShop(Address address, String name, String cnpj, String telephone,
 			String image) {
 		super();
-		this.address = adress;
+		this.address = address;
 		this.name = name;
 		this.cnpj = cnpj;
 		this.telephone = telephone;
