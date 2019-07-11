@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/utfpr-gp/auto-repair-shop.svg?branch=master)](https://travis-ci.org/utfpr-gp/auto-repair-shop)
+
 # Oficina Mecânica
 É um sistema para cadastro de atendimentos em oficinas mecânicas.
 
