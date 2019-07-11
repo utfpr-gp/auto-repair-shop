@@ -26,4 +26,13 @@ public class VehicleService {
     public Optional<Vehicle> findById(Long id){
         return this.vehicleRepository.findById(id);
     }
+
+    public List<Vehicle> findByClientId(Long id) {
+        return this.vehicleRepository.findByClientId(id);
+    }
+
+    public void delete(Long id){
+        this.vehicleRepository.deleteById(id);
+    }
+
 }

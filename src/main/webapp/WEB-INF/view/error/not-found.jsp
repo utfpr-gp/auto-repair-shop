@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:template title="Erro!!">
+<t:login title="Erro!!">
     <jsp:body>
         <h2>Ooops!!</h2>
         <p>O recurso solicitado não foi encontrado!</p>
@@ -12,4 +12,4 @@
             </div>
         </div>
     </jsp:body>
-</t:template>
+</t:login>

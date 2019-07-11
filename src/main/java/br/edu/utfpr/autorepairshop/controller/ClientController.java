@@ -11,6 +11,7 @@ import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,72 +21,79 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/clientes")
 public class ClientController {
 
-	@Autowired
-	ClientService clientService;
+    @Autowired
+    ClientService clientService;
 
-	@Autowired
-	ClientMapper clientMapper;
+    @Autowired
+    ClientMapper clientMapper;
 
-	@Autowired
-	AddressMapper addressMapper;
+    @Autowired
+    AddressMapper addressMapper;
 
-	@Autowired
-	CredentialMapper credentialMapper;
+    @Autowired
+    CredentialMapper credentialMapper;
 
-	@GetMapping
-	private ResponseEntity<Iterable<Client>> get() {
-		return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
-	}
+    @GetMapping
+    private ResponseEntity<Iterable<Client>> get(){
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.findAll());
+    }
 
-	@GetMapping("/novo")
-	public ModelAndView showNewClientForm() {
+    @GetMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView showNewClientForm(){
 
-		ModelAndView mv = new ModelAndView("client/form");
+        ModelAndView mv = new ModelAndView("client/form");
 
-		return mv;
-	}
+        return mv;
+    }
 
-	@GetMapping("/{id}")
-	public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
-		ModelAndView mv = new ModelAndView("client/form");
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView showFormForUpdate(@PathVariable("id") Long id){
+        ModelAndView mv = new ModelAndView("client/form");
 
-		Optional<Client> client = clientService.findById(id);
+        Optional<Client> client = clientService.findById(id);
 
-		if (!client.isPresent()) {
-			throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
-		}
+        if (!client.isPresent()){
+            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
+        }
 
-		ClientDataDTO clientDataDTO = clientMapper.toResponseDto(client.get());
-		mv.addObject("dto", clientDataDTO);
-		return mv;
-	}
+        ClientDataDTO clientDataDTO = clientMapper.toResponseDto(client.get());
+        mv.addObject("dto", clientDataDTO);
+        return mv;
+    }
 
-	@PostMapping("/novo")
-	public ModelAndView save(@Validated ClientDataDTO clientDataDTO, Errors errors,
-			RedirectAttributes redirectAttributes) {
-		if (errors.hasErrors()) {
-			ModelAndView mv = new ModelAndView("client/form");
-			mv.addObject("dto", clientDataDTO);
-			mv.addObject("errors", errors.getAllErrors());
-			return mv;
-		}
+    @PostMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView save(@Validated ClientDataDTO clientDataDTO,
+                             Errors errors,
+                             RedirectAttributes redirectAttributes){
 
-		redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
 
-		Address address = addressMapper.toEntity(clientDataDTO);
-		Credential credential = credentialMapper.toEntity(clientDataDTO);
+        if(errors.hasErrors()){
+            ModelAndView mv = new ModelAndView("client/form");
+            mv.addObject("dto", clientDataDTO);
+            mv.addObject("errors", errors.getAllErrors());
+            return mv;
+        }
 
-		clientDataDTO.setAddress(address);
-		clientDataDTO.setCredential(credential);
+        redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
 
-		Client client = clientMapper.toEntity(clientDataDTO);
+        Address address = addressMapper.toEntity(clientDataDTO);
+        Credential credential = credentialMapper.toEntity(clientDataDTO);
 
-		clientService.save(client);
+        clientDataDTO.setAddress(address);
+        clientDataDTO.setCredential(credential);
 
-		return new ModelAndView("redirect:novo");
-	}
+        Client client =  clientMapper.toEntity(clientDataDTO);
+
+        clientService.save(client);
+
+        return new ModelAndView("redirect:novo");
+    }
 }
