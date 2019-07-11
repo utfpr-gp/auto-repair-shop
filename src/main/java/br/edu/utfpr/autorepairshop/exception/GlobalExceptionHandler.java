@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	private final static Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+
+
 
 
 
@@ -41,6 +45,11 @@ public class GlobalExceptionHandler {
 	 * @return
 	 * @throws Exception
 	 */
+	@ExceptionHandler(value = AccessDeniedException.class)
+	public ModelAndView acessDanied(HttpServletRequest req, Exception e, RedirectAttributes redirectAttributes) throws Exception {
+		return new ModelAndView("redirect:log-out");
+	}
+
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
 
