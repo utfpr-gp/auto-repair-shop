@@ -80,7 +80,7 @@ public class AuthenticationController {
 		} catch (BadCredentialsException e) {
 			ModelAndView mv = new ModelAndView("login/form");
 			mv.addObject("dto", dto);
-			mv.addObject("message", "Usuario ou senha invalidos");
+			mv.addObject("message", "Usuário ou senha invalidos");
 			return mv;
 		}
 		Optional<Credential> o = credentialService.findByEmail(dto.getEmail());
