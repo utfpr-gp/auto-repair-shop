@@ -126,7 +126,7 @@
                     </div>
                 </li>
                 <li class="bold">
-                    <a class="white-text" href="logout">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
+                    <a class="white-text" href="log-out">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
                 </li>
             </ul>
         </li>

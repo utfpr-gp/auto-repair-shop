@@ -1,13 +1,13 @@
 package br.edu.utfpr.autorepairshop.controller;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,10 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,11 +24,12 @@ import br.edu.utfpr.autorepairshop.security.JwtCredentialDetailService;
 import br.edu.utfpr.autorepairshop.model.dto.JwtAuthenticationDTO;
 import br.edu.utfpr.autorepairshop.util.TokenUtil;
 
-@RequestMapping("/login")
+@RequestMapping("/")
+@CrossOrigin
 @Controller
-public class LoginController {
+public class AuthenticationController {
 
-	public static final Logger log = LoggerFactory.getLogger(LoginController.class);
+	public static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 	private static final String TOKEN_HEADER = "Authorization";
 	private static final String BEARER_PREFIX = "Bearer ";
 	
@@ -44,7 +42,7 @@ public class LoginController {
 	@Autowired
 	private JwtCredentialDetailService userDetailsService;
 
-	@GetMapping
+	@GetMapping(value = "login")
 	public ModelAndView showLogin(@RequestParam(value = "auth", defaultValue = "1") int auth) {
 		log.info("Mostrando o index");
 		ModelAndView mv = new ModelAndView("login/form");
@@ -54,28 +52,43 @@ public class LoginController {
 		return mv;
 	}
 	
-	@PostMapping
-	public ModelAndView generateToken(@Validated JwtAuthenticationDTO dto, Errors errors, RedirectAttributes redirectAttributes, HttpServletResponse response) throws AuthenticationException{
+	@PostMapping(value = "login")
+	public ModelAndView generateToken(@Validated JwtAuthenticationDTO dto, Errors errors, HttpServletResponse response) throws AuthenticationException{
 
 		if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("login/form");
             mv.addObject("dto", dto);
             mv.addObject("errors", errors.getAllErrors());
-            mv.addObject("message", "Contém erros no formulário" + dto.getEmail() + dto.getPassword());
+            mv.addObject("message", "Contém erros no formulário");
             return mv;
         }
-		
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
-		String token = jwtTokenUtil.generateToken(userDetails);
-		Cookie cookieToken = new Cookie("tokenKey", token);
-        cookieToken.setMaxAge(60*60*24); //24 hour
-
-		response.addCookie(cookieToken);
+		try {
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getEmail());
+			String token = jwtTokenUtil.generateToken(userDetails);
+			Cookie cookieToken = new Cookie("tokenKey", token);
+			cookieToken.setMaxAge(60*60*24);
+			response.addCookie(cookieToken);
+		} catch (BadCredentialsException e) {
+			ModelAndView mv = new ModelAndView("login/form");
+			mv.addObject("dto", dto);
+			mv.addObject("message", "Usuario ou senha invalidos");
+			return mv;
+		}
 		return new ModelAndView("redirect:oficinas");
-	}	
+	}
+
+	@GetMapping(value = "log-out")
+	public ModelAndView logout(HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		log.info("Logout");
+
+		Cookie cookieToken = new Cookie("tokenKey", "");
+		cookieToken.setMaxAge(0);
+		response.addCookie(cookieToken);
+		redirectAttributes.addFlashAttribute("message", "Deslogado");
+		return new ModelAndView("redirect:login");
+	}
 
 }

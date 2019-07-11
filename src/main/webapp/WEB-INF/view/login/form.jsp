@@ -9,9 +9,8 @@
             <c:if test="${not empty message}">
                 <script>M.toast({html: "${message}", classes: 'rounded'})</script>
             </c:if>
-
             <c:if test="${not empty errors}">
-                <div class="card-panel red">
+                <div class="card-panel red col s12 m10 offset-m1 l6 offset-l3">
                     <c:forEach var="e" items="${errors}">
                         <span class="white-text">${e.getDefaultMessage()}</span><br>
                     </c:forEach>
