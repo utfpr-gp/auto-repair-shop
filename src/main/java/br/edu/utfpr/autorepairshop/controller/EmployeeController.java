@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import br.edu.utfpr.autorepairshop.model.dto.AddressDTO;
 import br.edu.utfpr.autorepairshop.model.dto.CredentialDTO;
 import br.edu.utfpr.autorepairshop.security.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,32 +92,36 @@ public class EmployeeController {
 	}
 
 	@PostMapping
-	public ModelAndView save(@Validated EmployeeDTO dto, @Validated CredentialDTO credentialDto, Errors errors, RedirectAttributes redirectAttributes) {
+	public ModelAndView save(@Validated EmployeeDTO dto, @Validated AddressDTO addressDto, @Validated CredentialDTO credentialDto, Errors errors, RedirectAttributes redirectAttributes) {
 
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("employee/form");
 			mv.addObject("dto", dto);
-			mv.addObject("CredentialDto", credentialDto);
+			mv.addObject("addressDto", addressDto);
+			mv.addObject("credentialDto", credentialDto);
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
 
-		Address address = addressMapper.toEntity(dto);
+		Address address = addressMapper.toEntity(addressDto);
 		Optional<Credential> c = credentialService.findByEmail(credentialDto.getEmail());
 
 		if (c.isPresent()) {
 			ModelAndView mv = new ModelAndView("employee/form");
 			mv.addObject("dto", dto);
-			mv.addObject("CredentialDto", credentialDto);
+			mv.addObject("addressDto", addressDto);
+			mv.addObject("credentialDto", credentialDto);
 			mv.addObject("messageError", "Email já utilizado");
 			return mv;
 		}
+		addressService.save(address);
+
 		Credential credential = credentialMapper.toEntity(credentialDto);
 		credential.setRole(RoleEnum.ROLE_EMPLOYEE);
 
 		credentialService.save(credential);
-		dto.setAddress(address);
 		Employee employee = employeeMapper.toEntity(dto);
+		employee.setAddress(address);
 		employee.setCredential(credential);
 		employeeService.save(employee);
 		redirectAttributes.addFlashAttribute("message", "Funcionário salvo com sucesso!");
@@ -124,16 +129,18 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/update")
-	public ModelAndView update(@Validated EmployeeDTO dto, @Validated CredentialDTO credentialDto, Errors errors, RedirectAttributes redirectAttributes) {
+	public ModelAndView update(@Validated EmployeeDTO dto, @Validated AddressDTO addressDto,  @Validated CredentialDTO credentialDto, Errors errors, RedirectAttributes redirectAttributes) {
 
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("employee/edit");
 			mv.addObject("dto", dto);
+			mv.addObject("addressDto", addressDto);
+			mv.addObject("credentialDto", credentialDto);
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
 
-		Address address = addressMapper.toEntity(dto);
+		Address address = addressMapper.toEntity(addressDto);
 		Optional<Credential> c = credentialService.findByEmail(credentialDto.getEmail());
 
 		if (c.isPresent()) {
@@ -143,12 +150,14 @@ public class EmployeeController {
 			mv.addObject("messageError", "Email já utilizado");
 			return mv;
 		}
+		addressService.save(address);
+
 		Credential credential = credentialMapper.toEntity(credentialDto);
 		credential.setRole(RoleEnum.ROLE_EMPLOYEE);
 
 		credentialService.save(credential);
-		dto.setAddress(address);
 		Employee employee = employeeMapper.toEntity(dto);
+		employee.setAddress(address);
 		employee.setCredential(credential);
 		employeeService.save(employee);
 		redirectAttributes.addFlashAttribute("message", "Funcionário atualizado com sucesso!");

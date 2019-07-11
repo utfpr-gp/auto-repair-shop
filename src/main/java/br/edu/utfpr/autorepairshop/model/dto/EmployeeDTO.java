@@ -33,28 +33,6 @@ public class EmployeeDTO {
 	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Celular em formato inválido")	
 	private String cellular;
 
-	@NotEmpty(message = "Por favor informe o cep.")
-	private String cep;
-
-	@NotEmpty(message = "Por favor informe o estado.")
-	private String state;
-
-	@NotEmpty(message = "Por favor informe a cidade.")
-	private String city;
-
-	@NotEmpty(message = "Por favor informa a rua.")
-	private String street;
-
-	@NotEmpty(message = "Por favor informe o numero da residencia.")
-	private String number;
-
-	@Email(message = "Insira um email válido.")
-	@NotEmpty(message = "Por favor informe um email.")
-	private String email;
-	
-	@NotEmpty(message = "Por favor informe uma senha.")
-	private String password;
-
 	private String role;
 
 	private Address address;
