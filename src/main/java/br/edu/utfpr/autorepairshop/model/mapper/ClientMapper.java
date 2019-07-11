@@ -19,14 +19,8 @@ public class ClientMapper {
 
     public ClientDataDTO toResponseDto(Client entity){
         ClientDataDTO clientDataDTO = mapper.map(entity, ClientDataDTO.class);
-        clientDataDTO.setId(entity.getId());
         clientDataDTO.setBirthDate(this.dateFormat.format(entity.getBirthDate()));
-        clientDataDTO.setCep(entity.getAddress().getCep());
-        clientDataDTO.setCity(entity.getAddress().getCity());
-        clientDataDTO.setNumber(entity.getAddress().getNumber());
-        clientDataDTO.setState(entity.getAddress().getState());
-        clientDataDTO.setStreet(entity.getAddress().getStreet());
-        clientDataDTO.setEmail(entity.getCredential().getEmail());
+
 
         return clientDataDTO;
     }

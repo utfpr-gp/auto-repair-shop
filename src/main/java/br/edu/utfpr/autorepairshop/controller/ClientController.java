@@ -2,12 +2,14 @@ package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.Address;
 import br.edu.utfpr.autorepairshop.model.Credential;
+import br.edu.utfpr.autorepairshop.model.dto.CredentialDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.AddressMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.ClientMapper;
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.dto.ClientDataDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.CredentialMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
+import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,13 +43,25 @@ public class ClientController {
     @Autowired
     CredentialMapper credentialMapper;
 
+    @Autowired
+    CredentialService credentialService;
+
     @GetMapping
     public ModelAndView index() {
         List<Client> clients = clientService.findAll();
 
-        List<ClientDataDTO> clientDataDTOS = clients.stream()
-                .map(s -> clientMapper.toResponseDto(s))
-                .collect(Collectors.toList());
+
+        ArrayList<ClientDataDTO> clientDataDTOS= new ArrayList<>();
+
+        int aux = 0;
+
+        for (Client c: clients) {
+            clientDataDTOS.add(clientMapper.toResponseDto(c));
+            clientDataDTOS.get(aux).setCredentialDTO(credentialMapper.toDto(c.getCredential()));
+            clientDataDTOS.get(aux).setAddressDTO(addressMapper.toDto(c.getAddress()));
+            aux++;
+        }
+
 
         ModelAndView mv = new ModelAndView("client/index");
         mv.addObject("clients", clientDataDTOS);
@@ -75,6 +89,8 @@ public class ClientController {
         }
 
         ClientDataDTO clientDataDTO = clientMapper.toResponseDto(client.get());
+        clientDataDTO.setAddressDTO(addressMapper.toDto(client.get().getAddress()));
+        clientDataDTO.setCredentialDTO(credentialMapper.toDto(client.get().getCredential()));
         mv.addObject("dto", clientDataDTO);
         return mv;
     }
@@ -84,8 +100,6 @@ public class ClientController {
                              Errors errors,
                              RedirectAttributes redirectAttributes){
 
-        System.out.println("ADWDKNAWKDNAWDKLNAWKLD"+ clientDataDTO.getBirthDate());
-
 
         if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("client/form");
@@ -94,24 +108,31 @@ public class ClientController {
             return mv;
         }
 
-        if (!clientDataDTO.getPassword().equals(clientDataDTO.getPasswordConfirmation())){
+        if (!clientDataDTO.getCredentialDTO().getPassword().equals(clientDataDTO.getCredentialDTO().getPasswordConfirmation())){
             ModelAndView mv = new ModelAndView("client/form");
             mv.addObject("dto", clientDataDTO);
             mv.addObject("passwordError", "Senhas não batem.");
             return mv;
         }
 
+        Credential credentialToVerify = credentialService.findByEmail(clientDataDTO.getCredentialDTO().getEmail());
+
+        if (credentialToVerify != null){
+                ModelAndView mv = new ModelAndView("client/form");
+                mv.addObject("dto", clientDataDTO);
+                mv.addObject("emailError", "Cliente com esse email já cadastrado.");
+                return mv;
+        }
+
         redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
 
-        Address address = addressMapper.toEntity(clientDataDTO);
-        Credential credential = credentialMapper.toEntity(clientDataDTO);
-
-        clientDataDTO.setAddress(address);
-        clientDataDTO.setCredential(credential);
-
+        Address address = addressMapper.toEntity(clientDataDTO.getAddressDTO());
+        Credential credential = credentialMapper.toEntity(clientDataDTO.getCredentialDTO());
         Client client =  clientMapper.toEntity(clientDataDTO);
 
-        System.out.println("CHEGOUUUU AQUI!!" + client.getBirthDate());
+        client.setCredential(credential);
+        client.setAddress(address);
+
         clientService.save(client);
 
         return new ModelAndView("redirect:novo");
@@ -132,15 +153,14 @@ public class ClientController {
 
         redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
 
-        Address address = addressMapper.toEntity(clientDataDTO);
-        Credential credential = credentialMapper.toEntity(clientDataDTO);
-
-        clientDataDTO.setAddress(address);
-        clientDataDTO.setCredential(credential);
-
+        Address address = addressMapper.toEntity(clientDataDTO.getAddressDTO());
+        Credential credential = credentialMapper.toEntity(clientDataDTO.getCredentialDTO());
         Client client =  clientMapper.toEntity(clientDataDTO);
 
-       clientService.update(client, id);
+        client.setCredential(credential);
+        client.setAddress(address);
+
+        clientService.update(client,id);
 
         return new ModelAndView("redirect:/clientes");
     }

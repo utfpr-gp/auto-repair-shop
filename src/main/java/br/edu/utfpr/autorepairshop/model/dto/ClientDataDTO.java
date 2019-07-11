@@ -9,6 +9,8 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
+import javax.persistence.Column;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.text.ParseException;
@@ -28,42 +30,17 @@ public class ClientDataDTO {
     private String name;
 
     @NotEmpty(message = "A data de nascimento é obrigatória")
-//    @Pattern(regexp = "^([12]\\d|3[01])/(0\\d|1[012])/\\d{4}$",
-//            message = "A data precisa estar formatada como dd/MM/yyyy")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Pattern(regexp = "([0-3]\\d\\/[0,1]\\d\\/[0-2]\\d{3})", message = "A data precisa estar formatada como dd/MM/yyyy")
     private String birthDate;
 
     @NotEmpty(message = "Por favor informe o telefone.")
     private String telephone;
 
-    @NotEmpty(message = "Por favor informe o cep.")
-    private String cep;
+    @Valid
+    private AddressDTO addressDTO;
 
-    @NotEmpty(message = "Por favor informe o estado.")
-    private String state;
-
-    @NotEmpty(message = "Por favor informe a cidade.")
-    private String city;
-
-    @NotEmpty(message = "Por favor informa a rua.")
-    private String street;
-
-    @NotEmpty(message = "Por favor informe o numero da residencia.")
-    private String number;
-
-    @Email(message = "Insira um email válido.")
-    @NotEmpty(message = "Por favor informe o email.")
-    private String email;
-
-    private String password;
-
-    private String passwordConfirmation;
-
-    private String role;
-
-    private Address address;
-
-    private Credential credential;
+    @Valid
+    private CredentialDTO credentialDTO;
 
 
     public Date getBirthDate() {
