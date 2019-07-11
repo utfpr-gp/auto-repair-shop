@@ -3,6 +3,8 @@ package br.edu.utfpr.autorepairshop.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import br.edu.utfpr.autorepairshop.model.Credential;
+import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.utfpr.autorepairshop.security.JwtCredentialDetailService;
-import br.edu.utfpr.autorepairshop.model.dto.JwtAuthenticationDTO;
+import br.edu.utfpr.autorepairshop.model.dto.CredentialDTO;
 import br.edu.utfpr.autorepairshop.util.TokenUtil;
+
+import java.util.Optional;
+
+import static br.edu.utfpr.autorepairshop.security.RoleEnum.*;
 
 @RequestMapping("/")
 @CrossOrigin
@@ -42,6 +48,9 @@ public class AuthenticationController {
 	@Autowired
 	private JwtCredentialDetailService userDetailsService;
 
+	@Autowired
+	private CredentialService credentialService;
+
 	@GetMapping(value = "login")
 	public ModelAndView showLogin(@RequestParam(value = "auth", defaultValue = "1") int auth) {
 		log.info("Mostrando o index");
@@ -53,7 +62,7 @@ public class AuthenticationController {
 	}
 	
 	@PostMapping(value = "login")
-	public ModelAndView generateToken(@Validated JwtAuthenticationDTO dto, Errors errors, HttpServletResponse response) throws AuthenticationException{
+	public ModelAndView generateToken(@Validated CredentialDTO dto, Errors errors, HttpServletResponse response) throws AuthenticationException{
 
 		if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("login/form");
@@ -71,13 +80,23 @@ public class AuthenticationController {
 			Cookie cookieToken = new Cookie("tokenKey", token);
 			cookieToken.setMaxAge(60*60*24);
 			response.addCookie(cookieToken);
+
 		} catch (BadCredentialsException e) {
 			ModelAndView mv = new ModelAndView("login/form");
 			mv.addObject("dto", dto);
 			mv.addObject("message", "Usuario ou senha invalidos");
 			return mv;
 		}
-		return new ModelAndView("redirect:oficinas");
+		Optional<Credential> o = credentialService.findByEmail(dto.getEmail());
+		switch (o.get().getRole()) {
+			case ROLE_ADMIN :
+				return new ModelAndView("redirect:oficinas");
+			case ROLE_MANAGER:
+				return new ModelAndView("redirect:funcionarios");
+			case ROLE_EMPLOYEE:
+				return new ModelAndView("redirect:atendimentos");
+		}
+		return new ModelAndView("redirect:meu-historico");
 	}
 
 	@GetMapping(value = "log-out")
