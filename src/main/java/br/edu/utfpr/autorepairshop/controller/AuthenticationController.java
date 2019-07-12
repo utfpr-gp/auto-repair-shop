@@ -28,7 +28,7 @@ import br.edu.utfpr.autorepairshop.util.TokenUtil;
 
 import java.util.Optional;
 
-@RequestMapping("/")
+@RequestMapping("/*")
 @Controller
 public class AuthenticationController {
 
@@ -94,7 +94,7 @@ public class AuthenticationController {
 		return new ModelAndView("redirect:meu-historico");
 	}
 
-	@GetMapping(value = "log-out")
+	@GetMapping(value = {"log-out"})
 	public ModelAndView logout(HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		log.info("Logout");
 

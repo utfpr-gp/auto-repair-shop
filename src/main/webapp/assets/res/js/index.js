@@ -19,10 +19,9 @@ $(document).ready(function () {
         }
     });
     $("#birthDate").datepicker({
-        format: 'dd/mm/yyyy',
-        changeMonth: true,
-        changeYear: true
+        format: 'dd/mm/yyyy'
     });
+    
 });
 
 

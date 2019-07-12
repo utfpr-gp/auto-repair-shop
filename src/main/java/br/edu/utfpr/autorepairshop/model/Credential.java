@@ -1,6 +1,7 @@
 package br.edu.utfpr.autorepairshop.model;
 
 
+import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,9 +23,10 @@ public class Credential {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(updatable = false)
 	private String email;
 	private String password;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
 	private RoleEnum role;

@@ -10,6 +10,7 @@ import br.edu.utfpr.autorepairshop.model.Credential;
 
 public interface CredentialRepository extends JpaRepository<Credential, Long>{
 
-	@Query("SELECT c FROM Credential c WHERE email = :email ")
-	Optional<Credential> findByEmail(@Param("email") String email);
+    @Query("SELECT c FROM Credential c WHERE email = :email ")
+    Optional<Credential> findByEmail(@Param("email") String email);
+
 }

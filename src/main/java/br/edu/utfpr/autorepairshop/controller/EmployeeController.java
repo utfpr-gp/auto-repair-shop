@@ -11,6 +11,7 @@ import br.edu.utfpr.autorepairshop.model.dto.AddressDTO;
 import br.edu.utfpr.autorepairshop.model.dto.CredentialDTO;
 import br.edu.utfpr.autorepairshop.security.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +32,7 @@ import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.model.service.EmployeeService;
 
 @Controller
+@PreAuthorize("hasAnyRole('ADMIN') or hasAnyRole('MANAGER')")
 @RequestMapping("/funcionarios")
 public class EmployeeController {
 

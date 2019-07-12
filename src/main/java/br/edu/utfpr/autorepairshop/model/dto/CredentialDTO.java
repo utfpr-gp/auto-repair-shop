@@ -14,12 +14,14 @@ import lombok.NoArgsConstructor;
 
 public class CredentialDTO {
 
-	@NotEmpty(message = "O email não pode ser vazio.")
-	@Email(message = "O email é inválido.")
-	private String email;
-	
-	@NotEmpty(message = "A senha não pode ser vazia.")
-	private String password;
+    @NotEmpty(message = "O email não pode ser vazio.")
+    @Email(message = "O email é inválido.")
+    private String email;
 
-	private RoleEnum role;
+    @NotEmpty(message = "A senha não pode ser vazia.")
+    private String password;
+
+    private String passwordConfirmation;
+
+    private RoleEnum role;
 }

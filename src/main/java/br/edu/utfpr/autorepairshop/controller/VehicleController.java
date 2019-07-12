@@ -31,6 +31,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestMapping("/veiculos")
+@PreAuthorize("hasAnyRole('ADMIN') or hasAnyRole('MANAGER') or hasAnyRole('EMPLOYEE')")
 @Controller
 public class VehicleController {
 
@@ -51,7 +52,9 @@ public class VehicleController {
     @Autowired
     ImageService imageService;
 
+
     @GetMapping
+
     public ModelAndView index() {
         List<Vehicle> vehicles = vehicleService.findAll();
 
@@ -65,7 +68,8 @@ public class VehicleController {
         return mv;
     }
 
-    @GetMapping("/meus")
+    @GetMapping("/cliente")
+    @PreAuthorize("hasAnyRole('CLIENT')")
     public ModelAndView myVehicles() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
@@ -85,7 +89,6 @@ public class VehicleController {
     }
 
     @GetMapping("/novo")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showForm() {
         List<Client> clients = clientService.findAll();
         List<ClientToFormDTO> clientsDto = clients.stream()
@@ -103,7 +106,6 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
         ModelAndView mv = new ModelAndView("vehicle/form");
@@ -131,7 +133,6 @@ public class VehicleController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView save(@Validated VehicleDTO  dto, Errors errors, RedirectAttributes redirectAttributes) {
         if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("vehicle/form");
@@ -157,7 +158,7 @@ public class VehicleController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         this.vehicleService.delete(id);
-        redirectAttributes.addFlashAttribute("msg", "Veiculo removido com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Veiculo removido com sucesso!");
         return "redirect:/veiculos";
     }
 }

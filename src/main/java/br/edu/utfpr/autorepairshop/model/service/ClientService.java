@@ -22,8 +22,23 @@ public class ClientService {
         return this.clientRepository.save(entity);
     }
 
+    public void update(Client  clientData, Long id){
+        Optional<Client> client = findById(id);
+
+        client.get().setAddress(clientData.getAddress());
+        client.get().setTelephone(clientData.getTelephone());
+        client.get().setName(clientData.getName());
+        client.get().setBirthDate(clientData.getBirthDate());
+        client.get().getCredential().setEmail(clientData.getCredential().getEmail());
+
+        clientRepository.save(client.get());
+    }
+
     public Optional<Client> findById(Long id){return this.clientRepository.findById(id); }
 
+    public void deleteById(Long id){
+        clientRepository.deleteById(id);
+    }
     public Optional<Client> findByCredentialId(long credentialId) {
         return this.clientRepository.findByCredentialId(credentialId);
     }

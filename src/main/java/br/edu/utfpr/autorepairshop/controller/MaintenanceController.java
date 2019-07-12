@@ -1,6 +1,7 @@
 package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.Client;
+import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.Maintenance;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
@@ -9,10 +10,13 @@ import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.MaintenanceMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
+import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.model.service.MaintenanceService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -29,11 +33,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestMapping("/atendimentos")
+@PreAuthorize("hasAnyRole('ADMIN') or hasAnyRole('MANAGER') or hasAnyRole('EMPLOYEE')")
 @Controller
 public class MaintenanceController {
 
     @Autowired
     private VehicleService vehicleService;
+
+    @Autowired
+    private CredentialService credentialService;
+
+    @Autowired
+    private ClientService clientService;
 
     @Autowired
     private MaintenanceService maintenanceService;
@@ -77,25 +88,50 @@ public class MaintenanceController {
         return mv;
     }
 
-    @GetMapping("/{id}")
-    public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
-
-        Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
-
-        if(!optionalVehicle.isPresent()){
-            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
-        } 
-
-        List<Maintenance> maintenances = maintenanceService.findByVehicle(id);
-
-        List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
-                .map(s -> maintenanceMapper.toResponseDto(s))
-                .collect(Collectors.toList());
-
+    @GetMapping("/cliente")
+    @PreAuthorize("hasAnyRole('CLIENT')")
+    public ModelAndView myVehicles() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
+        Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
         ModelAndView mv = new ModelAndView("maintenance/index");
-        mv.addObject("maintenances", maintenanceDTOs);
+
+        if (clientOptional.isPresent()) {
+            List<Maintenance> maintenances = maintenanceService.findByClientId(clientOptional.get().getId());
+
+            List<MaintenanceDTO> maintenanceDtos = maintenances.stream()
+                    .map(s -> maintenanceMapper.toResponseDto(s))
+                    .collect(Collectors.toList());
+            mv.addObject("maintenances", maintenanceDtos);
+        }
 
         return mv;
+    }
+
+//    @GetMapping("/{id}")
+//    public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
+//
+//        Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
+//
+//        if(!optionalVehicle.isPresent()){
+//            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
+//        }
+//
+//        List<Maintenance> maintenances = maintenanceService.findByVehicle(id);
+//
+//        List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
+//                .map(s -> maintenanceMapper.toResponseDto(s))
+//                .collect(Collectors.toList());
+//
+//        ModelAndView mv = new ModelAndView("maintenance/index");
+//        mv.addObject("maintenances", maintenanceDTOs);
+//
+//        return mv;
+//    }
+
+    @GetMapping(value = "pesquisa")
+    public ModelAndView search(@PathVariable("search") String placa) {
+        return new ModelAndView();
     }
 
     @PostMapping

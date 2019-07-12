@@ -11,4 +11,6 @@ import org.springframework.data.repository.query.Param;
 public interface MaintenanceRepository  extends JpaRepository<Maintenance, Long> {
 	@Query("SELECT m from Maintenance m where m.vehicle.id = :id")
 	List<Maintenance> findByVehicle(@Param("id") Long id);
+
+	List<Maintenance> findByClientId(Long credentialId);
 }

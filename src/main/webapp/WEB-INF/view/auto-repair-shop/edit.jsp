@@ -7,9 +7,6 @@
 <t:template title="Cadastro de oficinas">
     <jsp:body>
         <div class="container">
-            <c:if test="${not empty message}">
-                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
-            </c:if>
 
             <c:if test="${not empty errors}">
                 <div class="card-panel red">

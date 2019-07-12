@@ -39,6 +39,9 @@
 </head>
 <body>
 <header>
+    <c:if test="${not empty message}">
+        <script>M.toast({html: "${message}", classes: 'rounded'})</script>
+    </c:if>
     <div class="container"><a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a></div>
     <ul id="nav-mobile" class="sidenav sidenav-fixed light-blue darken-4">
         <li class="logo">
@@ -75,7 +78,7 @@
                                 <a href="#">Relatório de atendimento<i id="maintenance-report-icon" class="material-icons left">assessment</i></a>
                             </li>
                             <li class="maintenance-client">
-                                <a href="#">Extrato de atendimento<i id="maintenance-client-icon" class="material-icons left">assignment_returned</i></a>
+                                <a href="atendimentos/cliente">Extrato de atendimento<i id="maintenance-client-icon" class="material-icons left">assignment_returned</i></a>
                             </li>
                         </ul>
                     </div>
@@ -92,7 +95,7 @@
                                 <a href="veiculos">Todos os veículos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
                             </li>
                             <li class="vehicle-client-list">
-                                <a href="veiculos/meus">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
+                                <a href="veiculos/cliente">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
                             </li>
                         </ul>
                     </div>
@@ -106,7 +109,7 @@
                                 <a href="clientes/novo">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
                             </li>
                             <li class="client-list">
-                                <a href="#">Lista de clientes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                <a href="clientes">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
                             </li>
                         </ul>
                     </div>

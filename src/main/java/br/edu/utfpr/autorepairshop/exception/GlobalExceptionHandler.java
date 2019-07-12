@@ -2,6 +2,7 @@ package br.edu.utfpr.autorepairshop.exception;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
@@ -25,21 +26,16 @@ public class GlobalExceptionHandler {
 	private final static Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
-
-
-
-
-
-	@ExceptionHandler(value = AuthenticationCredentialsNotFoundException.class)
-	public ModelAndView handleUnauthorizedRequest(RedirectAttributes redirectAttributes, Exception e) throws Exception {
-		redirectAttributes.addFlashAttribute("message", e.getMessage());
-		return new ModelAndView("redirect:login");
-	}
+//	@ExceptionHandler(value = AuthenticationCredentialsNotFoundException.class)
+//	public ModelAndView handleUnauthorizedRequest(RedirectAttributes redirectAttributes, Exception e) throws Exception {
+//		redirectAttributes.addFlashAttribute("message", e.getMessage());
+//		return new ModelAndView("redirect:login");
+//	}
 
 	// se o usuario acessar uma pagina que nao tem permicao é deslogado
 	@ExceptionHandler(value = AccessDeniedException.class)
-	public ModelAndView accessDanied(HttpServletRequest req, Exception e, RedirectAttributes redirectAttributes) throws Exception {
-		return new ModelAndView("redirect:log-out");
+	public void accessDanied(HttpServletRequest req, HttpServletResponse res, Exception e, RedirectAttributes redirectAttributes) throws Exception {
+		res.sendRedirect(req.getContextPath() + "/log-out");
 	}
 
 
