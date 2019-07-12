@@ -17,8 +17,8 @@ public class AddressMapper {
 		 AddressDTO dto = mapper.map(entity, AddressDTO.class);
 	        return dto;
 	 }
-    public Address toEntity(ClientDataDTO clientDataDTO){
-        Address address = mapper.map(clientDataDTO, Address.class);
+    public Address toEntity(AddressDTO dto){
+        Address address = mapper.map(dto, Address.class);
         return address;
     }
 }

@@ -106,7 +106,7 @@
                                 <a href="clientes/novo">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
                             </li>
                             <li class="client-list">
-                                <a href="#">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                <a href="clientes">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
                             </li>
                         </ul>
                     </div>
