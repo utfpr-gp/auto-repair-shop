@@ -40,4 +40,7 @@ public class ClientService {
     public void deleteById(Long id){
         clientRepository.deleteById(id);
     }
+    public Optional<Client> findByCredentialId(long credentialId) {
+        return this.clientRepository.findByCredentialId(credentialId);
+    }
 }

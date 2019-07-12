@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 
@@ -14,6 +15,8 @@ import javax.validation.constraints.*;
 @ToString
 public class VehicleDTO {
 
+	private Long id;
+	
     private Long registration;
 
     private Client client;
@@ -34,4 +37,7 @@ public class VehicleDTO {
     @NotEmpty(message = "Tipo é obrigatório.")
     private String type;
 
+    private String image;
+
+    private MultipartFile file;
 }
