@@ -1,29 +1,27 @@
 package br.edu.utfpr.autorepairshop.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import br.edu.utfpr.autorepairshop.security.RoleEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
-@AllArgsConstructor
-@ToString
+
 public class CredentialDTO {
 
-    private Long id;
-
-    @Email(message = "Insira um email válido.")
-    @NotEmpty(message = "Por favor informe o email.")
+    @NotEmpty(message = "O email não pode ser vazio.")
+    @Email(message = "O email é inválido.")
     private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "A senha não pode ser vazia.")
     private String password;
 
     private String passwordConfirmation;
 
-    private String role;
+    private RoleEnum role;
 }

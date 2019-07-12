@@ -11,8 +11,9 @@ public class CredentialMapper {
     @Autowired
     private ModelMapper mapper;
 
-    public CredentialDTO toDto(Credential credential){
-        CredentialDTO dto = mapper.map(credential, CredentialDTO.class);
+
+    public CredentialDTO toDto(Credential entity) {
+        CredentialDTO dto = mapper.map(entity, CredentialDTO.class);
         return dto;
     }
 

@@ -39,28 +39,47 @@
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
+                                            <i class="material-icons prefix">markunread_mailbox</i>
                                             <label for="cep">Cep</label>
                                             <input id="cep" name="cep" type="text" value="${dto.cep}">
                                         </div>
                                         <div class="input-field col s6">
+                                            <i class="material-icons prefix">map</i>
                                             <input id="state" name="state" type="text" value="${dto.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
+                                            <i class="material-icons prefix">location_city</i>
                                             <input id="city" name="city" type="text" value="${dto.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
+                                            <i class="material-icons prefix">view_day</i>
                                             <input id="street" name="street" type="text" value="${dto.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
+                                            <i class="material-icons prefix">filter_9_plus</i>
                                             <input id="number" name="number" type="text" value="${dto.number}">
                                             <label for="number">Numero</label>
                                         </div>
                                        	<div class="input-field col s6">
-                                       		<input type="file" name="file" id="file"/> 
+                                            <p class="header">Imagem</p>
+                                       		<input type="file" name="file" id="file"/>
                                         </div>
+                                       <div class="col s12">
+                                           <h5 class="header">Dados de acesso</h5>
+                                           <div class="input-field col s6">
+                                               <i class="material-icons prefix">email</i>
+                                               <input id="email" type="email" name="email" class="validate" value="${managerDto.email}">
+                                               <label for="email">Email</label>
+                                           </div>
+                                           <div class="input-field col s6">
+                                               <i class="material-icons prefix">lock</i>
+                                               <input id="password" type="password" name="password" class="validate">
+                                               <label for="password">Senha</label>
+                                           </div>
+                                       </div>
                                     </div>
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar oficina</button>

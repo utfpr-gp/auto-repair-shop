@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">local_offer</i>
-                                            <select id="client" name="client">
+                                            <select id="brand" name="brand">
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="b" items="${brand}">
                                                     <option value="${b}">${b}</option>

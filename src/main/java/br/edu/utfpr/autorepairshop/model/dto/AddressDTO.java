@@ -13,12 +13,11 @@ import javax.validation.constraints.NotEmpty;
 @ToString
 public class AddressDTO {
 	private Long id;
+	@NotEmpty(message = "Por favor informe o cep.")
+	private String cep;
 
 	@NotEmpty(message = "Por favor informe o estado.")
 	private String state;
-
-	@NotEmpty(message = "Por favor informe o cep.")
-	private String cep;
 
 	@NotEmpty(message = "Por favor informe a cidade.")
 	private String city;
@@ -28,7 +27,7 @@ public class AddressDTO {
 
 	@NotEmpty(message = "Por favor informe o numero da residencia.")
 	private String number;
-
+	
 	public AddressDTO(String street, String city, String state, String cep, String number) {
 		this.street = street;
 		this.city = city;

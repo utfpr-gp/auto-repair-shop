@@ -26,8 +26,8 @@ public class VehicleDTO {
 
     @NotEmpty(message = "O modelo é obrigatório.")
     private String model;
-
-    @Pattern(regexp = "([A-Z]{3}-?\\d[A-Z0-9]\\d{2})", message = "Placa em formato inválido")
+    //Descomentar quando tiver mascara
+    //@Pattern(regexp = "([A-Z]{3}-?\\d[A-Z0-9]\\d{2})", message = "Placa em formato inválido")
     @NotEmpty(message = "Placa é obrigatório.")
     private String placa;
 

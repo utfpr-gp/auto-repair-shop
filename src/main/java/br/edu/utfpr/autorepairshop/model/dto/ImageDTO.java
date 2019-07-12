@@ -8,7 +8,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ImageDTO {
-	private String public_id ;;
+	private String public_id ;
 	private String idversion;
 	private String signature;
 	private String url;

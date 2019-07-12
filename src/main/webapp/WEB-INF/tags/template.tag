@@ -1,5 +1,6 @@
 <%@tag description="Template principal" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="title" %>
@@ -49,37 +50,42 @@
         </li>
         <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
-                <li class="auto-repair-shop bold">
-                    <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Oficinas<i class="material-icons left" style="color: aliceblue">account_balance</i></a>
-
-                    <div class="collapsible-body">
-                        <ul>
-                            <li class="auto-repair-shop-register">
-                                <a href="oficinas/novo">Cadastro de oficina<i id="auto-repair-shop-register-icon" class="material-icons left">queue</i></a>
-                            </li>
-                            <li class="auto-repair-shop-list">
-                                <a href="oficinas">Lista de oficinas<i id="auto-repair-shop-list-icon" class="material-icons left">format_list_numbered</i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="service bold">
+                <sec:authorize access="hasAnyRole('ADMIN')">
+                    <li class="auto-repair-shop bold">
+                        <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Oficinas<i class="material-icons left" style="color: aliceblue">account_balance</i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li class="auto-repair-shop-register">
+                                    <a href="oficinas/novo">Cadastro de oficina<i id="auto-repair-shop-register-icon" class="material-icons left">queue</i></a>
+                                </li>
+                                <li class="auto-repair-shop-list">
+                                    <a href="oficinas">Lista de oficinas<i id="auto-repair-shop-list-icon" class="material-icons left">format_list_numbered</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </sec:authorize>
+                <li class="maintenance bold">
                     <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Atendimentos<i class="material-icons left" style="color: aliceblue">assignment_turned_in</i></a>
 
                     <div class="collapsible-body">
                         <ul>
-                            <li class="service-register">
-                                <a href="atendimentos/novo">Cadastro de atendimento<i id="service-register-icon" class="material-icons left">note_add</i></a>
-                            </li>
-                            <li class="service-history">
-                                <a href="atendimentos">Histórico de atendimento<i id="service-history-icon" class="material-icons left">assignment</i></a>
-                            </li>
-                            <li class="service-report">
-                                <a href="#">Relatório de atendimento<i id="service-report-icon" class="material-icons left">assessment</i></a>
-                            </li>
-                            <li class="service-client">
-                                <a href="#">Estrato de atendimento<i id="service-client-icon" class="material-icons left">assignment_returned</i></a>
-                            </li>
+                            <sec:authorize access="hasAnyRole('ADMIN') or hasAnyRole('MANAGER') or hasAnyRole('EMPLOYEE')">
+                                <li class="maintenance-register">
+                                    <a href="atendimentos/novo">Cadastro de atendimento<i id="maintenance-register-icon" class="material-icons left">note_add</i></a>
+                                </li>
+                                <li class="maintenance-history">
+                                    <a href="atendimentos">Histórico de atendimento<i id="maintenance-history-icon" class="material-icons left">assignment</i></a>
+                                </li>
+                                <li class="maintenance-report">
+                                    <a href="#">Relatório de atendimento<i id="maintenance-report-icon" class="material-icons left">assessment</i></a>
+                                </li>
+                            </sec:authorize>
+                            <sec:authorize access="hasAnyRole('CLIENT')">
+                                <li class="maintenance-client">
+                                    <a href="atendimentos/cliente">Histórico de atendimento<i id="maintenance-client-icon" class="material-icons left">assignment_returned</i></a>
+                                </li>
+                            </sec:authorize>
                         </ul>
                     </div>
                 </li>
@@ -88,48 +94,56 @@
 
                     <div class="collapsible-body">
                         <ul>
-                            <li class="vehicle-register">
-                                <a href="veiculos/novo">Cadastro de veículo<i id="vehicle-register-icon" class="material-icons left">playlist_add</i></a>
-                            </li>
-                            <li class="vehicle-list">
-                                <a href="veiculos">Todos os veículos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
-                            </li>
-                            <li class="vehicle-client-list">
-                                <a href="veiculos/meus">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
-                            </li>
+                            <sec:authorize access="hasAnyRole('ADMIN') or hasAnyRole('MANAGER') or hasAnyRole('EMPLOYEE')">
+                                <li class="vehicle-register">
+                                    <a href="veiculos/novo">Cadastro de veículo<i id="vehicle-register-icon" class="material-icons left">playlist_add</i></a>
+                                </li>
+                                <li class="vehicle-list">
+                                    <a href="veiculos">Todos os veículos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
+                                </li>
+                            </sec:authorize>
+                            <sec:authorize access="hasAnyRole('CLIENT')">
+                                <li class="vehicle-client-list">
+                                    <a href="veiculos/cliente">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
+                                </li>
+                            </sec:authorize>
                         </ul>
                     </div>
                 </li>
-                <li class="client bold">
-                    <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Clientes<i class="material-icons left" style="color: aliceblue">group</i></a>
+                <sec:authorize access="hasAnyRole('ADMIN') or hasAnyRole('MANAGER') or hasAnyRole('EMPLOYEE')">
+                    <li class="client bold">
+                        <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Clientes<i class="material-icons left" style="color: aliceblue">group</i></a>
 
-                    <div class="collapsible-body">
-                        <ul>
-                            <li class="client-register">
-                                <a href="clientes/novo">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
-                            </li>
-                            <li class="client-list">
-                                <a href="clientes">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="employee bold">
-                    <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Funcionários<i class="material-icons left" style="color: aliceblue">supervisor_account</i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li class="client-register">
+                                    <a href="clientes/novo">Cadastro de cliente<i id="client-register-icon" class="material-icons left">person_add</i></a>
+                                </li>
+                                <li class="client-list">
+                                    <a href="clientes">Lista de clintes<i id="client-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasAnyRole('ADMIN') or hasAnyRole('MANAGER')">
+                    <li class="employee bold">
+                        <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Funcionários<i class="material-icons left" style="color: aliceblue">supervisor_account</i></a>
 
-                    <div class="collapsible-body">
-                        <ul>
-                            <li class="employee-register">
-                                <a href="#">Cadastro de funcionário<i id="employee-register-icon" class="material-icons left">person_add</i></a>
-                            </li>
-                            <li class="employee-list">
-                                <a href="#">Lista de funcionários<i id="employee-list-icon" class="material-icons left">format_list_bulleted</i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li class="employee-register">
+                                    <a href="funcionarios/novo">Cadastro de funcionário<i id="employee-register-icon" class="material-icons left">person_add</i></a>
+                                </li>
+                                <li class="employee-list">
+                                    <a href="funcionarios">Lista de funcionários<i id="employee-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </sec:authorize>
                 <li class="bold">
-                    <a class="white-text" href="logout">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
+                    <a class="white-text" href="log-out">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
                 </li>
             </ul>
         </li>
