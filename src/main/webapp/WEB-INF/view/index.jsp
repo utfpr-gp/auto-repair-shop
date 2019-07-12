@@ -2,13 +2,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:template title="Alunos">
+<t:template title="Oficina">
     <jsp:body>
         <div class="container">
             <h1>Início</h1>
-
-
-
+            <h1>Bem vindo(a)</h1>
         </div>
     </jsp:body>
 </t:template>
