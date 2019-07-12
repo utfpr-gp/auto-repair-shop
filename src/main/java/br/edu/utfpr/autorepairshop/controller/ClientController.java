@@ -194,12 +194,12 @@ public class ClientController {
         Optional<Client> client = clientService.findById(id);
 
         if (!client.isPresent()){
-            redirectAttributes.addFlashAttribute("msg", "Este cliente não foi encontrado!");
+            redirectAttributes.addFlashAttribute("message", "Este cliente não foi encontrado!");
             return new ModelAndView("redirect:/clientes");
         }
 
         clientService.deleteById(id);
-        redirectAttributes.addFlashAttribute("msg", "Cliente removido com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Cliente removido com sucesso!");
         return new ModelAndView("redirect:/clientes");
     }
 

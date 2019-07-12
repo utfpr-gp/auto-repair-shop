@@ -142,7 +142,7 @@ public class VehicleController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         this.vehicleService.delete(id);
-        redirectAttributes.addFlashAttribute("msg", "Veiculo removido com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Veiculo removido com sucesso!");
         return "redirect:/veiculos";
     }
 }
