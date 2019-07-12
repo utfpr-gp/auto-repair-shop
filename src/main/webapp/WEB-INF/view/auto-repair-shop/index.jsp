@@ -7,9 +7,6 @@
 <t:template title="Oficinas">
     <jsp:body>
         <div class="container">
-                    <c:if test="${not empty message}">
-                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
-            </c:if>
             
             <h1 class="header">Oficinas</h1>
             <a href="oficinas/novo" class="btn-floating btn-small waves-effect waves-light blue"><i

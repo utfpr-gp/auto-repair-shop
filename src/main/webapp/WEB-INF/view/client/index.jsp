@@ -10,9 +10,6 @@
             <a href="clientes/novo" class="btn-floating btn-small waves-effect waves-light blue"><i
                     class="material-icons" title="Cadastrar cliente">add</i></a>
             <c:if test="${not empty clients}">
-
-
-
                 <table>
                     <thead>
                     <tr>

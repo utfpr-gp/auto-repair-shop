@@ -39,6 +39,9 @@
 </head>
 <body>
 <header>
+    <c:if test="${not empty message}">
+        <script>M.toast({html: "${message}", classes: 'rounded'})</script>
+    </c:if>
     <div class="container"><a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a></div>
     <ul id="nav-mobile" class="sidenav sidenav-fixed light-blue darken-4">
         <li class="logo">
