@@ -36,8 +36,11 @@ function efeitoMenu() {
     MAINTENANCES = 'atendimentos';
     FORM_VEHICLE = 'veiculos/novo';
     VEHICLES = 'veiculos';
+    VEHICLES_CLIENT = 'veiculos/cliente';
     FORM_CLIENT = 'clientes/novo';
     CLIENTS = 'clientes';
+    FORM_EMPLOYEE = 'funcionarios/novo';
+    EMPLOYEERS = 'funcionarios';
 
 
     pagina = window.location.href;
@@ -63,6 +66,8 @@ function efeitoMenu() {
     if (pagina.includes(VEHICLES)) {
         if (pagina.includes(FORM_VEHICLE)) {
             $(".vehicle-register").addClass("active");
+        } else if (pagina.includes(VEHICLES_CLIENT)){
+            $(".vehicle-client-list").addClass("active");
         } else {
             $(".vehicle-list").addClass("active");
         }
@@ -76,6 +81,15 @@ function efeitoMenu() {
             $(".client-list").addClass("active");
         }
         $(".client").addClass("active");
+    }
+
+    if (pagina.includes(EMPLOYEERS)) {
+        if (pagina.includes(FORM_EMPLOYEE)) {
+            $(".employee-register").addClass("active");
+        } else {
+            $(".employee-list").addClass("active");
+        }
+        $(".employee").addClass("active");
     }
 
 }
