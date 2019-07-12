@@ -29,7 +29,6 @@ import br.edu.utfpr.autorepairshop.util.TokenUtil;
 import java.util.Optional;
 
 @RequestMapping("/")
-@CrossOrigin
 @Controller
 public class AuthenticationController {
 

@@ -117,10 +117,10 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="employee-register">
-                                <a href="#">Cadastro de funcionário<i id="employee-register-icon" class="material-icons left">person_add</i></a>
+                                <a href="funcionarios/novo">Cadastro de funcionário<i id="employee-register-icon" class="material-icons left">person_add</i></a>
                             </li>
                             <li class="employee-list">
-                                <a href="#">Lista de funcionários<i id="employee-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                <a href="funcionarios">Lista de funcionários<i id="employee-list-icon" class="material-icons left">format_list_bulleted</i></a>
                             </li>
                         </ul>
                     </div>
