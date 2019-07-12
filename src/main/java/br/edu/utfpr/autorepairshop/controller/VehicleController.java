@@ -129,6 +129,7 @@ public class VehicleController {
         VehicleDTO vehicleDTO = vehicleMapper.toResponseDto(optionalVehicle.get());
         mv.addObject("dto", vehicleDTO);
         mv.addObject("clientsDto", clientsDto);
+        mv.addObject("brand", BrandEnum.getValues());
         return mv;
     }
 
