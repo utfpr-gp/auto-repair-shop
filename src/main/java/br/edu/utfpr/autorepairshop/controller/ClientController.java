@@ -12,6 +12,7 @@ import br.edu.utfpr.autorepairshop.model.mapper.CredentialMapper;
 import br.edu.utfpr.autorepairshop.model.service.AddressService;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import br.edu.utfpr.autorepairshop.model.service.CredentialService;
+import br.edu.utfpr.autorepairshop.security.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +27,7 @@ import java.util.Optional;
 
 
 @RestController
+
 @RequestMapping("/clientes")
 public class ClientController {
 
@@ -124,9 +126,9 @@ public class ClientController {
             return mv;
         }
 
-        Credential credentialToVerify = credentialService.findByEmail(credentialDto.getEmail());
+        Optional<Credential>  credentialToVerify = credentialService.findByEmail(credentialDto.getEmail());
 
-        if (credentialToVerify != null){
+        if (credentialToVerify.isPresent()){
                 ModelAndView mv = new ModelAndView("client/form");
                 mv.addObject("dto", clientDto);
                 mv.addObject("credentialDto", credentialDto);
@@ -142,6 +144,7 @@ public class ClientController {
         Client client =  clientMapper.toEntity(clientDto);
 
         addressService.save(address);
+        credential.setRole(RoleEnum.ROLE_CLIENT);
         credentialService.save(credential);
 
 

@@ -31,4 +31,8 @@ public class MaintenanceService {
     public Optional<Maintenance> findById(Long id){
         return this.maintenanceRepository.findById(id);
     }
+
+    public List<Maintenance> findByClientId(Long id) {
+        return this.maintenanceRepository.findByClientId(id);
+    }
 }

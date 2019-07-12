@@ -2,7 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<t:template title="Erro!!">
+<t:login title="Erro!!">
     <jsp:body>
         <h2>Ooops!! Estamos com problemas!</h2>
         <p>Pedimos desculpas! Houve um erro ao persistir os seus dados!</p>
@@ -13,4 +13,4 @@
             </div>
         </div>
     </jsp:body>
-</t:template>
+</t:login>

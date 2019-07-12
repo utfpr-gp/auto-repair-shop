@@ -63,22 +63,22 @@
                         </ul>
                     </div>
                 </li>
-                <li class="service bold">
+                <li class="maintenance bold">
                     <a class="collapsible-header waves-effect waves-blue-grey white-text" tabindex="0">Atendimentos<i class="material-icons left" style="color: aliceblue">assignment_turned_in</i></a>
 
                     <div class="collapsible-body">
                         <ul>
-                            <li class="service-register">
-                                <a href="atendimentos/novo">Cadastro de atendimento<i id="service-register-icon" class="material-icons left">note_add</i></a>
+                            <li class="maintenance-register">
+                                <a href="atendimentos/novo">Cadastro de atendimento<i id="maintenance-register-icon" class="material-icons left">note_add</i></a>
                             </li>
-                            <li class="service-history">
-                                <a href="atendimentos">Histórico de atendimento<i id="service-history-icon" class="material-icons left">assignment</i></a>
+                            <li class="maintenance-history">
+                                <a href="atendimentos">Histórico de atendimento<i id="maintenance-history-icon" class="material-icons left">assignment</i></a>
                             </li>
-                            <li class="service-report">
-                                <a href="#">Relatório de atendimento<i id="service-report-icon" class="material-icons left">assessment</i></a>
+                            <li class="maintenance-report">
+                                <a href="#">Relatório de atendimento<i id="maintenance-report-icon" class="material-icons left">assessment</i></a>
                             </li>
-                            <li class="service-client">
-                                <a href="#">Estrato de atendimento<i id="service-client-icon" class="material-icons left">assignment_returned</i></a>
+                            <li class="maintenance-client">
+                                <a href="atendimentos/cliente">Extrato de atendimento<i id="maintenance-client-icon" class="material-icons left">assignment_returned</i></a>
                             </li>
                         </ul>
                     </div>
@@ -95,7 +95,7 @@
                                 <a href="veiculos">Todos os veículos<i id="vehicle-list-icon" class="material-icons left">playlist_add_check</i></a>
                             </li>
                             <li class="vehicle-client-list">
-                                <a href="veiculos/meus">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
+                                <a href="veiculos/cliente">Meus veículos<i id="vehicle-client-icon" class="material-icons left">airport_shuttle</i></a>
                             </li>
                         </ul>
                     </div>
@@ -120,16 +120,16 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="employee-register">
-                                <a href="#">Cadastro de funcionário<i id="employee-register-icon" class="material-icons left">person_add</i></a>
+                                <a href="funcionarios/novo">Cadastro de funcionário<i id="employee-register-icon" class="material-icons left">person_add</i></a>
                             </li>
                             <li class="employee-list">
-                                <a href="#">Lista de funcionários<i id="employee-list-icon" class="material-icons left">format_list_bulleted</i></a>
+                                <a href="funcionarios">Lista de funcionários<i id="employee-list-icon" class="material-icons left">format_list_bulleted</i></a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <li class="bold">
-                    <a class="white-text" href="logout">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
+                    <a class="white-text" href="log-out">Sair<i class="material-icons left" style="color: aliceblue">power_settings_new</i></a>
                 </li>
             </ul>
         </li>

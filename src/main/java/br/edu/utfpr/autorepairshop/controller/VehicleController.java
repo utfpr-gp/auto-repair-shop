@@ -2,15 +2,22 @@ package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.BrandEnum;
 import br.edu.utfpr.autorepairshop.model.Client;
+import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
 import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
 import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
+import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.model.service.ImageService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -24,8 +31,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestMapping("/veiculos")
+@PreAuthorize("hasAnyRole('ADMIN') or hasAnyRole('MANAGER') or hasAnyRole('EMPLOYEE')")
 @Controller
 public class VehicleController {
+
+    public static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
     private VehicleService vehicleService;
@@ -34,12 +44,17 @@ public class VehicleController {
     private ClientService clientService;
 
     @Autowired
+    private CredentialService credentialService;
+
+    @Autowired
     private VehicleMapper vehicleMapper;
 
     @Autowired
     ImageService imageService;
 
+
     @GetMapping
+
     public ModelAndView index() {
         List<Vehicle> vehicles = vehicleService.findAll();
 
@@ -53,11 +68,12 @@ public class VehicleController {
         return mv;
     }
 
-    @GetMapping("/meus")
+    @GetMapping("/cliente")
+    @PreAuthorize("hasAnyRole('CLIENT')")
     public ModelAndView myVehicles() {
-//        JwtUser currentUser = (JwtUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //todo após login pronto descomentar código acima alterar o 1 abaxo por currentUser.getId();
-        Optional<Client> clientOptional = this.clientService.findByCredentialId(1);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
+        Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
         ModelAndView mv = new ModelAndView("vehicle/my-vehicles");
 
         if (clientOptional.isPresent()) {
