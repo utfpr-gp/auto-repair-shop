@@ -13,6 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -47,13 +48,25 @@ public class AuthenticationController {
 	private CredentialService credentialService;
 
 	@GetMapping(value = "login")
-	public ModelAndView showLogin(@RequestParam(value = "auth", defaultValue = "1") int auth) {
+	public ModelAndView showLogin(@RequestParam(value = "auth", defaultValue = "1") int auth, RedirectAttributes redirectAttributes) {
 		log.info("Mostrando o index");
-		ModelAndView mv = new ModelAndView("login/form");
-		if (auth == 0) {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
+
+		if (!o.isPresent() || auth == 0) {
+			ModelAndView mv = new ModelAndView("login/form");
 			mv.addObject("message", "Você não esta autenticado");
+			return mv;
 		}
-		return mv;
+		switch (o.get().getRole()) {
+			case ROLE_ADMIN :
+				return new ModelAndView("redirect:oficinas");
+			case ROLE_MANAGER:
+				return new ModelAndView("redirect:funcionarios");
+			case ROLE_EMPLOYEE:
+				return new ModelAndView("redirect:atendimentos");
+		}
+		return new ModelAndView("redirect:atendimentos/cliente");
 	}
 	
 	@PostMapping(value = "login")
