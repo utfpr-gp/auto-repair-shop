@@ -2,7 +2,6 @@ package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.BrandEnum;
 import br.edu.utfpr.autorepairshop.model.Client;
-import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
 import br.edu.utfpr.autorepairshop.model.dto.ImageDTO;

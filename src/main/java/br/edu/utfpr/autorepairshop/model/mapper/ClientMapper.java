@@ -1,7 +1,7 @@
 package br.edu.utfpr.autorepairshop.model.mapper;
 
 import br.edu.utfpr.autorepairshop.model.Client;
-import br.edu.utfpr.autorepairshop.model.dto.ClientDataDTO;
+import br.edu.utfpr.autorepairshop.model.dto.ClientDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,16 +17,16 @@ public class ClientMapper {
     private static final SimpleDateFormat dateFormat
             = new SimpleDateFormat("dd/MM/yyyy");
 
-    public ClientDataDTO toResponseDto(Client entity){
-        ClientDataDTO clientDataDTO = mapper.map(entity, ClientDataDTO.class);
-        clientDataDTO.setBirthDate(this.dateFormat.format(entity.getBirthDate()));
+    public ClientDTO toResponseDto(Client entity){
+        ClientDTO clientDTO = mapper.map(entity, ClientDTO.class);
+        clientDTO.setBirthDate(this.dateFormat.format(entity.getBirthDate()));
 
 
-        return clientDataDTO;
+        return clientDTO;
     }
 
-    public Client toEntity(ClientDataDTO clientDataDTO){
-        Client client = mapper.map(clientDataDTO, Client.class);
+    public Client toEntity(ClientDTO clientDTO){
+        Client client = mapper.map(clientDTO, Client.class);
         return client;
     }
 

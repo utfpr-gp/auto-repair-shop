@@ -28,7 +28,7 @@
                         <tr>
                             <td>${cliente.name}</td>
                             <td>${cliente.telephone}</td>
-                            <td>${cliente.credentialDTO.email}</td>
+                            <td>${cliente.credentialDto.email}</td>
                             <td>
                                 <a href="clientes/${cliente.id}"><i class="material-icons">edit</i></a>
                             </td>

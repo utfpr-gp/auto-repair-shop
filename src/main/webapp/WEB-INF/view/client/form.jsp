@@ -36,7 +36,7 @@
                             <div class="content-form">
                                 <div class="title-form">Cadastro de cliente</div>
                                 <c:if test="${dto.id == null}">
-                                <form action="clientes/novo" method="post">
+                                <form action="clientes" method="post">
                                 </c:if>
                                     <c:if test="${dto.id != null}">
                                     <form action="clientes/${dto.id}" method="post">
@@ -51,26 +51,26 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="addressDTO.cep" type="text" value="${dto.addressDTO.cep}" maxlength="8">
+                                            <input id="cep" name="cep" type="text" value="${addressDto.cep}" maxlength="8">
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="state" name="addressDTO.state" type="text" value="${dto.addressDTO.state}" maxlength="2">
+                                            <input id="state" name="state" type="text" value="${addressDto.state}" maxlength="2">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="city" name="addressDTO.city" type="text" value="${dto.addressDTO.city}">
+                                            <input id="city" name="city" type="text" value="${addressDto.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="street" name="addressDTO.street" type="text" value="${dto.addressDTO.street}">
+                                            <input id="street" name="street" type="text" value="${addressDto.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
 
-                                            <input id="number" name="addressDTO.number" type="text" value="${dto.addressDTO.number}">
+                                            <input id="number" name="number" type="text" value="${addressDto.number}">
                                             <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -91,26 +91,24 @@
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">mail</i>
                                         <c:if test="${dto.id == null}">
-                                            <input id="email" name="credentialDTO.email" type="text" value="${dto.credentialDTO.email}">
+                                            <input id="email" name="email" type="text" value="${credentialDto.email}">
                                         </c:if>
                                             <c:if test="${dto.id != null}">
-                                                <input id="email" name="credentialDTO.email" type="text" readonly value="${dto.credentialDTO.email}">
+                                                <input id="email" name="email" type="text" readonly value="${credentialDto.email}">
                                             </c:if>
                                             <label for="email">Email</label>
                                         </div>
 
                                         <c:if test="${dto.id == null}">
                                             <div class="input-field col s6">
-                                                <input id="password" name="credentialDTO.password" type="password" value="" required>
+                                                <input id="password" name="password" type="password" value="" required>
                                                 <label for="password">Senha</label>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input id="passwordConfirmation" required name="credentialDTO.passwordConfirmation" type="password" value="">
+                                                <input id="passwordConfirmation" required name="passwordConfirmation" type="password" value="">
                                                 <label for="passwordConfirmation">Confirmação Senha</label>
                                             </div>
                                         </c:if>
-
-                                        <input name="credentialDTO.role" type="hidden" value="client">
                                     </div>
                                     <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar cliente</button>

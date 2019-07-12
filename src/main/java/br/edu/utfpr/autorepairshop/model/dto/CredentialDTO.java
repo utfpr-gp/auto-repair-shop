@@ -20,6 +20,7 @@ public class CredentialDTO {
     @NotEmpty(message = "Por favor informe o email.")
     private String email;
 
+    @NotEmpty
     private String password;
 
     private String passwordConfirmation;

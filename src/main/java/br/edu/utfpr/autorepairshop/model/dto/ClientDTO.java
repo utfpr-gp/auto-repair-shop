@@ -21,7 +21,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ClientDataDTO {
+public class ClientDTO {
 
     private Long id;
 
@@ -37,10 +37,10 @@ public class ClientDataDTO {
     private String telephone;
 
     @Valid
-    private AddressDTO addressDTO;
+    private AddressDTO addressDto;
 
     @Valid
-    private CredentialDTO credentialDTO;
+    private CredentialDTO credentialDto;
 
 
     public Date getBirthDate() {
