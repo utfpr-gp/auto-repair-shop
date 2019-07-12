@@ -38,26 +38,27 @@
                                             <label for="name">Nome completo</label>
                                         </div>
                                         <div class="input-field col s6">
+                                            <i class="material-icons prefix">markunread_mailbox</i>
                                             <label for="cep">Cep</label>
                                             <input id="cep" name="cep" type="text" value="${addressDto.cep}">
                                         </div>
                                         <div class="input-field col s6">
-
+                                            <i class="material-icons prefix">map</i>
                                             <input id="state" name="state" type="text" value="${addressDto.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
-
+                                            <i class="material-icons prefix">location_city</i>
                                             <input id="city" name="city" type="text" value="${addressDto.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
-
+                                            <i class="material-icons prefix">view_day</i>
                                             <input id="street" name="street" type="text" value="${addressDto.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
-
+                                            <i class="material-icons prefix">filter_9_plus</i>
                                             <input id="number" name="number" type="text" value="${addressDto.number}">
                                             <label for="number">Numero</label>
                                         </div>
