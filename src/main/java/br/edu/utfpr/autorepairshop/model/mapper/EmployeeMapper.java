@@ -1,5 +1,7 @@
 package br.edu.utfpr.autorepairshop.model.mapper;
 
+import br.edu.utfpr.autorepairshop.model.Credential;
+import br.edu.utfpr.autorepairshop.model.dto.CredentialDTO;
 import org.modelmapper.ModelMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class EmployeeMapper {
 	@Autowired
 	private AddressMapper address;
 
+	@Autowired
+	private CredentialMapper credentialMapper;
+
 	public EmployeeDTO toDto(Employee entity) {
     	EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
         return dto;
@@ -32,14 +37,8 @@ public class EmployeeMapper {
 
 	public EmployeeDTO toResponseDto(Employee entity) {
 		EmployeeDTO dto = mapper.map(entity, EmployeeDTO.class);
-		//dto.setAddressDTO(address.toDto(entity.getAddress()));
-		dto.setCep(entity.getAddress().getCep());
-		dto.setCity(entity.getAddress().getCity());
-		dto.setNumber(entity.getAddress().getNumber());
-		dto.setState(entity.getAddress().getState());
-		dto.setStreet(entity.getAddress().getStreet());
-		dto.setEmail(entity.getCredential().getEmail());
-		dto.setPassword(entity.getCredential().getPassword());
+		dto.setAddressDto(address.toDto(entity.getAddress()));
+		dto.setCredentialDto(credentialMapper.toDto(entity.getCredential()));
 		return dto;
 	}
 }

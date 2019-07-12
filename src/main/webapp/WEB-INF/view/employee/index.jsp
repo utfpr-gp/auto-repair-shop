@@ -35,11 +35,11 @@
                             <td>${employee.id}</td>
                             <td>${employee.name}</td>
                             <td>${employee.telephone}</td>
-                            <td>${employee.address.city}</td>
-                            <td>${employee.address.state}</td>
-                            <td>${employee.address.street}</td>
-                            <td>${employee.address.number}</td>
-                            <td>${employee.address.cep}</td> 
+                            <td>${employee.addressDto.city}</td>
+                            <td>${employee.addressDto.state}</td>
+                            <td>${employee.addressDto.street}</td>
+                            <td>${employee.addressDto.number}</td>
+                            <td>${employee.addressDto.cep}</td>
                             <td>
                                 <a href="funcionarios/${employee.id}"><i class="material-icons">edit</i></a>
                             </td>

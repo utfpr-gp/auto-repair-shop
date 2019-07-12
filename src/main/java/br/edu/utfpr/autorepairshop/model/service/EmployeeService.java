@@ -25,4 +25,8 @@ public class EmployeeService {
 	public Optional<Employee> findById(Long id) {
 		return repository.findById(id);
 	}
+
+	public void delete(Long id){
+		this.repository.deleteById(id);
+	}
 }
