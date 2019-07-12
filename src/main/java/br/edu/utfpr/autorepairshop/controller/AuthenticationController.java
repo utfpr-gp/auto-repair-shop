@@ -91,7 +91,7 @@ public class AuthenticationController {
 			case ROLE_EMPLOYEE:
 				return new ModelAndView("redirect:atendimentos");
 		}
-		return new ModelAndView("redirect:meu-historico");
+		return new ModelAndView("redirect:atendimentos/cliente");
 	}
 
 	@GetMapping(value = {"log-out"})
