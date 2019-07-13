@@ -139,7 +139,7 @@ public class EmployeeController {
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		employeeService.delete(id);
-		redirectAttributes.addFlashAttribute("msg", "Funcionario removido com sucesso!");
+		redirectAttributes.addFlashAttribute("message", "Funcionário removido com sucesso!");
 		return "redirect:/funcionarios";
 	}
 }
