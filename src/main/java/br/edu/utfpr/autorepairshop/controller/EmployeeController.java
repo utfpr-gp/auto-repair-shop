@@ -10,6 +10,9 @@ import javax.persistence.EntityNotFoundException;
 import br.edu.utfpr.autorepairshop.model.dto.AddressDTO;
 import br.edu.utfpr.autorepairshop.model.dto.CredentialDTO;
 import br.edu.utfpr.autorepairshop.security.RoleEnum;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -36,9 +39,11 @@ import br.edu.utfpr.autorepairshop.model.service.EmployeeService;
 @RequestMapping("/funcionarios")
 public class EmployeeController {
 
+	public static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+
 	@Autowired
 	EmployeeService employeeService;
-	
+
 	@Autowired
 	AddressService addressService;
 
@@ -90,31 +95,29 @@ public class EmployeeController {
 	}
 
 	@PostMapping
-	public ModelAndView save(@Validated EmployeeDTO dto, @Validated AddressDTO addressDto, @Validated CredentialDTO credentialDto, Errors errors, RedirectAttributes redirectAttributes) {
+	public ModelAndView save(@Validated EmployeeDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
+
+		log.info("Save");
 
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("employee/form");
 			mv.addObject("dto", dto);
-			mv.addObject("addressDto", addressDto);
-			mv.addObject("credentialDto", credentialDto);
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
 
-		Address address = addressMapper.toEntity(addressDto);
-		Optional<Credential> c = credentialService.findByEmail(credentialDto.getEmail());
+		Address address = addressMapper.toEntity(dto.getAddressDto());
+		Optional<Credential> c = credentialService.findByEmail(dto.getCredentialDto().getEmail());
 
 		if (c.isPresent()) {
 			ModelAndView mv = new ModelAndView("employee/form");
 			mv.addObject("dto", dto);
-			mv.addObject("addressDto", addressDto);
-			mv.addObject("credentialDto", credentialDto);
 			mv.addObject("messageError", "Email já utilizado");
 			return mv;
 		}
 		addressService.save(address);
 
-		Credential credential = credentialMapper.toEntity(credentialDto);
+		Credential credential = credentialMapper.toEntity(dto.getCredentialDto());
 		credential.setRole(RoleEnum.ROLE_EMPLOYEE);
 
 		credentialService.save(credential);
@@ -122,35 +125,34 @@ public class EmployeeController {
 		employee.setAddress(address);
 		employee.setCredential(credential);
 		employeeService.save(employee);
+
+		ModelAndView mv = new ModelAndView();
 		redirectAttributes.addFlashAttribute("message", "Funcionário salvo com sucesso!");
 		return new ModelAndView("redirect:funcionarios");
 	}
 
 	@PostMapping("/update")
-	public ModelAndView update(@Validated EmployeeDTO dto, @Validated AddressDTO addressDto,  @Validated CredentialDTO credentialDto, Errors errors, RedirectAttributes redirectAttributes) {
+	public ModelAndView update(@Validated EmployeeDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
 
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("employee/edit");
 			mv.addObject("dto", dto);
-			mv.addObject("addressDto", addressDto);
-			mv.addObject("credentialDto", credentialDto);
 			mv.addObject("errors", errors.getAllErrors());
 			return mv;
 		}
 
-		Address address = addressMapper.toEntity(addressDto);
-		Optional<Credential> c = credentialService.findByEmail(credentialDto.getEmail());
+		Address address = addressMapper.toEntity(dto.getAddressDto());
+		Optional<Credential> c = credentialService.findByEmail(dto.getCredentialDto().getEmail());
 
 		if (c.isPresent()) {
 			ModelAndView mv = new ModelAndView("employee/form");
 			mv.addObject("dto", dto);
-			mv.addObject("CredentialDto", credentialDto);
 			mv.addObject("messageError", "Email já utilizado");
 			return mv;
 		}
 		addressService.save(address);
 
-		Credential credential = credentialMapper.toEntity(credentialDto);
+		Credential credential = credentialMapper.toEntity(dto.getCredentialDto());
 		credential.setRole(RoleEnum.ROLE_EMPLOYEE);
 
 		credentialService.save(credential);

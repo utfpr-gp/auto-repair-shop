@@ -22,14 +22,14 @@ public class EmployeeDTO {
 
 	private Long id;
 
-	@Pattern(regexp = "^(\\s?[A-ZÀ-Ú][a-zà-ú]+)+(\\s[a-zà-ú]*)?(\\s[A-ZÀ-Ú][a-zà-ú]*)+", message = "Insira o seu nome completo iniciando com letras maíusculas.")
+	@Pattern(regexp = "^(\\s?[A-ZÀ-Ú][a-zà-ú]+)+(\\s[a-zà-ú]*)?(\\s[A-ZÀ-Ú][a-zà-ú]*)+", message = "Insira o seu nome completo com apenas as iniciais com letras maíusculas.")
 	@NotEmpty(message = "Nome deve ser preenchido!")
 	private String name;
 	
-	@NotEmpty(message = "O Telefone da Oficina é obrigatório")
 	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")	
 	private String telephone;
 	
+	@NotEmpty(message = "O celular é obrigatório")
 	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Celular em formato inválido")	
 	private String cellular;
 

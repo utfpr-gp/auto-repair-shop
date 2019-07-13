@@ -40,26 +40,26 @@
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">markunread_mailbox</i>
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${addressDto.cep}">
+                                            <input id="cep" name="addressDto.cep" type="text" value="${dto.addressDto.cep}">
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">map</i>
-                                            <input id="state" name="state" type="text" value="${addressDto.state}">
+                                            <input id="state" name="addressDto.state" type="text" value="${dto.addressDto.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">location_city</i>
-                                            <input id="city" name="city" type="text" value="${addressDto.city}">
+                                            <input id="city" name="addressDto.city" type="text" value="${dto.addressDto.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">view_day</i>
-                                            <input id="street" name="street" type="text" value="${addressDto.street}">
+                                            <input id="street" name="addressDto.street" type="text" value="${dto.addressDto.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">filter_9_plus</i>
-                                            <input id="number" name="number" type="text" value="${addressDto.number}">
+                                            <input id="number" name="addressDto.number" type="text" value="${dto.addressDto.number}">
                                             <label for="number">Numero</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -76,12 +76,12 @@
                                     <h5 class="header">Dados de acesso</h5>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">email</i>
-                                        <input id="email" type="email" name="email" class="validate" value="${credentialDto.email}">
+                                        <input id="email" type="email" name="credentialDto.email" class="validate" value="${dto.credentialDto.email}">
                                         <label for="email">Email</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">lock</i>
-                                        <input id="password" type="password" name="password" class="validate" value="${credentialDto.password}">
+                                        <input id="password" type="password" name="credentialDto.password" class="validate" value="${dto.credentialDto.password}">
                                         <label for="password">Senha</label>
                                     </div>
                                     <div class="action-form">
