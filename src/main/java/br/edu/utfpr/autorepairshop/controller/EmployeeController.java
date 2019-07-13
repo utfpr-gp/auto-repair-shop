@@ -82,7 +82,7 @@ public class EmployeeController {
 	@GetMapping("/{id}")
 	public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
-		ModelAndView mv = new ModelAndView("employee/edit");
+		ModelAndView mv = new ModelAndView("employee/form");
 
 		Optional<Employee> employee = employeeService.findById(id);
 
@@ -109,12 +109,17 @@ public class EmployeeController {
 		Address address = addressMapper.toEntity(dto.getAddressDto());
 		Optional<Credential> c = credentialService.findByEmail(dto.getCredentialDto().getEmail());
 
-		if (c.isPresent()) {
-			ModelAndView mv = new ModelAndView("employee/form");
-			mv.addObject("dto", dto);
-			mv.addObject("messageError", "Email já utilizado");
-			return mv;
+		String emailDto = dto.getCredentialDto().getEmail();
+		
+		if(dto.getId() == null) {
+			if (c.isPresent()) {
+				ModelAndView mv = new ModelAndView("employee/form");
+				mv.addObject("dto", dto);
+				mv.addObject("messageError", "Email já utilizado");
+				return mv;
+			}
 		}
+
 		addressService.save(address);
 
 		Credential credential = credentialMapper.toEntity(dto.getCredentialDto());
@@ -129,39 +134,6 @@ public class EmployeeController {
 		ModelAndView mv = new ModelAndView();
 		redirectAttributes.addFlashAttribute("message", "Funcionário salvo com sucesso!");
 		return new ModelAndView("redirect:funcionarios");
-	}
-
-	@PostMapping("/update")
-	public ModelAndView update(@Validated EmployeeDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
-
-		if (errors.hasErrors()) {
-			ModelAndView mv = new ModelAndView("employee/edit");
-			mv.addObject("dto", dto);
-			mv.addObject("errors", errors.getAllErrors());
-			return mv;
-		}
-
-		Address address = addressMapper.toEntity(dto.getAddressDto());
-		Optional<Credential> c = credentialService.findByEmail(dto.getCredentialDto().getEmail());
-
-		if (c.isPresent()) {
-			ModelAndView mv = new ModelAndView("employee/form");
-			mv.addObject("dto", dto);
-			mv.addObject("messageError", "Email já utilizado");
-			return mv;
-		}
-		addressService.save(address);
-
-		Credential credential = credentialMapper.toEntity(dto.getCredentialDto());
-		credential.setRole(RoleEnum.ROLE_EMPLOYEE);
-
-		credentialService.save(credential);
-		Employee employee = employeeMapper.toEntity(dto);
-		employee.setAddress(address);
-		employee.setCredential(credential);
-		employeeService.save(employee);
-		redirectAttributes.addFlashAttribute("message", "Funcionário atualizado com sucesso!");
-		return new ModelAndView("redirect:/funcionarios");
 	}
 
 	@DeleteMapping("/{id}")
