@@ -5,11 +5,7 @@
 
 <t:template title="Cadastro de funcionário">
     <jsp:body>
-        <div class="container">
-            <c:if test="${not empty message}">
-                <script>M.toast({html: "${message}", classes: 'rounded'})</script>
-            </c:if>
-            
+        <div class="container">            
             <c:if test="${not empty messageError}">
                 <div class="card-panel red">
                 	<span class="white-text">${messageError}</span><br>                    
@@ -31,6 +27,7 @@
                             <div class="content-form">
                                 <div class="title-form">Cadastro de funcionário</div>
                                 <form action="funcionarios" method="post">
+                                    <input name="id" type="hidden" value="${dto.id}"/>
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">person</i>
@@ -60,7 +57,7 @@
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">filter_9_plus</i>
                                             <input id="number" name="addressDto.number" type="text" value="${dto.addressDto.number}">
-                                            <label for="number">Numero</label>
+                                            <label for="number">Número</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">phone</i>
