@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <t:template title="Cadastro de atendimento">
     <jsp:body>
@@ -25,12 +26,14 @@
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">date_range</i>
-                                            <input id="date" name="date" type="text" class="datepicker">
+                                            <fmt:formatDate value="${dto.date}" var="dateFormatted" type="date"
+												pattern="MMM dd, yyyy"/>
+                                            <input id="date" name="date" type="text" class="datepicker" value="${dateFormatted}" />
                                             <label for="date">Data</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">access_time</i>
-                                            <input id="hour" name="hour" type="text" class="timepicker">
+                                            <input id="hour" name="hour" type="text" class="timepicker" value="${dto.hour}">
                                             <label for="hour">Horário</label>
                                         </div>
                                     </div>
@@ -39,18 +42,20 @@
                                             <i class="material-icons prefix">directions_car</i>
                                             <select id="vehicle" name="vehicle">
                                                 <option value="" disabled selected>Selecione</option>
-                                                <c:forEach var="v" items="${vehiclesDto}">
-                                                    <option value="${v.id}">${v.model} - ${v.placa}</option>
+                                                <c:forEach var="vehicleDto" items="${vehiclesDto}">
+                                                    <option <c:if test="${dto.vehicle.id == vehicleDto.id}"> selected="selected"</c:if>
+                                                    value="${vehicleDto.id}">${vehicleDto.model} - ${vehicleDto.placa}</option>
                                                 </c:forEach>
                                             </select>
-                                            <label>Veiculo</label>
+                                            <label>Veículo</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">person</i>
-                                            <select>
+                                            <select id="employee" name="employee">
                                                 <option value="" disabled selected>Selecione</option>
-                                                <c:forEach var="e" items="${employees}">
-                                                    <option value="${e.id}">${e.name}</option>
+                                                <c:forEach var="employeeDto" items="${employeesDto}">
+                                                	<option <c:if test="${dto.employee.id == employeeDto.id}"> selected="selected"</c:if>
+                                                	value="${employeeDto.id}">${employeeDto.name}</option>
                                                 </c:forEach>
                                             </select>
                                             <label>Mecânico</label>
@@ -59,26 +64,26 @@
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">description</i>
-                                            <textarea id="description" name="description" class="materialize-textarea" data-length="120"></textarea>
+                                            <textarea id="description" name="description" class="materialize-textarea" data-length="120">${dto.description}</textarea>
                                             <label for="description">Descrição</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">attach_money</i>
-                                            <input id="priceParts" name="priceParts" type="text">
+                                            <input id="priceParts" name="priceParts" type="text" value="${dto.priceParts}">
                                             <label for="priceParts">Preço das peças</label>
 
                                         </div>
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">monetization_on</i>
-                                            <input id="priceHandWork" name="priceHandWork" type="text">
+                                            <input id="priceHandWork" name="priceHandWork" type="text" value="${dto.priceHandWork}">
                                             <label for="priceHandWork">Mão de obra</label>
                                         </div>
                                         
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">monetization_on</i>
-                                            <input id="totalPrice" name="totalPrice" type="text">
+                                            <input id="totalPrice" name="totalPrice" type="text" value="${dto.totalPrice}">
                                             <label for="totalPrice">Preço total</label>
                                         </div>                                        
                                     </div>                                  

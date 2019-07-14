@@ -2,15 +2,19 @@ package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.Credential;
+import br.edu.utfpr.autorepairshop.model.Employee;
 import br.edu.utfpr.autorepairshop.model.Maintenance;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
+import br.edu.utfpr.autorepairshop.model.dto.EmployeeDTO;
 import br.edu.utfpr.autorepairshop.model.dto.MaintenanceDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
+import br.edu.utfpr.autorepairshop.model.mapper.EmployeeMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.MaintenanceMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import br.edu.utfpr.autorepairshop.model.service.CredentialService;
+import br.edu.utfpr.autorepairshop.model.service.EmployeeService;
 import br.edu.utfpr.autorepairshop.model.service.MaintenanceService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +49,18 @@ public class MaintenanceController {
 
     @Autowired
     private MaintenanceService maintenanceService;
+    
+    @Autowired
+    private EmployeeService employeeService;
 
     @Autowired
     private VehicleMapper vehicleMapper;
 
     @Autowired
     private MaintenanceMapper maintenanceMapper;
+    
+    @Autowired
+    private EmployeeMapper employeeMapper;
     
     @GetMapping
     public ModelAndView index() {
@@ -70,17 +80,17 @@ public class MaintenanceController {
     public ModelAndView showForm() {
         List<Vehicle> vehicles = vehicleService.findAll();
         List<VehicleDTO> vehiclesDto = vehicles.stream()
-                .map(vehicle -> {
-                	VehicleDTO vehicleDto = new VehicleDTO();
-                	vehicleDto.setId(vehicle.getId());
-                	vehicleDto.setModel(vehicle.getModel());
-                	vehicleDto.setPlaca(vehicle.getPlaca());
-                    return vehicleDto;
-                })
+                .map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+                .collect(Collectors.toList());
+
+        List<Employee> employees = employeeService.findAll();
+        List<EmployeeDTO> employeesDto = employees.stream()
+                .map(employee -> employeeMapper.toResponseDto(employee))
                 .collect(Collectors.toList());
 
         ModelAndView mv = new ModelAndView("maintenance/form");
         mv.addObject("vehiclesDto", vehiclesDto);
+        mv.addObject("employeesDto", employeesDto);
 
         return mv;
     }
@@ -105,27 +115,6 @@ public class MaintenanceController {
         return mv;
     }
 
-//    @GetMapping("/{id}")
-//    public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
-//
-//        Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
-//
-//        if(!optionalVehicle.isPresent()){
-//            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
-//        }
-//
-//        List<Maintenance> maintenances = maintenanceService.findByVehicle(id);
-//
-//        List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
-//                .map(s -> maintenanceMapper.toResponseDto(s))
-//                .collect(Collectors.toList());
-//
-//        ModelAndView mv = new ModelAndView("maintenance/index");
-//        mv.addObject("maintenances", maintenanceDTOs);
-//
-//        return mv;
-//    }
-
     @GetMapping(value = "pesquisa")
     public ModelAndView search(@RequestParam(value = "search", defaultValue = "") String placa) {
         return new ModelAndView();
@@ -133,9 +122,22 @@ public class MaintenanceController {
 
     @PostMapping
     public ModelAndView save(@Validated MaintenanceDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
-        if(errors.hasErrors()){
+        
+    	List<Vehicle> vehicles = vehicleService.findAll();
+        List<VehicleDTO> vehiclesDto = vehicles.stream()
+                .map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+                .collect(Collectors.toList());
+
+        List<Employee> employees = employeeService.findAll();
+        List<EmployeeDTO> employeesDto = employees.stream()
+                .map(employee -> employeeMapper.toResponseDto(employee))
+                .collect(Collectors.toList());
+        
+    	if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("maintenance/form");
             mv.addObject("dto", dto);
+            mv.addObject("vehiclesDto", vehiclesDto);
+            mv.addObject("employeesDto", employeesDto);
             mv.addObject("errors", errors.getAllErrors());
             return mv;
         }
