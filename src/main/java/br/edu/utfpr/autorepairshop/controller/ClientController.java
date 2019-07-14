@@ -147,14 +147,6 @@ public class ClientController {
 
 	@DeleteMapping("/{id}")
 	public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes){
-
-		Optional<Client> client = clientService.findById(id);
-
-		if (!client.isPresent()){
-			redirectAttributes.addFlashAttribute("message", "Este cliente não foi encontrado!");
-			return new ModelAndView("redirect:/clientes");
-		}
-
 		clientService.deleteById(id);
 		redirectAttributes.addFlashAttribute("message", "Cliente removido com sucesso!");
 		return new ModelAndView("redirect:/clientes");
