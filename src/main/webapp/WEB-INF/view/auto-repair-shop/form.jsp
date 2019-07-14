@@ -20,6 +20,7 @@
                     <div class="row">
                         <div class="form" >
                             <div class="content-form">
+                            ${dto.managerDto}
                                 <div class="title-form">Cadastro de oficina</div>
                                 <form action="oficinas" method="post" enctype="multipart/form-data">
 									<input name="id" type="hidden" value="${dto.id}"/>
@@ -82,7 +83,7 @@
                                            </div>
                                        </div>
                                     </div>
-                                    <div class="action-form">s
+                                    <div class="action-form">
                                         <button type="submit" class="btn-flat">Cadastrar oficina</button>
                                     </div>
                                 </form>

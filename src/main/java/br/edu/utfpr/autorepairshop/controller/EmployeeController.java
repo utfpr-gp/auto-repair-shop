@@ -97,8 +97,6 @@ public class EmployeeController {
 	@PostMapping
 	public ModelAndView save(@Validated EmployeeDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
 
-		log.info("Save");
-
 		if (errors.hasErrors()) {
 			ModelAndView mv = new ModelAndView("employee/form");
 			mv.addObject("dto", dto);
@@ -109,15 +107,11 @@ public class EmployeeController {
 		Address address = addressMapper.toEntity(dto.getAddressDto());
 		Optional<Credential> c = credentialService.findByEmail(dto.getCredentialDto().getEmail());
 
-		String emailDto = dto.getCredentialDto().getEmail();
-		
-		if(dto.getId() == null) {
-			if (c.isPresent()) {
-				ModelAndView mv = new ModelAndView("employee/form");
-				mv.addObject("dto", dto);
-				mv.addObject("messageError", "Email já utilizado");
-				return mv;
-			}
+		if (c.isPresent() && dto.getId() != c.get().getId()) {
+			ModelAndView mv = new ModelAndView("employee/form");
+			mv.addObject("dto", dto);
+			mv.addObject("messageError", "Email já utilizado");
+			return mv;
 		}
 
 		addressService.save(address);

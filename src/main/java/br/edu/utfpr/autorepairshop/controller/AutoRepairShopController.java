@@ -116,9 +116,9 @@ public class AutoRepairShopController {
 		}
 
 		Address address = addressMapper.toEntity(dto.getAddressDto());
-		List<AutoRepairShop> autoRepair = autoRepairShopService.findByCnpj(dto.getCnpj());
+		Optional<AutoRepairShop> autoRepair = autoRepairShopService.findByCnpj(dto.getCnpj());
 		
-		if (!autoRepair.isEmpty()) {
+		if (autoRepair.isPresent() && dto.getId() != autoRepair.get().getId()) {
 			ModelAndView mv = new ModelAndView("auto-repair-shop/form");
 			mv.addObject("dto", dto);
 			mv.addObject("message", "Oficina já cadastrado");
