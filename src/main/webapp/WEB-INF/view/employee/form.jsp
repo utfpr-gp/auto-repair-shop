@@ -28,6 +28,7 @@
                                 <div class="title-form">Cadastro de funcionário</div>
                                 <form action="funcionarios" method="post">
                                     <input name="id" type="hidden" value="${dto.id}"/>
+                                    <input name="credentialDto.id" type="hidden" value="${dto.credentialDto.id}"/>
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">person</i>

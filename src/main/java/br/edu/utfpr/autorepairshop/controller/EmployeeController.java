@@ -107,7 +107,7 @@ public class EmployeeController {
 		Address address = addressMapper.toEntity(dto.getAddressDto());
 		Optional<Credential> c = credentialService.findByEmail(dto.getCredentialDto().getEmail());
 
-		if (c.isPresent() && dto.getId() != c.get().getId()) {
+		if (c.isPresent() && dto.getCredentialDto().getId() != c.get().getId()) {
 			ModelAndView mv = new ModelAndView("employee/form");
 			mv.addObject("dto", dto);
 			mv.addObject("messageError", "Email já utilizado");

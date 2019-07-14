@@ -35,6 +35,7 @@
                                 <div class="title-form">Cadastro de cliente</div>
                                 <form action="clientes" method="post">
 									<input name="id" type="hidden" value="${dto.id}" />
+                                    <input name="credentialDto.id" type="hidden" value="${dto.credentialDto.id}"/>
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i

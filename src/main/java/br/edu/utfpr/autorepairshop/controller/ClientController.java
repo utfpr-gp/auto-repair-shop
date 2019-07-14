@@ -119,7 +119,7 @@ public class ClientController {
 
 		Optional<Credential> credentialToVerify = credentialService.findByEmail(clientDto.getCredentialDto().getEmail());
 
-		if(clientDto.getId() == null) {
+		if (credentialToVerify.isPresent() && clientDto.getCredentialDto().getId() != credentialToVerify.get().getId()) {
 			if (credentialToVerify.isPresent()){
 				ModelAndView mv = new ModelAndView("client/form");
 				mv.addObject("dto", clientDto);
