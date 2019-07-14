@@ -14,5 +14,4 @@ public interface AutoRepairShopRepository extends JpaRepository<AutoRepairShop, 
 	@Query("SELECT a FROM AutoRepairShop a WHERE cnpj = :cnpj")
 	Optional<AutoRepairShop> findByCnpj(@Param("cnpj") String cnpj);
 
-	
 }

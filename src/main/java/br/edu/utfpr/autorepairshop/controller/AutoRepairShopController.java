@@ -145,46 +145,11 @@ public class AutoRepairShopController {
 		return new ModelAndView("redirect:oficinas");
 	}
 
-//	@PutMapping
-//    @PreAuthorize("hasAnyRole('ADMIN')")
-//	public ModelAndView update(@Validated AutoRepairShopDTO dto, Errors errors, RedirectAttributes redirectAttributes)
-//			throws ParseException {
-//
-//		if (errors.hasErrors()) {
-//			ModelAndView mv = new ModelAndView("auto-repair-shop/edit");
-//			mv.addObject("dto", dto);
-//			mv.addObject("errors", errors.getAllErrors());
-//			return mv;
-//		}
-//		
-//		Optional<AutoRepairShop> optionalAutoRepairShop = autoRepairShopService.findById(dto.getId());
-//		if (!optionalAutoRepairShop.isPresent()) {
-//			throw new EntityNotFoundException("A oficina não foi encontrada pelo id informado.");
-//		}
-//		
-//		AutoRepairShop auto = autoRepairShopMapper.toEntity(dto);
-//		
-//		autoRepairShopService.save(auto);
-//		
-//		redirectAttributes.addFlashAttribute("message", "Oficina Atualizada com sucesso!");
-//		
-//		return new ModelAndView("redirect:oficinas");
-//	}
-
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-	public ModelAndView delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-
-		Optional<AutoRepairShop> o = autoRepairShopService.findById(id);
-
-		if (!o.isPresent()) {
-			throw new EntityNotFoundException("Erro ao exluir, A oficina com cod.:"+ id +" não foi encontrada");
-		}
-
+	public ModelAndView delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		autoRepairShopService.deleteById(id);
-
-		redirectAttributes.addFlashAttribute("message", "Oficina Deletada com sucesso!");
-
-		return new ModelAndView("redirect:oficinas");
+		redirectAttributes.addFlashAttribute("message", "Oficina deletada com sucesso!");
+		return new ModelAndView("redirect:/oficinas");
 	}
 }
