@@ -90,7 +90,7 @@ public class AutoRepairShopController {
     @PreAuthorize("hasAnyRole('ADMIN')")
 	public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
-		ModelAndView mv = new ModelAndView("auto-repair-shop/edit");
+		ModelAndView mv = new ModelAndView("auto-repair-shop/form");
 
 		Optional<AutoRepairShop> optionalAutoRepairShop = autoRepairShopService.findById(id);
 
@@ -145,31 +145,31 @@ public class AutoRepairShopController {
 		return new ModelAndView("redirect:oficinas");
 	}
 
-	@PutMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
-	public ModelAndView update(@Validated AutoRepairShopDTO dto, Errors errors, RedirectAttributes redirectAttributes)
-			throws ParseException {
-
-		if (errors.hasErrors()) {
-			ModelAndView mv = new ModelAndView("auto-repair-shop/edit");
-			mv.addObject("dto", dto);
-			mv.addObject("errors", errors.getAllErrors());
-			return mv;
-		}
-		
-		Optional<AutoRepairShop> optionalAutoRepairShop = autoRepairShopService.findById(dto.getId());
-		if (!optionalAutoRepairShop.isPresent()) {
-			throw new EntityNotFoundException("A oficina não foi encontrada pelo id informado.");
-		}
-		
-		AutoRepairShop auto = autoRepairShopMapper.toEntity(dto);
-		
-		autoRepairShopService.save(auto);
-		
-		redirectAttributes.addFlashAttribute("message", "Oficina Atualizada com sucesso!");
-		
-		return new ModelAndView("redirect:oficinas");
-	}
+//	@PutMapping
+//    @PreAuthorize("hasAnyRole('ADMIN')")
+//	public ModelAndView update(@Validated AutoRepairShopDTO dto, Errors errors, RedirectAttributes redirectAttributes)
+//			throws ParseException {
+//
+//		if (errors.hasErrors()) {
+//			ModelAndView mv = new ModelAndView("auto-repair-shop/edit");
+//			mv.addObject("dto", dto);
+//			mv.addObject("errors", errors.getAllErrors());
+//			return mv;
+//		}
+//		
+//		Optional<AutoRepairShop> optionalAutoRepairShop = autoRepairShopService.findById(dto.getId());
+//		if (!optionalAutoRepairShop.isPresent()) {
+//			throw new EntityNotFoundException("A oficina não foi encontrada pelo id informado.");
+//		}
+//		
+//		AutoRepairShop auto = autoRepairShopMapper.toEntity(dto);
+//		
+//		autoRepairShopService.save(auto);
+//		
+//		redirectAttributes.addFlashAttribute("message", "Oficina Atualizada com sucesso!");
+//		
+//		return new ModelAndView("redirect:oficinas");
+//	}
 
 	@DeleteMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")

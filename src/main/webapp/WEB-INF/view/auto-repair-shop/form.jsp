@@ -22,7 +22,8 @@
                             <div class="content-form">
                                 <div class="title-form">Cadastro de oficina</div>
                                 <form action="oficinas" method="post" enctype="multipart/form-data">
-                                   <div class="row">
+									<input name="id" type="hidden" value="${dto.id}"/>
+                                  	<div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">label_outline</i>
                                             <input id="name" name="name" type="text" value="${dto.name}">
