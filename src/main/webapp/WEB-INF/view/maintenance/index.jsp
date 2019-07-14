@@ -1,10 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:template title="Histórico de atendimento">
-    <jsp:body>
+	<jsp:body>
         <div class="container">
             <div class="row">
                 <div class="col s12">
@@ -13,10 +13,14 @@
                             <div class="content-form">
                                 <div class="title-form left">Histórico de atendimento</div>
                                 <div class="input-field col s4 right">
-                                    <form action="atendimentos/pesquisa" method="get">
+                                    <form action="atendimentos/pesquisa"
+										method="get">
                                         <i class="material-icons prefix">search</i>
-                                        <input name="search" id="search" placeholder="Pesquisar por placa" type="text" class="validate">
-                                        <button type="submit" class="btn-flat right">Buscar</button>
+                                        <input name="search" id="search"
+											placeholder="Pesquisar por placa" type="text"
+											class="validate">
+                                        <button type="submit"
+											class="btn-flat right">Buscar</button>
                                     </form>
                                 </div>
                                 <table class="highlight centered">
@@ -33,7 +37,8 @@
                                     </thead>
 
                                     <tbody>
-                                    <c:forEach var="s" items="${maintenances}">
+                                    <c:forEach var="s"
+											items="${maintenances}">
                                         <tr>
                                             <td>${s.vehicle.placa}</td>
                                             <td>${s.description}</td>
@@ -42,6 +47,9 @@
                                             <td>R$ ${s.totalPrice}</td>
                                             <td>${s.date}</td>
                                             <td>${s.hour}</td>
+                                            <td>
+                                				<a href="atendimentos/${s.id}"><i class="material-icons">edit</i></a>
+                            				</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

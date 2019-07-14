@@ -38,115 +38,141 @@ import java.util.stream.Collectors;
 @Controller
 public class MaintenanceController {
 
-    @Autowired
-    private VehicleService vehicleService;
+	@Autowired
+	private VehicleService vehicleService;
 
-    @Autowired
-    private CredentialService credentialService;
+	@Autowired
+	private CredentialService credentialService;
 
-    @Autowired
-    private ClientService clientService;
+	@Autowired
+	private ClientService clientService;
 
-    @Autowired
-    private MaintenanceService maintenanceService;
-    
-    @Autowired
-    private EmployeeService employeeService;
+	@Autowired
+	private MaintenanceService maintenanceService;
 
-    @Autowired
-    private VehicleMapper vehicleMapper;
+	@Autowired
+	private EmployeeService employeeService;
 
-    @Autowired
-    private MaintenanceMapper maintenanceMapper;
-    
-    @Autowired
-    private EmployeeMapper employeeMapper;
-    
-    @GetMapping
-    public ModelAndView index() {
-        List<Maintenance> maintenances = maintenanceService.findAll();
+	@Autowired
+	private VehicleMapper vehicleMapper;
 
-        List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
-                .map(s -> maintenanceMapper.toResponseDto(s))
-                .collect(Collectors.toList());
+	@Autowired
+	private MaintenanceMapper maintenanceMapper;
 
-        ModelAndView mv = new ModelAndView("maintenance/index");
-        mv.addObject("maintenances", maintenanceDTOs);
+	@Autowired
+	private EmployeeMapper employeeMapper;
 
-        return mv;
-    }
+	@GetMapping
+	public ModelAndView index() {
+		List<Maintenance> maintenances = maintenanceService.findAll();
 
-    @GetMapping("/novo")
-    public ModelAndView showForm() {
-        List<Vehicle> vehicles = vehicleService.findAll();
-        List<VehicleDTO> vehiclesDto = vehicles.stream()
-                .map(vehicle -> vehicleMapper.toResponseDto(vehicle))
-                .collect(Collectors.toList());
+		List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
+				.map(s -> maintenanceMapper.toResponseDto(s))
+				.collect(Collectors.toList());
 
-        List<Employee> employees = employeeService.findAll();
-        List<EmployeeDTO> employeesDto = employees.stream()
-                .map(employee -> employeeMapper.toResponseDto(employee))
-                .collect(Collectors.toList());
+		ModelAndView mv = new ModelAndView("maintenance/index");
+		mv.addObject("maintenances", maintenanceDTOs);
 
-        ModelAndView mv = new ModelAndView("maintenance/form");
-        mv.addObject("vehiclesDto", vehiclesDto);
-        mv.addObject("employeesDto", employeesDto);
+		return mv;
+	}
 
-        return mv;
-    }
+	@GetMapping("/novo")
+	public ModelAndView showForm() {
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
 
-    @GetMapping("/cliente")
-    @PreAuthorize("hasAnyRole('CLIENT')")
-    public ModelAndView myVehicles() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
-        Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
-        ModelAndView mv = new ModelAndView("maintenance/index");
+		List<Employee> employees = employeeService.findAll();
+		List<EmployeeDTO> employeesDto = employees.stream()
+				.map(employee -> employeeMapper.toResponseDto(employee))
+				.collect(Collectors.toList());
 
-        if (clientOptional.isPresent()) {
-            List<Maintenance> maintenances = maintenanceService.findByClientId(clientOptional.get().getId());
+		ModelAndView mv = new ModelAndView("maintenance/form");
+		mv.addObject("vehiclesDto", vehiclesDto);
+		mv.addObject("employeesDto", employeesDto);
 
-            List<MaintenanceDTO> maintenanceDtos = maintenances.stream()
-                    .map(s -> maintenanceMapper.toResponseDto(s))
-                    .collect(Collectors.toList());
-            mv.addObject("maintenances", maintenanceDtos);
-        }
+		return mv;
+	}
 
-        return mv;
-    }
+	@GetMapping("/{id}")
+	public ModelAndView showEdit(@PathVariable("id") Long id) {
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
 
-    @GetMapping(value = "pesquisa")
-    public ModelAndView search(@RequestParam(value = "search", defaultValue = "") String placa) {
-        return new ModelAndView();
-    }
+		List<Employee> employees = employeeService.findAll();
+		List<EmployeeDTO> employeesDto = employees.stream()
+				.map(employee -> employeeMapper.toResponseDto(employee))
+				.collect(Collectors.toList());
 
-    @PostMapping
-    public ModelAndView save(@Validated MaintenanceDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
-        
-    	List<Vehicle> vehicles = vehicleService.findAll();
-        List<VehicleDTO> vehiclesDto = vehicles.stream()
-                .map(vehicle -> vehicleMapper.toResponseDto(vehicle))
-                .collect(Collectors.toList());
+		ModelAndView mv = new ModelAndView("maintenance/form");
 
-        List<Employee> employees = employeeService.findAll();
-        List<EmployeeDTO> employeesDto = employees.stream()
-                .map(employee -> employeeMapper.toResponseDto(employee))
-                .collect(Collectors.toList());
-        
-    	if(errors.hasErrors()){
-            ModelAndView mv = new ModelAndView("maintenance/form");
-            mv.addObject("dto", dto);
-            mv.addObject("vehiclesDto", vehiclesDto);
-            mv.addObject("employeesDto", employeesDto);
-            mv.addObject("errors", errors.getAllErrors());
-            return mv;
-        }
+		Optional<Maintenance> maintenance = maintenanceService.findById(id);
 
-        redirectAttributes.addFlashAttribute("message", "Manutenção salva com sucesso!");
-        Maintenance maintenance = maintenanceMapper.toEntity(dto);
-        maintenance.setId(dto.getRegistration());
-        maintenanceService.save(maintenance);
+		if (!maintenance.isPresent()) {
+			throw new EntityNotFoundException("O atendimento não foi encontrada pelo id informado.");
+		}
+		MaintenanceDTO maintenanceDto = maintenanceMapper.toResponseDto(maintenance.get());
+		mv.addObject("dto", maintenanceDto);
+		mv.addObject("vehiclesDto", vehiclesDto);
+		mv.addObject("employeesDto", employeesDto);
+		return mv;
+	}
 
-        return new ModelAndView("redirect:atendimentos");
-    }
+	@GetMapping("/cliente")
+	@PreAuthorize("hasAnyRole('CLIENT')")
+	public ModelAndView myVehicles() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
+		Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
+		ModelAndView mv = new ModelAndView("maintenance/index");
+
+		if (clientOptional.isPresent()) {
+			List<Maintenance> maintenances = maintenanceService.findByClientId(clientOptional.get().getId());
+
+			List<MaintenanceDTO> maintenanceDtos = maintenances.stream()
+					.map(s -> maintenanceMapper.toResponseDto(s))
+					.collect(Collectors.toList());
+			mv.addObject("maintenances", maintenanceDtos);
+		}
+
+		return mv;
+	}
+
+	@GetMapping(value = "pesquisa")
+	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") String placa) {
+		return new ModelAndView();
+	}
+
+	@PostMapping
+	public ModelAndView save(@Validated MaintenanceDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
+
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
+
+		List<Employee> employees = employeeService.findAll();
+		List<EmployeeDTO> employeesDto = employees.stream()
+				.map(employee -> employeeMapper.toResponseDto(employee))
+				.collect(Collectors.toList());
+
+		if(errors.hasErrors()){
+			ModelAndView mv = new ModelAndView("maintenance/form");
+			mv.addObject("dto", dto);
+			mv.addObject("vehiclesDto", vehiclesDto);
+			mv.addObject("employeesDto", employeesDto);
+			mv.addObject("errors", errors.getAllErrors());
+			return mv;
+		}
+
+		redirectAttributes.addFlashAttribute("message", "Manutenção salva com sucesso!");
+		Maintenance maintenance = maintenanceMapper.toEntity(dto);
+		maintenance.setId(dto.getRegistration());
+		maintenanceService.save(maintenance);
+
+		return new ModelAndView("redirect:atendimentos");
+	}
 }
