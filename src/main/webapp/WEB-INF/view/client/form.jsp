@@ -103,8 +103,7 @@
                                             <i
 												class="material-icons prefix">phone</i>
                                             <input id="telephone"
-												name="telephone" type="text" value="${dto.telephone}"
-												maxlength="11">
+												name="telephone" type="text" value="${dto.telephone}" placeholder="(DD) ?XXXX-XXXX">
                                             <label for="telephone">Telefone</label>
                                         </div>
                                         <div class="input-field col s6">
@@ -126,7 +125,7 @@
 		                                    <div class="input-field col s6">
 		                                    	<i class="material-icons prefix">lock</i>
 		                                        <input
-												id="passwordConfirmation" required
+												id="passwordConfirmation"
 												name="credentialDto.passwordConfirmation" type="password"
 												value="${dto.credentialDto.passwordConfirmation}">
 		                                        <label
