@@ -119,15 +119,14 @@
 												class="material-icons prefix">lock</i>
 		                                        <input id="password"
 												type="password" name="credentialDto.password"
-												class="validate" value="${dto.credentialDto.password}">
+												class="validate">
 		                                        <label for="password">Senha</label>
 		                                    </div>
 		                                    <div class="input-field col s6">
 		                                    	<i class="material-icons prefix">lock</i>
 		                                        <input
 												id="passwordConfirmation"
-												name="credentialDto.passwordConfirmation" type="password"
-												value="${dto.credentialDto.passwordConfirmation}">
+												name="credentialDto.passwordConfirmation" type="password">
 		                                        <label
 												for="passwordConfirmation">Confirmação Senha</label>
 		                                    </div>

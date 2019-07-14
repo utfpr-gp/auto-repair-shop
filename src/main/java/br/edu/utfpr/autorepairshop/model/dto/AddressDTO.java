@@ -25,7 +25,6 @@ public class AddressDTO {
 	@NotEmpty(message = "Por favor informa a rua.")
 	private String street;
 
-	@NotEmpty(message = "Por favor informe o numero da residencia.")
 	private String number;
 	
 	public AddressDTO(String street, String city, String state, String cep, String number) {

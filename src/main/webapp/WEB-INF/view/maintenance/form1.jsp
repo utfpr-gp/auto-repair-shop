@@ -27,9 +27,8 @@
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">date_range</i>
                                             <fmt:formatDate value="${dto.date}" var="dateFormatted" type="date"
-												pattern="dd/MM/yyyy"/>
-                                            <input id="date" name="date" type="text" value="${dateFormatted}" 
-                                            readonly="true"/>
+												pattern="MMM dd, yyyy"/>
+                                            <input id="date" name="date" type="text" class="datepicker" value="${dateFormatted}" />
                                             <label for="date">Data</label>
                                         </div>
                                         <div class="input-field col s6">
