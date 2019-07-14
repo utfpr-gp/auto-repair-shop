@@ -175,4 +175,11 @@ public class MaintenanceController {
 
 		return new ModelAndView("redirect:atendimentos");
 	}
+	
+	@DeleteMapping("/{id}")
+	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		maintenanceService.deleteById(id);
+		redirectAttributes.addFlashAttribute("message", "Atendimento removido com sucesso!");
+		return "redirect:/atendimentos";
+	}
 }

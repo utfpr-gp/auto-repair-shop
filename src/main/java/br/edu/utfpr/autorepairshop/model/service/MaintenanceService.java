@@ -35,4 +35,8 @@ public class MaintenanceService {
     public List<Maintenance> findByClientId(Long id) {
         return this.maintenanceRepository.findByClientId(id);
     }
+    
+    public void deleteById(Long id) {
+    	this.maintenanceRepository.deleteById(id);
+    }
 }

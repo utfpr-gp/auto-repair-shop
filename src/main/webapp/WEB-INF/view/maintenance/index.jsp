@@ -33,6 +33,7 @@
                                         <th>Preço total</th>
                                         <th>Data</th>
                                         <th>Hora</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
 
@@ -48,12 +49,16 @@
                                             <td>${s.date}</td>
                                             <td>${s.hour}</td>
                                             <td>
-                                				<a href="atendimentos/${s.id}"><i class="material-icons">edit</i></a>
+                                				<a href="atendimentos/${s.id}"><i
+														class="material-icons">edit</i></a>
+                            					<a href="#modal-delete"
+													class="modal-trigger"
+													data-url="${pageContext.request.contextPath}/atendimentos/${s.id}"><i
+														class="material-icons red-text">delete</i></a>
                             				</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
-
                                 </table>
 <%--       Mostrar informações do veiculo em um modal quando clicar na placa                   --%>
 <%--                                <c:forEach var="s" items="${services}">--%>
@@ -88,10 +93,21 @@
 <%--                                    </div>--%>
 <%--                                </c:forEach>--%>
                             </div>
-                        </div>
+                            <div id="modal-delete" class="modal">
+            	<form action="" method="post">
+				<input type="hidden" name="_method" value="DELETE" />
+		            <div class="modal-content">
+       		        	<h4>Você tem certeza que deseja remover?</h4>
+					</div>
+                    <div class="modal-footer">
+                    	<button type="button"
+											class="modal-close btn-flat waves-effect waves-light grey">Cancelar</button>
+                        <button type="submit"
+											class="modal-close btn waves-effect waves-light gray">Sim</button>
                     </div>
-                </div>
+               	</form>
             </div>
         </div>
-    </jsp:body>
+	
+	</jsp:body>
 </t:template>
