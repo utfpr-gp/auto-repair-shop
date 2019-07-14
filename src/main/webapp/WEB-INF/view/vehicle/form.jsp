@@ -7,7 +7,12 @@
 <t:template title="Cadastrar veículos">
     <jsp:body>
         <div class="container">
-
+			<c:if test="${not empty messageError}">
+                <div class="card-panel red">
+                	<span class="white-text">${messageError}</span><br>                    
+                </div>
+            </c:if>
+            
             <c:if test="${not empty errors}">
                 <div class="card-panel red">
                     <c:forEach var="e" items="${errors}">

@@ -120,12 +120,10 @@ public class ClientController {
 		Optional<Credential> credentialToVerify = credentialService.findByEmail(clientDto.getCredentialDto().getEmail());
 
 		if (credentialToVerify.isPresent() && clientDto.getCredentialDto().getId() != credentialToVerify.get().getId()) {
-			if (credentialToVerify.isPresent()){
 				ModelAndView mv = new ModelAndView("client/form");
 				mv.addObject("dto", clientDto);
 				mv.addObject("emailError", "Cliente já cadastrado com esse email.");
 				return mv;
-			}
 		}
 
 		Address address = addressMapper.toEntity(clientDto.getAddressDto());

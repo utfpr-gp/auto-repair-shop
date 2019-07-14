@@ -35,131 +35,140 @@ import java.util.stream.Collectors;
 @Controller
 public class VehicleController {
 
-    public static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
+	public static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
 
-    @Autowired
-    private VehicleService vehicleService;
+	@Autowired
+	private VehicleService vehicleService;
 
-    @Autowired
-    private ClientService clientService;
+	@Autowired
+	private ClientService clientService;
 
-    @Autowired
-    private CredentialService credentialService;
+	@Autowired
+	private CredentialService credentialService;
 
-    @Autowired
-    private VehicleMapper vehicleMapper;
+	@Autowired
+	private VehicleMapper vehicleMapper;
 
-    @Autowired
-    ImageService imageService;
+	@Autowired
+	ImageService imageService;
 
 
-    @GetMapping
+	@GetMapping
 
-    public ModelAndView index() {
-        List<Vehicle> vehicles = vehicleService.findAll();
+	public ModelAndView index() {
+		List<Vehicle> vehicles = vehicleService.findAll();
 
-        List<VehicleDTO> vehicleDTOs = vehicles.stream()
-                .map(s -> vehicleMapper.toResponseDto(s))
-                .collect(Collectors.toList());
+		List<VehicleDTO> vehicleDTOs = vehicles.stream()
+				.map(s -> vehicleMapper.toResponseDto(s))
+				.collect(Collectors.toList());
 
-        ModelAndView mv = new ModelAndView("vehicle/index");
-        mv.addObject("vehicles", vehicleDTOs);
+		ModelAndView mv = new ModelAndView("vehicle/index");
+		mv.addObject("vehicles", vehicleDTOs);
 
-        return mv;
-    }
+		return mv;
+	}
 
-    @GetMapping("/cliente")
-    @PreAuthorize("hasAnyRole('CLIENT')")
-    public ModelAndView myVehicles() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
-        Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
-        ModelAndView mv = new ModelAndView("vehicle/my-vehicles");
+	@GetMapping("/cliente")
+	@PreAuthorize("hasAnyRole('CLIENT')")
+	public ModelAndView myVehicles() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
+		Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
+		ModelAndView mv = new ModelAndView("vehicle/my-vehicles");
 
-        if (clientOptional.isPresent()) {
-            List<Vehicle> vehicles = vehicleService.findByClientId(clientOptional.get().getId());
+		if (clientOptional.isPresent()) {
+			List<Vehicle> vehicles = vehicleService.findByClientId(clientOptional.get().getId());
 
-            List<VehicleDTO> vehicleDTOs = vehicles.stream()
-                    .map(s -> vehicleMapper.toResponseDto(s))
-                    .collect(Collectors.toList());
-            mv.addObject("vehicles", vehicleDTOs);
-        }
+			List<VehicleDTO> vehicleDTOs = vehicles.stream()
+					.map(s -> vehicleMapper.toResponseDto(s))
+					.collect(Collectors.toList());
+			mv.addObject("vehicles", vehicleDTOs);
+		}
 
-        return mv;
-    }
+		return mv;
+	}
 
-    @GetMapping("/novo")
-    public ModelAndView showForm() {
-        List<Client> clients = clientService.findAll();
-        List<ClientToFormDTO> clientsDto = clients.stream()
-                .map(client -> {
-                    ClientToFormDTO clientDto = new ClientToFormDTO();
-                    clientDto.setId(client.getId());
-                    clientDto.setName(client.getName());
-                    return clientDto;
-                })
-                .collect(Collectors.toList());
-        ModelAndView mv = new ModelAndView("vehicle/form");
-        mv.addObject("clientsDto", clientsDto);
-        mv.addObject("brand", BrandEnum.getValues());
-        return mv;
-    }
+	@GetMapping("/novo")
+	public ModelAndView showForm() {
+		List<Client> clients = clientService.findAll();
+		List<ClientToFormDTO> clientsDto = clients.stream()
+				.map(client -> {
+					ClientToFormDTO clientDto = new ClientToFormDTO();
+					clientDto.setId(client.getId());
+					clientDto.setName(client.getName());
+					return clientDto;
+				})
+				.collect(Collectors.toList());
+		ModelAndView mv = new ModelAndView("vehicle/form");
+		mv.addObject("clientsDto", clientsDto);
+		mv.addObject("brand", BrandEnum.getValues());
+		return mv;
+	}
 
-    @GetMapping("/{id}")
-    public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
+	@GetMapping("/{id}")
+	public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
 
-        ModelAndView mv = new ModelAndView("vehicle/form");
+		ModelAndView mv = new ModelAndView("vehicle/form");
 
-        Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
+		Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
 
-        if(!optionalVehicle.isPresent()){
-            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
-        }
+		if(!optionalVehicle.isPresent()){
+			throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
+		}
 
-        List<Client> clients = clientService.findAll();
-        List<ClientToFormDTO> clientsDto = clients.stream()
-                .map(client -> {
-                    ClientToFormDTO clientDto = new ClientToFormDTO();
-                    clientDto.setId(client.getId());
-                    clientDto.setName(client.getName());
-                    return clientDto;
-                })
-                .collect(Collectors.toList());
+		List<Client> clients = clientService.findAll();
+		List<ClientToFormDTO> clientsDto = clients.stream()
+				.map(client -> {
+					ClientToFormDTO clientDto = new ClientToFormDTO();
+					clientDto.setId(client.getId());
+					clientDto.setName(client.getName());
+					return clientDto;
+				})
+				.collect(Collectors.toList());
 
-        VehicleDTO vehicleDTO = vehicleMapper.toResponseDto(optionalVehicle.get());
-        mv.addObject("dto", vehicleDTO);
-        mv.addObject("clientsDto", clientsDto);
-        mv.addObject("brand", BrandEnum.getValues());
-        return mv;
-    }
+		VehicleDTO vehicleDTO = vehicleMapper.toResponseDto(optionalVehicle.get());
+		mv.addObject("dto", vehicleDTO);
+		mv.addObject("clientsDto", clientsDto);
+		mv.addObject("brand", BrandEnum.getValues());
+		return mv;
+	}
 
-    @PostMapping
-    public ModelAndView save(@Validated VehicleDTO  dto, Errors errors, RedirectAttributes redirectAttributes) {
-        if(errors.hasErrors()){
-            ModelAndView mv = new ModelAndView("vehicle/form");
-            mv.addObject("dto", dto);
-            mv.addObject("errors", errors.getAllErrors());
-            return mv;
-        }
+	@PostMapping
+	public ModelAndView save(@Validated VehicleDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
+		if(errors.hasErrors()){
+			ModelAndView mv = new ModelAndView("vehicle/form");
+			mv.addObject("dto", dto);
+			mv.addObject("errors", errors.getAllErrors());
+			return mv;
+		}
 
-        //Envia imagem e recupera URL
-        if (!dto.getFile().isEmpty()) {
-            ImageDTO image = this.imageService.upload(dto.getFile());
-            dto.setImage(image.getUrl());
-        }
+		Optional<Vehicle> v = vehicleService.findByPlaca(dto.getPlaca());
 
-        redirectAttributes.addFlashAttribute("message", "Veículo salvo com sucesso!");
-        Vehicle vehicle = vehicleMapper.toEntity(dto);
-        vehicle.setId(dto.getRegistration());
-        vehicleService.save(vehicle);
+		if (v.isPresent() && dto.getId() != v.get().getId()) {
+			ModelAndView mv = new ModelAndView("vehicle/form");
+			mv.addObject("dto", dto);
+			mv.addObject("messageError", "Veículo já cadastrado com esse placa.");
+			return mv;
+		}
 
-        return new ModelAndView("redirect:veiculos");
-    }
+		//Envia imagem e recupera URL
+		if (!dto.getFile().isEmpty()) {
+			ImageDTO image = this.imageService.upload(dto.getFile());
+			dto.setImage(image.getUrl());
+		}
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        this.vehicleService.delete(id);
-        redirectAttributes.addFlashAttribute("message", "Veiculo removido com sucesso!");
-        return "redirect:/veiculos";
-    }
+		redirectAttributes.addFlashAttribute("message", "Veículo salvo com sucesso!");
+		Vehicle vehicle = vehicleMapper.toEntity(dto);
+		vehicle.setId(dto.getRegistration());
+		vehicleService.save(vehicle);
+
+		return new ModelAndView("redirect:veiculos");
+	}
+
+	@DeleteMapping("/{id}")
+	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		this.vehicleService.delete(id);
+		redirectAttributes.addFlashAttribute("message", "Veiculo removido com sucesso!");
+		return "redirect:/veiculos";
+	}
 }
