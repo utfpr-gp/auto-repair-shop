@@ -26,6 +26,7 @@ public class EmployeeDTO {
 	@NotEmpty(message = "Nome deve ser preenchido!")
 	private String name;
 	
+	@NotEmpty(message = "O telefone é obrigatório")
 	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")	
 	private String telephone;
 	

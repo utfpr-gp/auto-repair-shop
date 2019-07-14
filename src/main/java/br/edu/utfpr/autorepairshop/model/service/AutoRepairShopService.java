@@ -23,6 +23,10 @@ public class AutoRepairShopService {
 		return autoRepairShopRepository.findAll();
 	}
 
+	public List<AutoRepairShop> findByCnpj(String cnpj) {
+		return autoRepairShopRepository.findByCnpj(cnpj);
+	}
+	
 	public Optional<AutoRepairShop> findById(Long id) {
 		return autoRepairShopRepository.findById(id);
 	}
