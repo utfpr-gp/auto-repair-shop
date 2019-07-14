@@ -101,58 +101,45 @@ public class ClientController {
     }
 
     @PostMapping
-    public ModelAndView save(@Validated ClientDTO clientDto,
-                             @Validated AddressDTO addressDto,
-                             @Validated CredentialDTO credentialDto,
-                             Errors errors,
-                             RedirectAttributes redirectAttributes){
-
+    public ModelAndView save(@Validated ClientDTO clientDto, Errors errors, RedirectAttributes redirectAttributes){
 
         if(errors.hasErrors()){
             ModelAndView mv = new ModelAndView("client/form");
             mv.addObject("dto", clientDto);
-            mv.addObject("credentialDto", credentialDto);
-            mv.addObject("addressdDto", clientDto);
             mv.addObject("errors", errors.getAllErrors());
             return mv;
         }
 
-        if (!credentialDto.getPassword().equals(credentialDto.getPasswordConfirmation())){
+        if (!clientDto.getCredentialDto().getPassword().equals(clientDto.getCredentialDto().getPasswordConfirmation())){
             ModelAndView mv = new ModelAndView("client/form");
             mv.addObject("dto", clientDto);
-            mv.addObject("credentialDto", credentialDto);
-            mv.addObject("addressdDto", clientDto);
-            mv.addObject("passwordError", "Senhas não batem.");
+            mv.addObject("passwordError", "As senhas são diferentes.");
             return mv;
         }
 
-        Optional<Credential>  credentialToVerify = credentialService.findByEmail(credentialDto.getEmail());
+        Optional<Credential> credentialToVerify = credentialService.findByEmail(clientDto.getCredentialDto().getEmail());
 
         if (credentialToVerify.isPresent()){
                 ModelAndView mv = new ModelAndView("client/form");
                 mv.addObject("dto", clientDto);
-                mv.addObject("credentialDto", credentialDto);
-                mv.addObject("addressdDto", clientDto);
                 mv.addObject("emailError", "Cliente já cadastrado com esse email.");
                 return mv;
         }
 
-        redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
-
-        Address address = addressMapper.toEntity(addressDto);
-        Credential credential = credentialMapper.toEntity(credentialDto);
+        Address address = addressMapper.toEntity(clientDto.getAddressDto());
+        Credential credential = credentialMapper.toEntity(clientDto.getCredentialDto());
         Client client =  clientMapper.toEntity(clientDto);
 
         addressService.save(address);
+        client.setAddress(address);
+        
         credential.setRole(RoleEnum.ROLE_CLIENT);
         credentialService.save(credential);
-
-
-        client.setAddress(address);
         client.setCredential(credential);
 
         clientService.save(client);
-
+        
+        redirectAttributes.addFlashAttribute("message", "Cliente salvo com sucesso!");
         return new ModelAndView("redirect:clientes");
     }
 
