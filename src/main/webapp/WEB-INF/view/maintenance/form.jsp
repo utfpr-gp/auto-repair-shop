@@ -89,7 +89,7 @@
                                         </div>                                        
                                     </div>                                  
                                     <div class="action-form">
-                                        <button type="submit" class="btn-flat">Cadastrar atendimento</button>
+                                        <button type="submit" class="btn-flat">Salvar atendimento</button>
                                     </div>
                                 </form>
                             </div>
