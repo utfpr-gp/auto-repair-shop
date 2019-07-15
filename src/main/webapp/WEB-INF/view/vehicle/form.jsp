@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:template title="Cadastrar veículos">
+<t:template title="Cadastro de veículos">
     <jsp:body>
         <div class="container">
 			<c:if test="${not empty messageError}">
@@ -118,7 +118,7 @@
                                             </div>
                                         </c:if>
                                         <div class="action-form">
-                                            <button type="submit" class="btn-flat">Cadastrar veículo</button>
+                                            <button type="submit" class="btn-flat">Salvar veículo</button>
                                         </div>
                                     </div>
                                 </form>

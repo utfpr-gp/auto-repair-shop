@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:template title="Funcionarios">
+<t:template title="Funcionários">
 	<jsp:body>
         <div class="container"> 
             <h1 class="header">Funcionários</h1>
@@ -23,6 +23,7 @@
                         <th>Rua</th>
                         <th>Número</th>
                         <th>CEP</th>
+                        <th></th>
                     </tr>
                     </thead>
 

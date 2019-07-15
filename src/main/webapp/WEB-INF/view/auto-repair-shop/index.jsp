@@ -16,7 +16,7 @@
                     <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Cnpj</th>
+                        <th>CNPJ</th>
                         <th>Telefone</th>
                         <th></th>
                     </tr>

@@ -33,12 +33,12 @@
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">credit_card</i>
                                             <input id="cnpj" name="cnpj" type="text" value="${dto.cnpj}" placeholder="XX.XXX.XXX/XXXX-XX">
-                                            <label for="cnpj">CNPJ</label>
+                                            <label for="cnpj">CNPJ (xx.xxx.xxx/xxxx-xx)</label>
                                         </div>
                                         <div class="input-field col s6">
                                         	<i class="material-icons prefix">local_phone</i>
                                             <input id="telephone" name="telephone" type="text" value="${dto.telephone}" placeholder="(DD) ?XXXX-XXXX">
-                                            <label for="telephone">Telefone</label>
+                                            <label for="telephone">Telefone ((DD) ?xxxx-xxxx)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">markunread_mailbox</i>
@@ -84,7 +84,7 @@
                                        </div>
                                     </div>
                                     <div class="action-form">
-                                        <button type="submit" class="btn-flat">Cadastrar oficina</button>
+                                        <button type="submit" class="btn-flat">Salvar oficina</button>
                                     </div>
                                 </form>
                             </div>

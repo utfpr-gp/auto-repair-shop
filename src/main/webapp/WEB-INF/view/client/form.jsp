@@ -35,7 +35,8 @@
                                 <div class="title-form">Cadastro de cliente</div>
                                 <form action="clientes" method="post">
 									<input name="id" type="hidden" value="${dto.id}" />
-                                    <input name="credentialDto.id" type="hidden" value="${dto.credentialDto.id}"/>
+                                    <input name="credentialDto.id"
+										type="hidden" value="${dto.credentialDto.id}" />                                   
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i
@@ -96,15 +97,15 @@
 												name="birthDate" type="text" value="${dateFormatted}"
 												readonly="true" />
                                         </div>
-
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <i
 												class="material-icons prefix">phone</i>
                                             <input id="telephone"
-												name="telephone" type="text" value="${dto.telephone}" placeholder="(DD) ?XXXX-XXXX">
-                                            <label for="telephone">Telefone</label>
+												name="telephone" type="text" value="${dto.telephone}"
+												placeholder="(DD) ?XXXX-XXXX">
+                                            <label for="telephone">Telefone  ((DD) ?xxxx-xxxx)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i
@@ -114,26 +115,47 @@
 												value="${dto.credentialDto.email}">
                                             <label for="email">Email</label>
                                         </div>
+                                        <c:if test="${dto.id == null}">
 		                                    <div class="input-field col s6">
 		                                        <i
 												class="material-icons prefix">lock</i>
 		                                        <input id="password"
 												type="password" name="credentialDto.password"
-												class="validate">
+												class="validate" ${dto.credentialDto.password}>
 		                                        <label for="password">Senha</label>
 		                                    </div>
 		                                    <div class="input-field col s6">
 		                                    	<i class="material-icons prefix">lock</i>
 		                                        <input
 												id="passwordConfirmation"
-												name="credentialDto.passwordConfirmation" type="password">
+												name="credentialDto.passwordConfirmation" type="password" 
+												${dto.credentialDto.passwordConfirmation}>
 		                                        <label
-												for="passwordConfirmation">Confirmação Senha</label>
+												for="passwordConfirmation">Confirmação de Senha</label>
 		                                    </div>
+		                                    </c:if>
+		                                    <c:if test="${dto.id != null}">
+		                                    	 <div class="input-field col s6">
+		                                        <i
+													class="material-icons prefix">lock</i>
+		                                        <input id="password"
+													type="password" name="credentialDto.password"
+													class="validate">
+		                                        <label for="password">Senha</label>
+		                                    </div>
+		                                    <div class="input-field col s6">
+		                                    	<i class="material-icons prefix">lock</i>
+		                                        <input
+													id="passwordConfirmation"
+													name="credentialDto.passwordConfirmation" type="password">
+		                                        <label
+													for="passwordConfirmation">Confirmação de Senha</label>
+		                                    </div>
+		                                    </c:if>
 		                            </div>
                                     <div class="action-form">
                                         <button type="submit"
-											class="btn-flat">Cadastrar cliente</button>
+											class="btn-flat">Salvar cliente</button>
                                     </div>
                                 </form>
                             </div>

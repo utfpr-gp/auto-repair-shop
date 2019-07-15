@@ -13,6 +13,8 @@ import br.edu.utfpr.autorepairshop.model.service.AddressService;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.security.RoleEnum;
+import br.edu.utfpr.autorepairshop.util.PasswordUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -110,7 +112,7 @@ public class ClientController {
 			return mv;
 		}
 
-		if (!clientDto.getCredentialDto().getPassword().equals(clientDto.getCredentialDto().getPasswordConfirmation())){
+		if (!clientDto.getCredentialDto().getPassword().equals(clientDto.getCredentialDto().getPasswordConfirmation())) {
 			ModelAndView mv = new ModelAndView("client/form");
 			mv.addObject("dto", clientDto);
 			mv.addObject("passwordError", "As senhas são diferentes.");
@@ -120,10 +122,10 @@ public class ClientController {
 		Optional<Credential> credentialToVerify = credentialService.findByEmail(clientDto.getCredentialDto().getEmail());
 
 		if (credentialToVerify.isPresent() && clientDto.getCredentialDto().getId() != credentialToVerify.get().getId()) {
-				ModelAndView mv = new ModelAndView("client/form");
-				mv.addObject("dto", clientDto);
-				mv.addObject("emailError", "Cliente já cadastrado com esse email.");
-				return mv;
+			ModelAndView mv = new ModelAndView("client/form");
+			mv.addObject("dto", clientDto);
+			mv.addObject("emailError", "Cliente já cadastrado com esse email.");
+			return mv;
 		}
 
 		Address address = addressMapper.toEntity(clientDto.getAddressDto());
@@ -134,7 +136,12 @@ public class ClientController {
 		client.setAddress(address);
 
 		credential.setRole(RoleEnum.ROLE_CLIENT);
-		credentialService.save(credential);
+
+		if(clientDto.getId() != null)
+			credentialService.saveWithoutEncryption(credential);
+		else
+			credentialService.save(credential);
+
 		client.setCredential(credential);
 
 		clientService.save(client);
