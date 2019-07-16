@@ -9,6 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 @Data
 @NoArgsConstructor
@@ -48,13 +52,13 @@ public class MaintenanceDTO {
 
     @NotNull(message = "Preço total deve estar presente.")
     @DecimalMin(value = "0.0", message = "Preço total deve ser maior que 0.")
-	private Long totalPrice;
+    private BigDecimal totalPrice;
     
     @NotNull(message = "Preço da mão-de-obra deve estar presente.")
     @DecimalMin(value = "0.0", message = "Preço da mão-de-obra deve ser maior que 0.")
-	private Long priceHandWork;
+    private BigDecimal priceHandWork;
     
     @NotNull(message = "Preço das partes deve estar presente.")
     @DecimalMin(value = "0.0", message = "Preço das partes deve ser maior que 0.")
-	private Long priceParts;
+    private BigDecimal priceParts;
 }

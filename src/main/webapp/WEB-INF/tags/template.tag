@@ -37,6 +37,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="assets/res/js/index.js"></script>
+    <script src="assets/lib/maskMoney/jquery.maskMoney.min.js" type="text/javascript"></script>
 </head>
 <body>
 <header>

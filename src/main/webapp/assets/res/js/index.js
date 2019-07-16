@@ -24,7 +24,7 @@ $(document).ready(function () {
     $("#date").datepicker({
         format: 'dd/mm/yyyy'
     });
-    
+    $(".currency").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
 });
 
 

@@ -72,19 +72,19 @@
                                     <div class="row">
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">attach_money</i>
-                                            <input id="priceParts" name="priceParts" type="text" value="${dto.priceParts}">
+                                            <input id="priceParts" name="priceParts" type="text" placeholder="0.00" value="${dto.priceParts}">
                                             <label for="priceParts">Preço das peças</label>
 
                                         </div>
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">monetization_on</i>
-                                            <input id="priceHandWork" name="priceHandWork" type="text" value="${dto.priceHandWork}">
+                                            <input id="priceHandWork" name="priceHandWork" type="text" placeholder="0.00" value="${dto.priceHandWork}">
                                             <label for="priceHandWork">Mão de obra</label>
                                         </div>
                                         
                                         <div class="input-field col s4">
                                             <i class="material-icons prefix">monetization_on</i>
-                                            <input id="totalPrice" name="totalPrice" type="text" value="${dto.totalPrice}">
+                                            <input id="totalPrice" name="totalPrice" type="text" placeholder="0.00" value="${dto.totalPrice}">
                                             <label for="totalPrice">Preço total</label>
                                         </div>                                        
                                     </div>                                  
