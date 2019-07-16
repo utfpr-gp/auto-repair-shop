@@ -35,12 +35,8 @@
                                             <select id="client" name="client">
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="c" items="${clientsDto}">
-                                                    <c:if test="${dto.registration == c.id}">
-                                                        <option selected value="${c.id}">${c.name}</option>
-                                                    </c:if>
-                                                    <c:if test="${dto.registration != c.id || dto.registration == null}">
-                                                        <option value="${c.id}">${c.name}</option>
-                                                    </c:if>
+                                                   <option <c:if test="${dto.client.id == c.id}"> selected="selected"</c:if>
+                                                    value="${c.id}">${c.name}</option>
                                                 </c:forEach>
                                             </select>
                                             <label>Proprietário</label>
@@ -56,6 +52,10 @@
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="b" items="${brand}">
                                                     <option value="${b}">${b}</option>
+                                                </c:forEach>
+                                                <c:forEach var="b" items="${brand}">
+                                                   <option <c:if test="${dto.brand == b}"> selected="selected"</c:if>
+                                                    value="${b}">${b}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>

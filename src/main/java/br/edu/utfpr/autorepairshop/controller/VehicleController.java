@@ -52,9 +52,7 @@ public class VehicleController {
 	@Autowired
 	ImageService imageService;
 
-
 	@GetMapping
-
 	public ModelAndView index() {
 		List<Vehicle> vehicles = vehicleService.findAll();
 
@@ -135,10 +133,22 @@ public class VehicleController {
 
 	@PostMapping
 	public ModelAndView save(@Validated VehicleDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
+		List<Client> clients = clientService.findAll();
+		List<ClientToFormDTO> clientsDto = clients.stream()
+				.map(client -> {
+					ClientToFormDTO clientDto = new ClientToFormDTO();
+					clientDto.setId(client.getId());
+					clientDto.setName(client.getName());
+					return clientDto;
+				})
+				.collect(Collectors.toList());
+		
 		if(errors.hasErrors()){
 			ModelAndView mv = new ModelAndView("vehicle/form");
 			mv.addObject("dto", dto);
+			mv.addObject("clientsDto", clientsDto);
 			mv.addObject("errors", errors.getAllErrors());
+			mv.addObject("brand", BrandEnum.getValues());
 			return mv;
 		}
 
