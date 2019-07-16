@@ -35,7 +35,10 @@ public class EmployeeDTO {
 	private String cellular;
 
 	private String role;
-
+	
+	@Valid
 	private AddressDTO addressDto;
+	
+	@Valid
 	private CredentialDTO credentialDto;
 }
