@@ -23,6 +23,13 @@ public class CredentialService {
     @Transactional
     public Credential save(Credential credential) {
         credential.setPassword(PasswordUtil.generateBCrypt(credential.getPassword()));
+        if(credential.getPasswordConfirmation() != null)
+        	credential.setPasswordConfirmation(PasswordUtil.generateBCrypt(credential.getPasswordConfirmation()));
+        return repository.save(credential);
+    }
+    
+    @Transactional
+    public Credential saveWithoutEncryption(Credential credential) {
         return repository.save(credential);
     }
 

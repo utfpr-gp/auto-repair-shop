@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 
 public class CredentialDTO {
 
+	private Long id;
+	
     @NotEmpty(message = "O email não pode ser vazio.")
     @Email(message = "O email é inválido.")
     private String email;

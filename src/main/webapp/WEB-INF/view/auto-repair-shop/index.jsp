@@ -16,7 +16,7 @@
                     <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Cnpj</th>
+                        <th>CNPJ</th>
                         <th>Telefone</th>
                         <th></th>
                     </tr>
@@ -30,6 +30,11 @@
                             <td>${autoRepairShop.telephone}</td>
                             <td>
                                 <a href="oficinas/${autoRepairShop.id}"><i class="material-icons">edit</i></a>
+                            	<a href="#modal-delete"
+									class="modal-trigger"
+									data-url="${pageContext.request.contextPath}/oficinas/${autoRepairShop.id}"
+									data-name="${autoRepairShop.name}"><i
+										class="material-icons red-text">delete</i></a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -39,6 +44,21 @@
             <c:if test="${empty autoRepairShops}">
                 <h3 class="header">Sem Oficinas cadastradas</h3>
             </c:if>
+            
+            <div id="modal-delete" class="modal">
+            	<form action="" method="post">
+				<input type="hidden" name="_method" value="DELETE" />
+		            <div class="modal-content">
+       		        	<h4>Você tem certeza que deseja remover <strong id="strong-name"></strong>?</h4>
+					</div>
+                    <div class="modal-footer">
+                    	<button type="button"
+							class="modal-close btn-flat waves-effect waves-light grey">Cancelar</button>
+                        <button type="submit"
+							class="modal-close btn waves-effect waves-light gray">Sim</button>
+                    </div>
+               	</form>
+           </div>
         </div>
     </jsp:body>
 </t:template>

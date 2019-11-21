@@ -19,28 +19,18 @@ public class AutoRepairShopDTO {
 	private Long id;
 	@NotEmpty(message = "O Nome da Oficina é obrigatório")
 	private String name;
-	@NotEmpty(message = "O Cnpj da Oficina é obrigatório")
+	@NotEmpty(message = "O CNPJ da Oficina é obrigatório")
+	@Pattern(regexp = "(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)", message = "CNPJ em formato inválido")
 	private String cnpj;
 	
 	@NotEmpty(message = "O Telefone da Oficina é obrigatório")
-	//@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")
+	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")
 	private String telephone;
 	
 	private String image;
 	
-	//Atributos address DTO
-	private String street;
-	private String city;
-	private String state;
-	private String cep;
-	private String number;
-	
 	private MultipartFile file;
 	
-	private AddressDTO address;
-	private Credential manager;
-	
-	public void convertAddress(){
-		address =  new AddressDTO(street,city, state, cep, number);
-	}
+	private AddressDTO addressDto;
+	private CredentialDTO managerDto;
 }

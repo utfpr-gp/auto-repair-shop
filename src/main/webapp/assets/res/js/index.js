@@ -21,7 +21,10 @@ $(document).ready(function () {
     $("#birthDate").datepicker({
         format: 'dd/mm/yyyy'
     });
-    
+    $("#date").datepicker({
+        format: 'dd/mm/yyyy'
+    });
+    $(".currency").maskMoney({allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
 });
 
 

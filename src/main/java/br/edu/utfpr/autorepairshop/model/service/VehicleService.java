@@ -35,4 +35,8 @@ public class VehicleService {
         this.vehicleRepository.deleteById(id);
     }
 
+	public Optional<Vehicle> findByPlaca(String placa) {
+		return this.vehicleRepository.findByPlaca(placa);
+	}
+
 }

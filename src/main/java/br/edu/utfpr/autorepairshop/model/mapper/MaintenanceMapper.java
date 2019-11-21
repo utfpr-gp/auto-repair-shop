@@ -3,6 +3,8 @@ package br.edu.utfpr.autorepairshop.model.mapper;
 import br.edu.utfpr.autorepairshop.model.Maintenance;
 import br.edu.utfpr.autorepairshop.model.dto.MaintenanceDTO;
 
+import java.text.SimpleDateFormat;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
