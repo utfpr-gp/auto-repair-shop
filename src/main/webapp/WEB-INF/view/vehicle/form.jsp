@@ -4,10 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:template title="Cadastrar veículos">
+<t:template title="Cadastro de veículos">
     <jsp:body>
         <div class="container">
-
+			<c:if test="${not empty messageError}">
+                <div class="card-panel red">
+                	<span class="white-text">${messageError}</span><br>                    
+                </div>
+            </c:if>
+            
             <c:if test="${not empty errors}">
                 <div class="card-panel red">
                     <c:forEach var="e" items="${errors}">
@@ -30,12 +35,8 @@
                                             <select id="client" name="client">
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="c" items="${clientsDto}">
-                                                    <c:if test="${dto.registration == c.id}">
-                                                        <option selected value="${c.id}">${c.name}</option>
-                                                    </c:if>
-                                                    <c:if test="${dto.registration != c.id || dto.registration == null}">
-                                                        <option value="${c.id}">${c.name}</option>
-                                                    </c:if>
+                                                   <option <c:if test="${dto.client.id == c.id}"> selected="selected"</c:if>
+                                                    value="${c.id}">${c.name}</option>
                                                 </c:forEach>
                                             </select>
                                             <label>Proprietário</label>
@@ -51,6 +52,10 @@
                                                 <option value="" disabled selected>Selecione</option>
                                                 <c:forEach var="b" items="${brand}">
                                                     <option value="${b}">${b}</option>
+                                                </c:forEach>
+                                                <c:forEach var="b" items="${brand}">
+                                                   <option <c:if test="${dto.brand == b}"> selected="selected"</c:if>
+                                                    value="${b}">${b}</option>
                                                 </c:forEach>
                                             </select>
                                         </div>
@@ -113,7 +118,7 @@
                                             </div>
                                         </c:if>
                                         <div class="action-form">
-                                            <button type="submit" class="btn-flat">Cadastrar veículo</button>
+                                            <button type="submit" class="btn-flat">Salvar veículo</button>
                                         </div>
                                     </div>
                                 </form>

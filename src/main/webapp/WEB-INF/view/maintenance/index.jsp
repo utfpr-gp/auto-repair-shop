@@ -1,10 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <t:template title="Histórico de atendimento">
-    <jsp:body>
+	<jsp:body>
         <div class="container">
             <div class="row">
                 <div class="col s12">
@@ -13,10 +13,14 @@
                             <div class="content-form">
                                 <div class="title-form left">Histórico de atendimento</div>
                                 <div class="input-field col s4 right">
-                                    <form action="atendimentos/pesquisa" method="get">
+                                    <form action="atendimentos/pesquisa"
+										method="get">
                                         <i class="material-icons prefix">search</i>
-                                        <input name="search" id="search" placeholder="Pesquisar por placa" type="text" class="validate">
-                                        <button type="submit" class="btn-flat right">Buscar</button>
+                                        <input name="search" id="search"
+											placeholder="Pesquisar por placa" type="text"
+											class="validate">
+                                        <button type="submit"
+											class="btn-flat right">Buscar</button>
                                     </form>
                                 </div>
                                 <table class="highlight centered">
@@ -29,11 +33,13 @@
                                         <th>Preço total</th>
                                         <th>Data</th>
                                         <th>Hora</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <c:forEach var="s" items="${maintenances}">
+                                    <c:forEach var="s"
+											items="${maintenances}">
                                         <tr>
                                             <td>${s.vehicle.placa}</td>
                                             <td>${s.description}</td>
@@ -42,10 +48,17 @@
                                             <td>R$ ${s.totalPrice}</td>
                                             <td>${s.date}</td>
                                             <td>${s.hour}</td>
+                                            <td>
+                                				<a href="atendimentos/${s.id}"><i
+														class="material-icons">edit</i></a>
+                            					<a href="#modal-delete"
+													class="modal-trigger"
+													data-url="${pageContext.request.contextPath}/atendimentos/${s.id}"><i
+														class="material-icons red-text">delete</i></a>
+                            				</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
-
                                 </table>
 <%--       Mostrar informações do veiculo em um modal quando clicar na placa                   --%>
 <%--                                <c:forEach var="s" items="${services}">--%>
@@ -80,10 +93,21 @@
 <%--                                    </div>--%>
 <%--                                </c:forEach>--%>
                             </div>
-                        </div>
+                            <div id="modal-delete" class="modal">
+            	<form action="" method="post">
+				<input type="hidden" name="_method" value="DELETE" />
+		            <div class="modal-content">
+       		        	<h4>Você tem certeza que deseja remover?</h4>
+					</div>
+                    <div class="modal-footer">
+                    	<button type="button"
+											class="modal-close btn-flat waves-effect waves-light grey">Cancelar</button>
+                        <button type="submit"
+											class="modal-close btn waves-effect waves-light gray">Sim</button>
                     </div>
-                </div>
+               	</form>
             </div>
         </div>
-    </jsp:body>
+	
+	</jsp:body>
 </t:template>

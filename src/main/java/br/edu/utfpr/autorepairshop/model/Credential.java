@@ -26,6 +26,7 @@ public class Credential {
 	@Column(updatable = false)
 	private String email;
 	private String password;
+	private String passwordConfirmation;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
@@ -37,4 +38,10 @@ public class Credential {
 		this.role = role;
 	}
 	
+	public Credential(String email, String password, String passwordConfirmation, RoleEnum role) {
+		this.email = email;
+		this.password = password;
+		this.passwordConfirmation = password;
+		this.role = role;
+	}
 }

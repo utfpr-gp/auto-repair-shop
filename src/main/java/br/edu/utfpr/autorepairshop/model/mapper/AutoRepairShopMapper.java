@@ -26,12 +26,11 @@ public class AutoRepairShopMapper {
     
     public AutoRepairShopDTO toResponseDto(AutoRepairShop entity){
     	AutoRepairShopDTO dto = mapper.map(entity, AutoRepairShopDTO.class);
-    	dto.setAddress(address.toDto(entity.getAddress()));
+    	dto.setAddressDto(address.toDto(entity.getAddress()));
         return dto;
     }
     
-    public AutoRepairShop toEntity(AutoRepairShopDTO dto) throws ParseException {
-    	dto.convertAddress();
+    public AutoRepairShop toEntity(AutoRepairShopDTO dto) {
     	AutoRepairShop entity = mapper.map(dto, AutoRepairShop.class);
         return entity;
     }

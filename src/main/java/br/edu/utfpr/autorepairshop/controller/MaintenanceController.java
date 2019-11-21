@@ -2,15 +2,19 @@ package br.edu.utfpr.autorepairshop.controller;
 
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.Credential;
+import br.edu.utfpr.autorepairshop.model.Employee;
 import br.edu.utfpr.autorepairshop.model.Maintenance;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
+import br.edu.utfpr.autorepairshop.model.dto.EmployeeDTO;
 import br.edu.utfpr.autorepairshop.model.dto.MaintenanceDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
+import br.edu.utfpr.autorepairshop.model.mapper.EmployeeMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.MaintenanceMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import br.edu.utfpr.autorepairshop.model.service.CredentialService;
+import br.edu.utfpr.autorepairshop.model.service.EmployeeService;
 import br.edu.utfpr.autorepairshop.model.service.MaintenanceService;
 import br.edu.utfpr.autorepairshop.model.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,117 +38,148 @@ import java.util.stream.Collectors;
 @Controller
 public class MaintenanceController {
 
-    @Autowired
-    private VehicleService vehicleService;
+	@Autowired
+	private VehicleService vehicleService;
 
-    @Autowired
-    private CredentialService credentialService;
+	@Autowired
+	private CredentialService credentialService;
 
-    @Autowired
-    private ClientService clientService;
+	@Autowired
+	private ClientService clientService;
 
-    @Autowired
-    private MaintenanceService maintenanceService;
+	@Autowired
+	private MaintenanceService maintenanceService;
 
-    @Autowired
-    private VehicleMapper vehicleMapper;
+	@Autowired
+	private EmployeeService employeeService;
 
-    @Autowired
-    private MaintenanceMapper maintenanceMapper;
-    
-    @GetMapping
-    public ModelAndView index() {
-        List<Maintenance> maintenances = maintenanceService.findAll();
+	@Autowired
+	private VehicleMapper vehicleMapper;
 
-        List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
-                .map(s -> maintenanceMapper.toResponseDto(s))
-                .collect(Collectors.toList());
+	@Autowired
+	private MaintenanceMapper maintenanceMapper;
 
-        ModelAndView mv = new ModelAndView("maintenance/index");
-        mv.addObject("maintenances", maintenanceDTOs);
+	@Autowired
+	private EmployeeMapper employeeMapper;
 
-        return mv;
-    }
+	@GetMapping
+	public ModelAndView index() {
+		List<Maintenance> maintenances = maintenanceService.findAll();
 
-    @GetMapping("/novo")
-    public ModelAndView showForm() {
-        List<Vehicle> vehicles = vehicleService.findAll();
-        List<VehicleDTO> vehiclesDto = vehicles.stream()
-                .map(vehicle -> {
-                	VehicleDTO vehicleDto = new VehicleDTO();
-                	vehicleDto.setId(vehicle.getId());
-                	vehicleDto.setModel(vehicle.getModel());
-                	vehicleDto.setPlaca(vehicle.getPlaca());
-                    return vehicleDto;
-                })
-                .collect(Collectors.toList());
+		List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
+				.map(s -> maintenanceMapper.toResponseDto(s))
+				.collect(Collectors.toList());
 
-        ModelAndView mv = new ModelAndView("maintenance/form");
-        mv.addObject("vehiclesDto", vehiclesDto);
+		ModelAndView mv = new ModelAndView("maintenance/index");
+		mv.addObject("maintenances", maintenanceDTOs);
 
-        return mv;
-    }
+		return mv;
+	}
 
-    @GetMapping("/cliente")
-    @PreAuthorize("hasAnyRole('CLIENT')")
-    public ModelAndView myVehicles() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
-        Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
-        ModelAndView mv = new ModelAndView("maintenance/index");
+	@GetMapping("/novo")
+	public ModelAndView showForm() {
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
 
-        if (clientOptional.isPresent()) {
-            List<Maintenance> maintenances = maintenanceService.findByClientId(clientOptional.get().getId());
+		List<Employee> employees = employeeService.findAll();
+		List<EmployeeDTO> employeesDto = employees.stream()
+				.map(employee -> employeeMapper.toResponseDto(employee))
+				.collect(Collectors.toList());
 
-            List<MaintenanceDTO> maintenanceDtos = maintenances.stream()
-                    .map(s -> maintenanceMapper.toResponseDto(s))
-                    .collect(Collectors.toList());
-            mv.addObject("maintenances", maintenanceDtos);
-        }
+		ModelAndView mv = new ModelAndView("maintenance/form");
+		mv.addObject("vehiclesDto", vehiclesDto);
+		mv.addObject("employeesDto", employeesDto);
 
-        return mv;
-    }
+		return mv;
+	}
 
-//    @GetMapping("/{id}")
-//    public ModelAndView showFormForUpdate(@PathVariable("id") Long id) {
-//
-//        Optional<Vehicle> optionalVehicle = vehicleService.findById(id);
-//
-//        if(!optionalVehicle.isPresent()){
-//            throw new EntityNotFoundException("O veículo não foi encontrado pelo id informado.");
-//        }
-//
-//        List<Maintenance> maintenances = maintenanceService.findByVehicle(id);
-//
-//        List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
-//                .map(s -> maintenanceMapper.toResponseDto(s))
-//                .collect(Collectors.toList());
-//
-//        ModelAndView mv = new ModelAndView("maintenance/index");
-//        mv.addObject("maintenances", maintenanceDTOs);
-//
-//        return mv;
-//    }
+	@GetMapping("/{id}")
+	public ModelAndView showEdit(@PathVariable("id") Long id) {
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
 
-    @GetMapping(value = "pesquisa")
-    public ModelAndView search(@RequestParam(value = "search", defaultValue = "") String placa) {
-        return new ModelAndView();
-    }
+		List<Employee> employees = employeeService.findAll();
+		List<EmployeeDTO> employeesDto = employees.stream()
+				.map(employee -> employeeMapper.toResponseDto(employee))
+				.collect(Collectors.toList());
 
-    @PostMapping
-    public ModelAndView save(@Validated MaintenanceDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
-        if(errors.hasErrors()){
-            ModelAndView mv = new ModelAndView("maintenance/form");
-            mv.addObject("dto", dto);
-            mv.addObject("errors", errors.getAllErrors());
-            return mv;
-        }
+		ModelAndView mv = new ModelAndView("maintenance/form");
 
-        redirectAttributes.addFlashAttribute("message", "Manutenção salva com sucesso!");
-        Maintenance maintenance = maintenanceMapper.toEntity(dto);
-        maintenance.setId(dto.getRegistration());
-        maintenanceService.save(maintenance);
+		Optional<Maintenance> maintenance = maintenanceService.findById(id);
 
-        return new ModelAndView("redirect:atendimentos");
-    }
+		if (!maintenance.isPresent()) {
+			throw new EntityNotFoundException("O atendimento não foi encontrada pelo id informado.");
+		}
+		MaintenanceDTO maintenanceDto = maintenanceMapper.toResponseDto(maintenance.get());
+		mv.addObject("dto", maintenanceDto);
+		mv.addObject("vehiclesDto", vehiclesDto);
+		mv.addObject("employeesDto", employeesDto);
+		return mv;
+	}
+
+	@GetMapping("/cliente")
+	@PreAuthorize("hasAnyRole('CLIENT')")
+	public ModelAndView myVehicles() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
+		Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
+		ModelAndView mv = new ModelAndView("maintenance/index");
+
+		if (clientOptional.isPresent()) {
+			List<Maintenance> maintenances = maintenanceService.findByClientId(clientOptional.get().getId());
+
+			List<MaintenanceDTO> maintenanceDtos = maintenances.stream()
+					.map(s -> maintenanceMapper.toResponseDto(s))
+					.collect(Collectors.toList());
+			mv.addObject("maintenances", maintenanceDtos);
+		}
+
+		return mv;
+	}
+
+	@GetMapping(value = "pesquisa")
+	public ModelAndView search(@RequestParam(value = "search", defaultValue = "") String placa) {
+		return new ModelAndView();
+	}
+
+	@PostMapping
+	public ModelAndView save(@Validated MaintenanceDTO dto, Errors errors, RedirectAttributes redirectAttributes) {
+
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
+
+		List<Employee> employees = employeeService.findAll();
+		List<EmployeeDTO> employeesDto = employees.stream()
+				.map(employee -> employeeMapper.toResponseDto(employee))
+				.collect(Collectors.toList());
+
+		if(errors.hasErrors()){
+			ModelAndView mv = new ModelAndView("maintenance/form");
+			mv.addObject("dto", dto);
+			mv.addObject("vehiclesDto", vehiclesDto);
+			mv.addObject("employeesDto", employeesDto);
+			mv.addObject("errors", errors.getAllErrors());
+			return mv;
+		}
+
+		redirectAttributes.addFlashAttribute("message", "Manutenção salva com sucesso!");
+		Maintenance maintenance = maintenanceMapper.toEntity(dto);
+		maintenance.setId(dto.getRegistration());
+		maintenanceService.save(maintenance);
+
+		return new ModelAndView("redirect:atendimentos");
+	}
+	
+	@DeleteMapping("/{id}")
+	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		maintenanceService.deleteById(id);
+		redirectAttributes.addFlashAttribute("message", "Atendimento removido com sucesso!");
+		return "redirect:/atendimentos";
+	}
 }

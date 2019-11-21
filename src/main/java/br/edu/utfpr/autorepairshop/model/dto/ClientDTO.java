@@ -33,7 +33,8 @@ public class ClientDTO {
     @Pattern(regexp = "([0-3]\\d\\/[0,1]\\d\\/[0-2]\\d{3})", message = "A data precisa estar formatada como dd/MM/yyyy")
     private String birthDate;
 
-    @NotEmpty(message = "Por favor informe o telefone.")
+    @NotEmpty(message = "O telefone é obrigatório")
+	@Pattern(regexp = "^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$", message = "Telefone em formato inválido")
     private String telephone;
 
     @Valid

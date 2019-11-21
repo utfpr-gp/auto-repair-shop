@@ -20,9 +20,11 @@
                     <div class="row">
                         <div class="form" >
                             <div class="content-form">
+                            ${dto.managerDto}
                                 <div class="title-form">Cadastro de oficina</div>
                                 <form action="oficinas" method="post" enctype="multipart/form-data">
-                                   <div class="row">
+									<input name="id" type="hidden" value="${dto.id}"/>
+                                  	<div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">label_outline</i>
                                             <input id="name" name="name" type="text" value="${dto.name}">
@@ -30,38 +32,38 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">credit_card</i>
-                                            <input id="cnpj" name="cnpj" type="text" value="${dto.cnpj}">
-                                            <label for="cnpj">CNPJ</label>
+                                            <input id="cnpj" name="cnpj" type="text" value="${dto.cnpj}" placeholder="XX.XXX.XXX/XXXX-XX">
+                                            <label for="cnpj">CNPJ (xx.xxx.xxx/xxxx-xx)</label>
                                         </div>
                                         <div class="input-field col s6">
                                         	<i class="material-icons prefix">local_phone</i>
                                             <input id="telephone" name="telephone" type="text" value="${dto.telephone}" placeholder="(DD) ?XXXX-XXXX">
-                                            <label for="telephone">Telefone</label>
+                                            <label for="telephone">Telefone ((DD) ?xxxx-xxxx)</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">markunread_mailbox</i>
                                             <label for="cep">Cep</label>
-                                            <input id="cep" name="cep" type="text" value="${dto.cep}">
+                                            <input id="cep" name="addressDto.cep" type="text" value="${dto.addressDto.cep}">
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">map</i>
-                                            <input id="state" name="state" type="text" value="${dto.state}">
+                                            <input id="state" name="addressDto.state" type="text" value="${dto.addressDto.state}">
                                             <label for="state">Estado</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">location_city</i>
-                                            <input id="city" name="city" type="text" value="${dto.city}">
+                                            <input id="city" name="addressDto.city" type="text" value="${dto.addressDto.city}">
                                             <label for="city">Cidade</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">view_day</i>
-                                            <input id="street" name="street" type="text" value="${dto.street}">
+                                            <input id="street" name="addressDto.street" type="text" value="${dto.addressDto.street}">
                                             <label for="street">Rua</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <i class="material-icons prefix">filter_9_plus</i>
-                                            <input id="number" name="number" type="text" value="${dto.number}">
-                                            <label for="number">Numero</label>
+                                            <input id="number" name="addressDto.number" type="text" value="${dto.addressDto.number}">
+                                            <label for="number">Número</label>
                                         </div>
                                        	<div class="input-field col s6">
                                             <p class="header">Imagem</p>
@@ -71,18 +73,18 @@
                                            <h5 class="header">Dados de acesso</h5>
                                            <div class="input-field col s6">
                                                <i class="material-icons prefix">email</i>
-                                               <input id="email" type="email" name="email" class="validate" value="${managerDto.email}">
+                                               <input id="email" type="email" name="managerDto.email" class="validate" value="${dto.managerDto.email}">
                                                <label for="email">Email</label>
                                            </div>
                                            <div class="input-field col s6">
                                                <i class="material-icons prefix">lock</i>
-                                               <input id="password" type="password" name="password" class="validate">
+                                               <input id="password" type="password" name="managerDto.password" class="validate" value="${dto.managerDto.password}">
                                                <label for="password">Senha</label>
                                            </div>
                                        </div>
                                     </div>
                                     <div class="action-form">
-                                        <button type="submit" class="btn-flat">Cadastrar oficina</button>
+                                        <button type="submit" class="btn-flat">Salvar oficina</button>
                                     </div>
                                 </form>
                             </div>
