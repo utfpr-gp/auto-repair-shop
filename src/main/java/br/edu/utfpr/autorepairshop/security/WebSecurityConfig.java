@@ -27,6 +27,8 @@ import com.google.common.collect.ImmutableList;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private static final String[] H2_MATCHERS = {"/h2-console/**"};
+	
 	private static final String[] PUBLIC_MATCHERS = {"/", "/login", "/assets/**", "/*.jsp", "/favicon.ico", "/**/*.jsp",
 			"/**/*.css", "/**/*.js"};
 
@@ -55,9 +57,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll()
+		//habilita os frames do H2
+		http.headers().frameOptions().disable();
+		http.authorizeRequests().antMatchers(H2_MATCHERS).permitAll()		
+		.and().authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll()		
 		.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_WRITE).permitAll().anyRequest().authenticated().and()
-		.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+		.cors().and().csrf().disable()
+		.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
 
