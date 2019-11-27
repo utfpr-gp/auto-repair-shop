@@ -4,9 +4,12 @@ $(document).ready(() => {
 
     const callback = {
       onSuccess: data => {
-        $('#state').val(data.uf)
-        $('#city').val(data.localidade)
-        $('#street').val(data.logradouro)
+        setTimeout(() => {
+          $('#state').val(data.uf)
+          $('#city').val(data.localidade)
+          $('#street').val(data.logradouro)
+          closeModalLoading()
+        }, 500)
       },
       onError: error => {
         alert('Ops! Esse CEP é inexistente.')
@@ -14,6 +17,7 @@ $(document).ready(() => {
     }
 
     searchCep(cep, callback)
+    openModalLoading()
   })
 })
 
