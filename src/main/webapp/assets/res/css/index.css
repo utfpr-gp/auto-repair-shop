@@ -178,6 +178,10 @@ a {
 	color: grey;
 }
 
+.min-height {
+	min-height: 100vh;
+}
+
 #type-vehicle {
 	padding-top: 15px;
 }
