@@ -178,5 +178,6 @@
 </main>
 
 <script type="text/javascript">efeitoMenu();</script>
+<script src="assets/res/js/via-cep.js"></script>
 </body>
 </html>
