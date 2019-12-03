@@ -151,7 +151,9 @@
     </ul>
 </header>
 <main>
-    <jsp:doBody/>
+    <div class="min-height">
+        <jsp:doBody/>
+    </div>
 
     <!-- rodape-->
     <footer class="page-footer light-blue darken-4">

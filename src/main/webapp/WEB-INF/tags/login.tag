@@ -39,9 +39,12 @@
 </head>
 <body>
 <header>
-    <nav>
-        <div class="nav-wrapper light-blue darken-4">
-            <a href="#!" class="brand-logo"><i class="material-icons">directions_car</i>Logo</a>
+    <nav class="nav-wrapper light-blue darken-4">
+        <div class="container">
+            <a href="#!" class="brand-logo">
+                <img src="assets/res/img/logo2.png">
+                <h2>Sistema de Oficinas Mecânicas</h2>
+            </a>
         </div>
     </nav>
 </header>
