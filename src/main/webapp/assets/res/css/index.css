@@ -185,3 +185,23 @@ a {
 #type-vehicle {
 	padding-top: 15px;
 }
+
+#modal-loading {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #000000ad;
+	z-index: 2222;
+	font-size: 100px;
+  color: #fff;
+}
+
+#modal-loading i {
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
