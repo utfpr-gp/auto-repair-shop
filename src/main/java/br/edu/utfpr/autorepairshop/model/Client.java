@@ -10,8 +10,8 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "clients")
-@Data
 @NoArgsConstructor
+@Data
 @ToString
 public class Client {
 	@Id
