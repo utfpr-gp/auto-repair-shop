@@ -23,6 +23,33 @@
 											class="btn-flat right">Buscar</button>
                                     </form>
                                 </div>
+                                <div class="col s12">
+                                	<form action="atendimentos/filtro" method="get">
+		                                <div class="input-field col s6">
+		                                	<i class="material-icons prefix">account_balance</i>
+		                                    <select id="autoRepairShop" name="autoRepairShop">
+		                                        <option value="" disabled selected>Selecione</option>
+		                                        <c:forEach var="autoRepairShopDto" items="${autoRepairShopDto}">
+		                                           <option <c:if test="${dto.autoRepairShop.id == autoRepairShopDto.id}"> selected="selected"</c:if>
+		                                            value="${autoRepairShopDto.id}">${autoRepairShopDto.name}</option>
+		                                        </c:forEach>
+		                                    </select>
+		                                    <label>Oficina</label>
+		                                </div>
+		                                <div class="input-field col s6">
+	                                        <i class="material-icons prefix">directions_car</i>
+	                                        <select id="vehicle" name="vehicle">
+	                                            <option value="" disabled selected>Selecione</option>
+	                                            <c:forEach var="vehicleDto" items="${vehiclesDto}">
+	                                                <option <c:if test="${dto.vehicle.id == vehicleDto.id}"> selected="selected"</c:if>
+	                                                value="${vehicleDto.id}">${vehicleDto.model} - ${vehicleDto.placa}</option>
+	                                            </c:forEach>
+	                                        </select>
+	                                        <label>Veículo</label>
+	                                    </div>
+	                             	   <button type="submit" class="btn-flat right">Filtrar</button>
+                             	   </form>
+	                            </div>
                                 <table class="highlight centered">
                                     <thead>
                                     <tr>

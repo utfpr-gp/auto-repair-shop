@@ -1,17 +1,21 @@
 package br.edu.utfpr.autorepairshop.controller;
 
+import br.edu.utfpr.autorepairshop.model.AutoRepairShop;
 import br.edu.utfpr.autorepairshop.model.Client;
 import br.edu.utfpr.autorepairshop.model.Credential;
 import br.edu.utfpr.autorepairshop.model.Employee;
 import br.edu.utfpr.autorepairshop.model.Maintenance;
 import br.edu.utfpr.autorepairshop.model.Vehicle;
+import br.edu.utfpr.autorepairshop.model.dto.AutoRepairShopDTO;
 import br.edu.utfpr.autorepairshop.model.dto.ClientToFormDTO;
 import br.edu.utfpr.autorepairshop.model.dto.EmployeeDTO;
 import br.edu.utfpr.autorepairshop.model.dto.MaintenanceDTO;
 import br.edu.utfpr.autorepairshop.model.dto.VehicleDTO;
+import br.edu.utfpr.autorepairshop.model.mapper.AutoRepairShopMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.EmployeeMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.MaintenanceMapper;
 import br.edu.utfpr.autorepairshop.model.mapper.VehicleMapper;
+import br.edu.utfpr.autorepairshop.model.service.AutoRepairShopService;
 import br.edu.utfpr.autorepairshop.model.service.ClientService;
 import br.edu.utfpr.autorepairshop.model.service.CredentialService;
 import br.edu.utfpr.autorepairshop.model.service.EmployeeService;
@@ -39,6 +43,9 @@ import java.util.stream.Collectors;
 public class MaintenanceController {
 
 	@Autowired
+	private AutoRepairShopService autoRepairShopService;
+	
+	@Autowired
 	private VehicleService vehicleService;
 
 	@Autowired
@@ -53,6 +60,9 @@ public class MaintenanceController {
 	@Autowired
 	private EmployeeService employeeService;
 
+	@Autowired
+	private AutoRepairShopMapper autoRepairShopMapper;
+	
 	@Autowired
 	private VehicleMapper vehicleMapper;
 
@@ -73,6 +83,20 @@ public class MaintenanceController {
 		ModelAndView mv = new ModelAndView("maintenance/index");
 		mv.addObject("maintenances", maintenanceDTOs);
 
+		List<Vehicle> vehicles = vehicleService.findAll();
+		
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
+		mv.addObject("vehiclesDto", vehiclesDto);
+		
+		List<AutoRepairShop> autoRepairShops = autoRepairShopService.findAll();
+		
+		List<AutoRepairShopDTO> autoRepairShopDTO = autoRepairShops.stream()
+				.map(autoRepairShop -> autoRepairShopMapper.toResponseDto(autoRepairShop))
+				.collect(Collectors.toList());
+		mv.addObject("autoRepairShopDto", autoRepairShopDTO);
+		
 		return mv;
 	}
 
@@ -128,7 +152,7 @@ public class MaintenanceController {
 		Optional<Credential> o = credentialService.findByEmail(securityContext.getAuthentication().getName());
 		Optional<Client> clientOptional = this.clientService.findByCredentialId(o.get().getId());
 		ModelAndView mv = new ModelAndView("maintenance/index");
-
+		
 		if (clientOptional.isPresent()) {
 			List<Maintenance> maintenances = maintenanceService.findByClientId(clientOptional.get().getId());
 
@@ -136,8 +160,52 @@ public class MaintenanceController {
 					.map(s -> maintenanceMapper.toResponseDto(s))
 					.collect(Collectors.toList());
 			mv.addObject("maintenances", maintenanceDtos);
+			
+			List<Vehicle> vehicles = vehicleService.findByClientId(clientOptional.get().getId());
+			
+			List<VehicleDTO> vehiclesDto = vehicles.stream()
+					.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+					.collect(Collectors.toList());
+			mv.addObject("vehiclesDto", vehiclesDto);
+
+			List<AutoRepairShop> autoRepairShops = autoRepairShopService.findAll();
+			
+			List<AutoRepairShopDTO> autoRepairShopDTO = autoRepairShops.stream()
+					.map(autoRepairShop -> autoRepairShopMapper.toResponseDto(autoRepairShop))
+					.collect(Collectors.toList());
+			mv.addObject("autoRepairShopDto", autoRepairShopDTO);
 		}
 
+		return mv;
+	}
+	
+	//** - Filtro - **//
+	@GetMapping("/filtro")
+	public ModelAndView filter(@RequestParam("vehicle") Long vehicleId) {
+		Optional<Vehicle> vehicleOptional = this.vehicleService.findById(vehicleId);
+		
+		ModelAndView mv = new ModelAndView("maintenance/index");
+
+		List<Maintenance> maintenances = maintenanceService.findByVehicle(vehicleOptional.get().getId());
+		
+		List<MaintenanceDTO> maintenanceDTOs = maintenances.stream()
+				.map(s -> maintenanceMapper.toResponseDto(s))
+				.collect(Collectors.toList());
+
+		List<Vehicle> vehicles = vehicleService.findAll();
+		List<VehicleDTO> vehiclesDto = vehicles.stream()
+				.map(vehicle -> vehicleMapper.toResponseDto(vehicle))
+				.collect(Collectors.toList());
+		
+		List<AutoRepairShop> autoRepairShops = autoRepairShopService.findAll();
+		List<AutoRepairShopDTO> autoRepairShopDTO = autoRepairShops.stream()
+				.map(autoRepairShop -> autoRepairShopMapper.toResponseDto(autoRepairShop))
+				.collect(Collectors.toList());
+
+		mv.addObject("maintenances", maintenanceDTOs);
+		mv.addObject("vehiclesDto", vehiclesDto);
+		mv.addObject("autoRepairShopDto", autoRepairShopDTO);
+		
 		return mv;
 	}
 
